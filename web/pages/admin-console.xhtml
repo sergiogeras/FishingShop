@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Created by IntelliJ IDEA.
+  User: Сергей
+  Date: 04.08.2015
+  Time: 22:00
+-->
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head>
+    <title>#{msg.admin_console}</title>
+    <h:outputScript name="jquery/jquery.js" library="primefaces"/>
+    <h:outputStylesheet name="admin-console-style.css" library="css"/>
+</h:head>
+
+<h:body>
+    <div class="container">
+
+        <h:form>
+            <p:menubar>
+                <p:submenu label="#{msg.add}" icon="ui-icon-gear">
+                    <p:menuitem value="#{msg.one_goods}" actionListener="#{tableController.addGoodsDialog}">
+
+                    </p:menuitem>
+                    <p:menuitem value="#{msg.group}" actionListener="#{tableController.addGoodsDialog}"/>
+                </p:submenu>
+                <p:menuitem value="#{msg.to_the_shop}" outcome="exit" icon="ui-icon-close" />
+                <p:menuitem  value="#{msg.logout}" icon="ui-icon-extlink" />
+            </p:menubar>
+        </h:form>
+
+
+            <h:form id="main_form">
+                <p:growl id="messages" showDetail="false" escape="false"/>
+                <p:treeTable id="admin_table"  value="#{tableController.root}" var="g" selectionMode="single"
+                             selection="#{tableController.selectedNode}" resizableColumns="true" style="margin-top:0">
+                    <f:facet name="header">
+                        #{msg.gooods_manager}
+                    </f:facet>
+                    <p:column headerText="#{msg.name}">
+                        <h:outputText value="#{g.name}" />
+                    </p:column>
+                    <p:column headerText="#{msg.description}">
+                        <h:outputText value="#{g.description}" />
+                    </p:column>
+
+                    <p:column style="width:24px">
+                        <p:commandLink update=":main_form:pg" action="#{goodsController.showGoodsDetails(g.id)}" title="View Detail" styleClass="ui-icon ui-icon-search"/>
+                    </p:column>
+                </p:treeTable>
+                <h:panelGrid id="pg" columns="2" cellpadding="5">
+                    <h:outputLabel for="id" value="ID" />
+                    <h:outputText id="id"  value="#{goodsController.goods.id}"/>
+                    <h:outputLabel for="name" value="#{msg.name}" />
+                    <h:outputText id="name"  value="#{goodsController.goods.name}"/>
+                    <h:outputLabel for="price" value="#{msg.price}" />
+                    <h:outputText id="price" value="#{goodsController.goods.price}"/>
+                    <h:outputLabel for="man" value="#{msg.manufacturer}" />
+                    <h:outputText id="man"  value="#{goodsController.goods.manufacturer}"/>
+                    <h:outputLabel  for="descr" value="#{msg.description}" />
+                    <h:outputText id="descr"  value="#{goodsController.goods.description}"/>
+                    <h:graphicImage value="#{goodsController.goods.image}"/>
+                </h:panelGrid>
+
+                <p:commandButton styleClass="table_button" value="#{msg.add_goods}"  icon="ui-icon-plus"
+                                 action="#{tableController.addGoodsDialog}">
+                    <p:ajax event="dialogReturn" listener="#{tableController.updateTable('goods')}" update="admin_table messages"/>
+                </p:commandButton>
+                <p:commandButton styleClass="table_button" value="#{msg.add_group}" update="messages" icon="ui-icon-plusthick"
+                                 actionListener="#{tableController.addGroupDialog}">
+                    <p:ajax event="dialogReturn" listener="#{tableController.updateTable('group')}" update="admin_table messages"/>
+                </p:commandButton>
+                <p:commandButton styleClass="table_button" value="#{msg.edit}" update="messages" icon="ui-icon-pencil"
+                                 actionListener="#{tableController.updateTable}"/>
+                <h:form>
+                    <p:commandButton styleClass="table_button" value="#{msg.delete}" icon="ui-icon-trash"
+                                     actionListener="#{tableController.deleteItem}" update="@([id$=messages]) @([id$=admin_table])"
+                                     action="#{tableController.updateTable('')}" >
+                        <p:confirm message="#{msg.delete_item}" header="#{msg.confirmation}" icon="ui-icon-alert"/>
+
+                    </p:commandButton>
+                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                        <p:commandButton value="#{msg.yes}" type="button" styleClass="ui-confirmdialog-yes"
+                                         icon="ui-icon-check">
+                        </p:commandButton>
+                        <p:commandButton value="#{msg.no}" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                    </p:confirmDialog>
+                </h:form>
+
+            </h:form>
+
+
+    </div>
+</h:body>
+
+</html>

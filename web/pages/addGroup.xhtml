@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Created by IntelliJ IDEA.
+  User: Сергей
+  Date: 11.08.2015
+  Time: 20:06
+-->
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+    <title>#{msg.adding_new_goods}</title>
+    <h:outputStylesheet name="admin-console-style.css" library="css"/>
+</h:head>
+
+<h:body>
+    <div class="add_dialog">
+        <h:form>
+            <p:growl id="messages" showDetail="false" escape="false"/>
+                <h:panelGrid columns="3" cellpadding="5">
+                    <h:outputLabel for="name" value="#{msg.name}" />
+                    <p:inputText id="name" required="true" value="#{groupsController.name}">
+                        <p:message for="name"/>
+                    </p:inputText>
+                    <p:commandButton styleClass="table_button" value="#{msg.save}" update="messages"
+                                     actionListener="#{groupsController.addGroup}"/>
+                </h:panelGrid>
+
+        </h:form>
+    </div>
+
+</h:body>
+
+</html>

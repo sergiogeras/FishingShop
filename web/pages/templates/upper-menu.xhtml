@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Created by IntelliJ IDEA.
+  User: Сергей
+  Date: 08.08.2015
+  Time: 13:21
+-->
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head>
+    <title>Simple JSF Facelets page</title>
+    <h:outputScript name="jquery/jquery.js" library="primefaces"/>
+    <h:outputStylesheet name="header-style.css" library="css"/>
+    <h:outputStylesheet name="common-style.css" library="css"/>
+</h:head>
+
+<h:body>
+    <ui:composition>
+        <div class="header_buttons">
+            <div>
+                <p:commandLink actionListener="#{goodsController.addGoodsDialog}">
+                    <h:outputText value="#{msg.main_page}" />
+                </p:commandLink>
+            </div>
+            <div>
+                <p:commandLink actionListener="#{goodsController.addGoodsDialog}">
+                    <h:outputText value="#{msg.news}" />
+                </p:commandLink>
+            </div>
+            <div>
+                <p:commandLink actionListener="#{goodsController.addGoodsDialog}">
+                    <h:outputText value="#{msg.delivery}" />
+                </p:commandLink>
+            </div>
+            <div>
+                <p:commandLink actionListener="#{goodsController.addGoodsDialog}">
+                    <h:outputText value="#{msg.payment}" />
+                </p:commandLink>
+            </div>
+            <div>
+                <p:commandLink  actionListener="#{goodsController.addGoodsDialog}">
+                    <h:outputText value="#{msg.about_shop}" />
+                </p:commandLink>
+            </div>
+            <div>
+                <p:commandLink  actionListener="#{goodsController.addGoodsDialog}">
+                    <h:outputText value="#{msg.contacts}" />
+                </p:commandLink>
+            </div>
+        </div>
+    </ui:composition>
+</h:body>
+
+</html>

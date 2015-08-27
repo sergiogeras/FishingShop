@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Created by IntelliJ IDEA.
+  User: Сергей
+  Date: 04.08.2015
+  Time: 21:59
+-->
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head>
+    <title>Поплавок</title>
+    <h:outputScript name="jquery/jquery.js" library="primefaces"/>
+    <h:outputStylesheet name="header-style.css" library="css"/>
+    <h:outputStylesheet name="common-style.css" library="css"/>
+</h:head>
+
+<h:body>
+    <ui:composition>
+        <div class="shop_name">
+            <h1>поплавок</h1>
+            <div class="line">
+                <h:graphicImage library="images" name="line.png"/>
+            </div>
+        </div>
+        <div class="header_panel">
+            <ul>
+                <li class="flags">
+                    <p:graphicImage library="images" name="rus.png"/>
+                </li>
+                <li class="flags">
+                    <h:graphicImage library="images" name="eng.png"/>
+                </li>
+                <li style="margin-left: 15px">
+                    <p:inputText styleClass="search_string"/>
+                </li>
+                <li style="margin-right: 25px">
+                    <p:button value="#{msg.search}" styleClass="search_button"/>
+                </li>
+                <li >
+                    <h:link value="#{msg.log_in}" outcome="admin"/>
+                </li>
+                <li>|
+                </li>
+                <li>
+                    #{msg.registration}
+                </li>
+            </ul>
+        </div>
+
+        <div class="contacts">
+            <p>#{msg.adress}</p>
+            <p style="font-size: 20px">#{msg.phone}</p>
+        </div>
+
+        <div class="user_block">
+
+
+            <div class="cart">
+                <h4>#{msg.cart}</h4>
+                <p>#{msg.cart_goods}</p>
+                <p>#{msg.cart_price}</p>
+            </div>
+        </div>
+
+    <!--<div style="clear: both"></div>-->
+    </ui:composition>
+</h:body>
+
+</html>

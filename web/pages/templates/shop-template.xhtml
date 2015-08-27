@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Created by IntelliJ IDEA.
+  User: Сергей
+  Date: 07.08.2015
+  Time: 15:55
+-->
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head>
+    <title>Поплавок Интернет-магазин рыболовных товаров</title>
+    <h:outputStylesheet name="header-style.css" library="css"/>
+    <h:outputStylesheet name="common-style.css" library="css"/>
+</h:head>
+
+<h:body>
+
+    <div class="upper-container">
+        <div class="header">
+            <ui:insert name="header"/>
+            <ui:include src="header.xhtml"/>
+        </div>
+        <div class="lower-container">
+            <ui:insert name="upper-menu"/>
+            <ui:include src="upper-menu.xhtml"/>
+            <ui:insert name="left-menu"/>
+            <ui:include src="left-menu.xhtml"/>
+        </div>
+
+    </div>
+
+</h:body>
+
+</html>

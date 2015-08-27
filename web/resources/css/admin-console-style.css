@@ -1,0 +1,36 @@
+
+
+.container{
+    width: 1000px;
+    margin: auto;
+    font: 100%/1.4 Verdana, Arial, Helvetica, sans-serif;
+    color: black;
+    font-size: 13px;
+}
+
+.add_dialog {
+    margin: auto;
+    font: 100%/1.4 Verdana, Arial, Helvetica, sans-serif;
+    color: black;
+    font-size: 13px;
+}
+
+.table_button{
+
+    margin: 10px 0 10px 5px;
+
+    float: left;
+}
+
+#main_form{
+    margin-top: 15px;
+}
+.table_button2{
+    display: block;
+    margin: 10px 0 10px 5px;
+
+}
+.ui-widget .ui-widget{
+    height: 26px;
+    margin-left: 5px;
+}
