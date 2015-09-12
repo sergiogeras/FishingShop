@@ -69,6 +69,7 @@ public class TableController implements Serializable {
         props.put("contentWidth", 490);
         props.put("contentHeight", 260);
         if(selectedNode!=null){
+
             Groups group=null;
             RequestContext.getCurrentInstance().openDialog("addGoods",props,null);
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("goodsController", null);

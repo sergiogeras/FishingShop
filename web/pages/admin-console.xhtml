@@ -53,22 +53,10 @@
                     </p:column>
 
                     <p:column style="width:24px">
-                        <p:commandLink update=":main_form:pg" action="#{goodsController.showGoodsDetails(g.id)}" title="View Detail" styleClass="ui-icon ui-icon-search"/>
+                        <p:commandLink action="#{goodsController.showGoodsDetails(g.id)}" title="View Detail" styleClass="ui-icon ui-icon-search"/>
                     </p:column>
                 </p:treeTable>
-                <h:panelGrid id="pg" columns="2" cellpadding="5">
-                    <h:outputLabel for="id" value="ID" />
-                    <h:outputText id="id"  value="#{goodsController.goods.id}"/>
-                    <h:outputLabel for="name" value="#{msg.name}" />
-                    <h:outputText id="name"  value="#{goodsController.goods.name}"/>
-                    <h:outputLabel for="price" value="#{msg.price}" />
-                    <h:outputText id="price" value="#{goodsController.goods.price}"/>
-                    <h:outputLabel for="man" value="#{msg.manufacturer}" />
-                    <h:outputText id="man"  value="#{goodsController.goods.manufacturer}"/>
-                    <h:outputLabel  for="descr" value="#{msg.description}" />
-                    <h:outputText id="descr"  value="#{goodsController.goods.description}"/>
-                    <h:graphicImage value="#{goodsController.goods.image}"/>
-                </h:panelGrid>
+
 
                 <p:commandButton styleClass="table_button" value="#{msg.add_goods}"  icon="ui-icon-plus"
                                  action="#{tableController.addGoodsDialog}">

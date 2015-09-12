@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 
 @Component
-@Scope("request")
+@Scope("session")
 public class UploadImage {
 
     private UploadedFile file;
