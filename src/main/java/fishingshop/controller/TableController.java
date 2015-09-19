@@ -11,15 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
 import javax.faces.application.FacesMessage;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIInput;
-import javax.faces.component.UIViewRoot;
 import javax.faces.context.FacesContext;
 import java.io.Serializable;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
@@ -50,6 +45,22 @@ public class TableController implements Serializable {
 
     }
 
+    private Map<String, Object> goodsDialogProps(){
+        Map<String, Object> props=new HashMap<>();
+        props.put("resizable", false);
+        props.put("contentWidth", 490);
+        props.put("contentHeight", 260);
+        return props;
+    }
+
+    private Map<String, Object> groupDialogProps(){
+        Map<String, Object> props=new HashMap<>();
+        props.put("resizable", false);
+        props.put("contentWidth", 400);
+        props.put("contentHeight", 80);
+        return props;
+    }
+
     public void updateTable(String item){
         TreeNode node=new DefaultTreeNode("root", null);
         root=adminTable.createTreeTable();
@@ -59,31 +70,34 @@ public class TableController implements Serializable {
         if(item.equals("group")) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(bundle.getString("added_group")));
         }
+        if(item.equals("update")) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(bundle.getString("successfully_updated")));
+        }
     }
 
 
 
     public void addGoodsDialog(){
-        Map<String, Object> props=new HashMap<>();
-        props.put("resizable", false);
-        props.put("contentWidth", 490);
-        props.put("contentHeight", 260);
-        if(selectedNode!=null){
 
-            Groups group=null;
-            RequestContext.getCurrentInstance().openDialog("addGoods",props,null);
+        if(selectedNode==null){
+            RequestContext.getCurrentInstance().openDialog("addGoods", goodsDialogProps(), null);
+        }
+        if(selectedNode!=null){
+            Groups groups =null;
+            RequestContext.getCurrentInstance().openDialog("addGoods",goodsDialogProps(),null);
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("goodsController", null);
             if(selectedNode.getData().getClass()==Goods.class){
-                group=(Groups)selectedNode.getParent().getData();
+                if(selectedNode.getParent().getData().equals("root")){
+                    RequestContext.getCurrentInstance().openDialog("addGoods",goodsDialogProps(),null);
+                } else{
+                    groups =(Groups)selectedNode.getParent().getData();
+                }
             }
             if(selectedNode.getData().getClass()==Groups.class){
-                group=(Groups)selectedNode.getData();
+                groups =(Groups)selectedNode.getData();
             }
             FacesContext context=FacesContext.getCurrentInstance();
-            context.getExternalContext().getSessionMap().put("group", group);
-        }
-        if(selectedNode==null){
-            RequestContext.getCurrentInstance().openDialog("addGoods",props,null);
+            context.getExternalContext().getSessionMap().put("group", groups);
         }
     }
 
@@ -92,38 +106,39 @@ public class TableController implements Serializable {
 
     public void addGroupDialog(){
 
-        Map<String, Object> props=new HashMap<>();
-        props.put("resizable", false);
-        props.put("contentWidth", 400);
-        props.put("contentHeight", 80);
-        Groups group=null;
-
+        Groups groups =null;
         if(selectedNode==null){
-            RequestContext.getCurrentInstance().openDialog("addGroup", props,null);
+            RequestContext.getCurrentInstance().openDialog("addGroup", groupDialogProps(),null);
         }
         if(selectedNode!=null){
-            RequestContext.getCurrentInstance().openDialog("addGroup", props, null);
+            RequestContext.getCurrentInstance().openDialog("addGroup",groupDialogProps(), null);
             if(selectedNode.getData().getClass()==Goods.class){
-                group=(Groups)selectedNode.getParent().getData();
+                if(selectedNode.getParent().getData().equals("root")){
+                    RequestContext.getCurrentInstance().openDialog("addGroup",groupDialogProps(),null);
+                } else{
+                    groups =(Groups)selectedNode.getParent().getData();
+                }
             }
             if(selectedNode.getData().getClass()==Groups.class){
-                group=(Groups)selectedNode.getData();
+                groups =(Groups)selectedNode.getData();
             }
             FacesContext context=FacesContext.getCurrentInstance();
-            context.getExternalContext().getSessionMap().put("group", group);
+            context.getExternalContext().getSessionMap().put("group", groups);
             selectedNode=null;
         }
     }
 
-    public void showDetails(int id, String type){
-        if(type.equals("group")){
-            groupsController.showGroupDetails(id);
+    public void editDialog(){
+        if(selectedNode!=null){
+            if(selectedNode.getData().getClass()==Goods.class){
+                goodsController.editGoodsDialog((Goods)selectedNode.getData());
+            }
+            if(selectedNode.getData().getClass()==Groups.class){
+                groupsController.editGroupDialog((Groups)selectedNode.getData());
+            }
         }
-        if(type.equals("goods")){
-            goodsController.showGoodsDetails(id);
-        }
-
     }
+
 
     public void deleteItem(){
         if(selectedNode!=null){
@@ -134,7 +149,7 @@ public class TableController implements Serializable {
             }
             if(selectedNode.getData().getClass()==Groups.class){
                 Groups groups;
-                groups=(Groups)selectedNode.getData();
+                groups =(Groups)selectedNode.getData();
                 groupsController.deleteGroup(groups.getId());
 
             }
@@ -167,4 +182,6 @@ public class TableController implements Serializable {
     public void setSelectedNode(TreeNode selectedNode) {
         this.selectedNode = selectedNode;
     }
+
+
 }

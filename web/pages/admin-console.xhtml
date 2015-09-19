@@ -62,12 +62,14 @@
                                  action="#{tableController.addGoodsDialog}">
                     <p:ajax event="dialogReturn" listener="#{tableController.updateTable('goods')}" update="admin_table messages"/>
                 </p:commandButton>
-                <p:commandButton styleClass="table_button" value="#{msg.add_group}" update="messages" icon="ui-icon-plusthick"
+                <p:commandButton styleClass="table_button" value="#{msg.add_group}" icon="ui-icon-plusthick"
                                  actionListener="#{tableController.addGroupDialog}">
                     <p:ajax event="dialogReturn" listener="#{tableController.updateTable('group')}" update="admin_table messages"/>
                 </p:commandButton>
                 <p:commandButton styleClass="table_button" value="#{msg.edit}" update="messages" icon="ui-icon-pencil"
-                                 actionListener="#{tableController.updateTable}"/>
+                                 actionListener="#{tableController.editDialog}">
+                    <p:ajax event="dialogReturn" listener="#{tableController.updateTable('update')}" update="admin_table messages"/>
+                </p:commandButton>
                 <h:form>
                     <p:commandButton styleClass="table_button" value="#{msg.delete}" icon="ui-icon-trash"
                                      actionListener="#{tableController.deleteItem}" update="@([id$=messages]) @([id$=admin_table])"

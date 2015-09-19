@@ -44,8 +44,8 @@ public class GoodsServiceTest {
         goods.setPrice(4500);
         goods.setManufacturer("Daiwa");
         goods.setType("goods");
-        List<Groups> allGroups= groupsService.getAllGroups();
-        int lastId=allGroups.get(allGroups.size()-1).getId();
+        List<Groups> allGroupses = groupsService.getAllGroups();
+        int lastId= allGroupses.get(allGroupses.size()-1).getId();
         goods.setGroups(groupsService.getGroupsById(lastId));
         goodsService.addGoods(goods);
         assertNotNull(goods.getId());

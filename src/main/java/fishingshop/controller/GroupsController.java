@@ -10,13 +10,15 @@ import org.springframework.stereotype.Controller;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 
 
 @Controller
-@Scope("request")
+@Scope("session")
 public class GroupsController {
 
 
@@ -24,10 +26,10 @@ public class GroupsController {
     private ResourceBundle bundle;
 
     private List<Groups> groupsList;
-    private Groups selectedGroup; //Выбранная группа
+    private Groups selectedGroups; //Выбранная группа
     private String name;
     private  String type;
-    private Groups group;
+    private Groups groups;
 
 
     @Autowired
@@ -42,23 +44,36 @@ public class GroupsController {
 
     @PostConstruct
     public void init(){
-        groupsList=groupsService.getAllGroups();
+        groupsList =groupsService.getAllGroups();
     }
 
 
 
-    public String addGroup(){
+    public void addGroup(){
         FacesContext context=FacesContext.getCurrentInstance();
-        group=new Groups();
-        group.setName(name);
-        group.setDescription("- "+bundle.getString("group")+" -");
-        group.setType("group");
-        group.setParentId((Groups) context.getExternalContext().getSessionMap().get("group"));
-        groupsService.addGroups(group);
-        RequestContext.getCurrentInstance().closeDialog(group);
+        groups =new Groups();
+        groups.setName(name);
+        groups.setDescription("- "+bundle.getString("group")+" -");
+        groups.setType("group");
+        groups.setParentId((Groups) context.getExternalContext().getSessionMap().get("group"));
+        groupsService.addGroups(groups);
+        RequestContext.getCurrentInstance().closeDialog(groups);
         context.getExternalContext().getSessionMap().remove("group");
-        group=null;
-        return "";
+        groups =null;
+    }
+
+    public void editGroupDialog(Groups groups){
+        this.groups=groups;
+        Map<String, Object> props=new HashMap<>();
+        props.put("resizable", false);
+        props.put("contentWidth", 400);
+        props.put("contentHeight", 80);
+        RequestContext.getCurrentInstance().openDialog("editGroup",props,null);
+    }
+
+    public void editGroup(){
+        groupsService.editGroups(groups);
+        RequestContext.getCurrentInstance().closeDialog(groups);
     }
 
     public String showGroupDetails(int id){
@@ -66,16 +81,15 @@ public class GroupsController {
         return "";
     }
 
-    public String deleteGroup(int id) {
-        Groups groups=groupsService.getGroupsById(id);
+    public void deleteGroup(int id) {
+        Groups groups =groupsService.getGroupsById(id);
         if(!groups.getChildrenList().isEmpty()){
-            for(Groups groups1:groups.getChildrenList()){
+            for(Groups groups1 : groups.getChildrenList()){
                 groupsService.deleteGroups(groups1.getId());
             }
         }
         groupsService.deleteGroups(id);
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(bundle.getString("deleted_group")));
-        return "";
     }
 
     public int getId() {
@@ -102,12 +116,12 @@ public class GroupsController {
         this.groupsList = groupsList;
     }
 
-    public Groups getSelectedGroup() {
-        return selectedGroup;
+    public Groups getSelectedGroups() {
+        return selectedGroups;
     }
 
-    public void setSelectedGroup(Groups selectedGroup) {
-        this.selectedGroup = selectedGroup;
+    public void setSelectedGroups(Groups selectedGroups) {
+        this.selectedGroups = selectedGroups;
     }
 
     public String getName() {
@@ -124,5 +138,13 @@ public class GroupsController {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public Groups getGroups() {
+        return groups;
+    }
+
+    public void setGroups(Groups groups) {
+        this.groups = groups;
     }
 }

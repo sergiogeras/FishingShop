@@ -12,6 +12,8 @@ import org.springframework.stereotype.Controller;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 @Controller
@@ -44,9 +46,30 @@ public class GoodsController implements Serializable{
             goods.setImage(image);
         }
         goodsService.addGoods(goods);
+        uploadImage.setImage(null);
         context.getExternalContext().getSessionMap().remove("group");
         RequestContext.getCurrentInstance().closeDialog(0);
         return "";
+    }
+
+    public void editGoodsDialog(Goods goods){
+        this.goods=goods;
+        Map<String, Object> props=new HashMap<>();
+        props.put("resizable", false);
+        props.put("contentWidth", 490);
+        props.put("contentHeight", 260);
+        RequestContext.getCurrentInstance().openDialog("editGoods", props, null);
+    }
+
+    public void editGoods(){
+        byte[] image;
+        image=uploadImage.getImage();
+        if(image!=null){
+            goods.setImage(image);
+        }
+        goodsService.editGoods(goods);
+        uploadImage.setImage(null);
+        RequestContext.getCurrentInstance().closeDialog(goods);
     }
 
     public String showGoodsDetails(int id){
@@ -133,4 +156,5 @@ public class GoodsController implements Serializable{
     public void setType(String type) {
         this.type = type;
     }
+
 }

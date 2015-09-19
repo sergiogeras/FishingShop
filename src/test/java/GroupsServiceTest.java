@@ -1,4 +1,3 @@
-import fishingshop.dao.GoodsDao;
 import fishingshop.domain.goods.Groups;
 import fishingshop.service.GoodsService;
 import fishingshop.service.GroupsService;
@@ -30,7 +29,7 @@ public class GroupsServiceTest {
 
     @Test
     public void addGroups(){
-        Groups groups=new Groups();
+        Groups groups =new Groups();
         groups.setName("Item");
         groups.setType("group");
         groups.setGoodsList(goodsService.getAllGoods());
@@ -40,10 +39,10 @@ public class GroupsServiceTest {
 
     @Test
     public void deleteGroups(){
-        List<Groups> allGroups= groupsService.getAllGroups();
-        int beforeValue=allGroups.size();
-        groupsService.deleteGroups(allGroups.get(beforeValue - 1).getId());
-        int afterValue=allGroups.size();
+        List<Groups> allGroupses = groupsService.getAllGroups();
+        int beforeValue= allGroupses.size();
+        groupsService.deleteGroups(allGroupses.get(beforeValue - 1).getId());
+        int afterValue= allGroupses.size();
         assertEquals(beforeValue, afterValue);
     }
 
@@ -51,9 +50,9 @@ public class GroupsServiceTest {
     @Test
     public void editGroups(){
         Groups groups;
-        List<Groups> allGroups= groupsService.getAllGroups();
-        int lastId=allGroups.get(allGroups.size()-1).getId();
-        groups=groupsService.getGroupsById(lastId);
+        List<Groups> allGroupses = groupsService.getAllGroups();
+        int lastId= allGroupses.get(allGroupses.size()-1).getId();
+        groups =groupsService.getGroupsById(lastId);
         groups.setName("Hooks");
         groupsService.editGroups(groups);
         assertEquals("Hooks", groups.getName());
@@ -63,9 +62,9 @@ public class GroupsServiceTest {
     @Test
     public void getGoodsById(){
         Groups groups;
-        List<Groups> allGroups= groupsService.getAllGroups();
-        int lastId=allGroups.get(allGroups.size()-1).getId();
-        groups=groupsService.getGroupsById(lastId);
+        List<Groups> allGroupses = groupsService.getAllGroups();
+        int lastId= allGroupses.get(allGroupses.size()-1).getId();
+        groups =groupsService.getGroupsById(lastId);
         assertNotNull(groups);
         assertEquals(lastId, groups.getId());
     }
@@ -73,9 +72,9 @@ public class GroupsServiceTest {
 
     @Test
     public void getAllGoods(){
-        List<Groups> allGroups= groupsService.getAllGroups();
-        assertNotNull(allGroups);
-        assertTrue(allGroups.size() > 0);
+        List<Groups> allGroupses = groupsService.getAllGroups();
+        assertNotNull(allGroupses);
+        assertTrue(allGroupses.size() > 0);
     }
 
 }

@@ -10,9 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Component
 @Scope("session")
 public class AdminTable {
@@ -28,7 +25,7 @@ public class AdminTable {
 
     public TreeNode createTreeTable(){
         TreeNode root=new DefaultTreeNode("root", null);
-        for(Groups groups: groupsService.getAllGroups()){
+        for(Groups groups : groupsService.getAllGroups()){
             if(groups.getParentId()==null){
                 TreeNode child=new DefaultTreeNode(groups,root);
                 createChildrenNodes(child, groups);

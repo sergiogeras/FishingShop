@@ -11,10 +11,10 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core">
 
 <h:head>
-    <title>Simple JSF Facelets page</title>
+    <title>#{msg.card_of_goods}</title>
     <h:outputStylesheet name="admin-console-style.css" library="css"/>
 </h:head>
 
@@ -31,9 +31,10 @@
             <h:outputText id="man"  value="#{goodsController.goods.manufacturer}"/>
             <h:outputLabel  for="descr" value="#{msg.description}" />
             <h:outputText id="descr"  value="#{goodsController.goods.description}"/>
-            <p:graphicImage value="#{goodsController.goods.image}" alt="#{msg.image_not_found}"/>
         </h:panelGrid>
-
+        <p:graphicImage value="#{showImage.image}" alt="#{msg.image_not_found}" style="width: 400px">
+            <f:param name="goodsId" value="#{goodsController.goods.id}"/>
+        </p:graphicImage>
     </h:form>
 </h:body>
 
