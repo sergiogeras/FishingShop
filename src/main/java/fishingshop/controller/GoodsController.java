@@ -72,10 +72,9 @@ public class GoodsController implements Serializable{
         RequestContext.getCurrentInstance().closeDialog(goods);
     }
 
-    public String showGoodsDetails(int id){
+    public void showGoodsDetails(int id){
         goods=goodsService.getGoodsById(id);
         RequestContext.getCurrentInstance().openDialog("goodsPage");
-        return "";
     }
 
     public String deleteGoods(int id){

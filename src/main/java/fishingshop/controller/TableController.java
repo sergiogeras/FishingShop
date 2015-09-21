@@ -45,22 +45,6 @@ public class TableController implements Serializable {
 
     }
 
-    private Map<String, Object> goodsDialogProps(){
-        Map<String, Object> props=new HashMap<>();
-        props.put("resizable", false);
-        props.put("contentWidth", 490);
-        props.put("contentHeight", 260);
-        return props;
-    }
-
-    private Map<String, Object> groupDialogProps(){
-        Map<String, Object> props=new HashMap<>();
-        props.put("resizable", false);
-        props.put("contentWidth", 400);
-        props.put("contentHeight", 80);
-        return props;
-    }
-
     public void updateTable(String item){
         TreeNode node=new DefaultTreeNode("root", null);
         root=adminTable.createTreeTable();
@@ -79,16 +63,21 @@ public class TableController implements Serializable {
 
     public void addGoodsDialog(){
 
+        Map<String, Object> props=new HashMap<>();
+        props.put("resizable", false);
+        props.put("contentWidth", 490);
+        props.put("contentHeight", 260);
+
         if(selectedNode==null){
-            RequestContext.getCurrentInstance().openDialog("addGoods", goodsDialogProps(), null);
+            RequestContext.getCurrentInstance().openDialog("addGoods", props, null);
         }
         if(selectedNode!=null){
             Groups groups =null;
-            RequestContext.getCurrentInstance().openDialog("addGoods",goodsDialogProps(),null);
+            RequestContext.getCurrentInstance().openDialog("addGoods",props,null);
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("goodsController", null);
             if(selectedNode.getData().getClass()==Goods.class){
                 if(selectedNode.getParent().getData().equals("root")){
-                    RequestContext.getCurrentInstance().openDialog("addGoods",goodsDialogProps(),null);
+                    RequestContext.getCurrentInstance().openDialog("addGoods",props,null);
                 } else{
                     groups =(Groups)selectedNode.getParent().getData();
                 }
@@ -106,15 +95,20 @@ public class TableController implements Serializable {
 
     public void addGroupDialog(){
 
+        Map<String, Object> props=new HashMap<>();
+        props.put("resizable", false);
+        props.put("contentWidth", 400);
+        props.put("contentHeight", 80);
+
         Groups groups =null;
         if(selectedNode==null){
-            RequestContext.getCurrentInstance().openDialog("addGroup", groupDialogProps(),null);
+            RequestContext.getCurrentInstance().openDialog("addGroup", props,null);
         }
         if(selectedNode!=null){
-            RequestContext.getCurrentInstance().openDialog("addGroup",groupDialogProps(), null);
+            RequestContext.getCurrentInstance().openDialog("addGroup", props, null);
             if(selectedNode.getData().getClass()==Goods.class){
                 if(selectedNode.getParent().getData().equals("root")){
-                    RequestContext.getCurrentInstance().openDialog("addGroup",groupDialogProps(),null);
+                    RequestContext.getCurrentInstance().openDialog("addGroup", props,null);
                 } else{
                     groups =(Groups)selectedNode.getParent().getData();
                 }

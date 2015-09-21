@@ -32,7 +32,7 @@
             <h:outputLabel  for="descr" value="#{msg.description}" />
             <h:outputText id="descr"  value="#{goodsController.goods.description}"/>
         </h:panelGrid>
-        <p:graphicImage value="#{showImage.image}" alt="#{msg.image_not_found}" style="width: 400px">
+        <p:graphicImage cache="false" value="#{showImage.image}" alt="#{msg.image_not_found}" style="width: 400px">
             <f:param name="goodsId" value="#{goodsController.goods.id}"/>
         </p:graphicImage>
     </h:form>
