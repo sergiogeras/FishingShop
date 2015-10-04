@@ -1,10 +1,13 @@
 package fishingshop.domain.order;
 
 import fishingshop.domain.goods.Goods;
+import org.springframework.stereotype.Component;
 
 /**
- * Товар и количество
+ * Goods and amount
  */
+
+
 public class OrderItem {
 
     private Goods goods;

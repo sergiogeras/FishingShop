@@ -22,7 +22,6 @@ public class AdminTable {
 
     private TreeNode root;
 
-
     public TreeNode createTreeTable(){
         TreeNode root=new DefaultTreeNode("root", null);
         for(Groups groups : groupsService.getAllGroups()){
@@ -46,14 +45,12 @@ public class AdminTable {
         for(Groups gr: groups.getChildrenList()){
             TreeNode child=new DefaultTreeNode(gr, root);
             for(Goods goods: gr.getGoodsList()){
-                    TreeNode childGoods= new DefaultTreeNode(goods, child);
+                TreeNode childGoods= new DefaultTreeNode(goods, child);
             }
             createChildrenNodes(child, gr);
         }
        return root;
     }
-
-
 
     public TreeNode getRoot() {
         return root;

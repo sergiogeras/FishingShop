@@ -36,12 +36,12 @@ public class GoodsController implements Serializable{
     private String type;
     private Goods goods;
 
-    public String addGoods(){
+    public void addGoods(){
         FacesContext context=FacesContext.getCurrentInstance();
         goods=new Goods(name, price, manufacturer, description, "goods");
         goods.setGroups((Groups) context.getExternalContext().getSessionMap().get("group"));
-        byte[] image;
-        image=uploadImage.getImage();
+
+        byte[] image=uploadImage.getImage();
         if(image!=null){
             goods.setImage(image);
         }
@@ -49,7 +49,6 @@ public class GoodsController implements Serializable{
         uploadImage.setImage(null);
         context.getExternalContext().getSessionMap().remove("group");
         RequestContext.getCurrentInstance().closeDialog(0);
-        return "";
     }
 
     public void editGoodsDialog(Goods goods){
@@ -77,11 +76,10 @@ public class GoodsController implements Serializable{
         RequestContext.getCurrentInstance().openDialog("goodsPage");
     }
 
-    public String deleteGoods(int id){
+    public void deleteGoods(int id){
         goodsService.deleteGoods(id);
         bundle= ResourceBundle.getBundle("locales.messages", FacesContext.getCurrentInstance().getViewRoot().getLocale());
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(bundle.getString("deleted_goods")));
-        return "";
     }
 
     public int getId() {
