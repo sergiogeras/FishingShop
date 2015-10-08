@@ -1,8 +1,11 @@
 package fishingshop.domain.goods;
 
 
+import fishingshop.domain.order.Orders;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "goods")
@@ -35,6 +38,9 @@ public class Goods implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="GROUP_ID")
     private Groups groups;
+
+    @OneToMany
+    private List<Orders> orders;
 
     public Goods(String name, Integer price, String manufacturer, String description, String type) {
         this.name = name;
@@ -109,5 +115,13 @@ public class Goods implements Serializable {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public List<Orders> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Orders> orders) {
+        this.orders = orders;
     }
 }

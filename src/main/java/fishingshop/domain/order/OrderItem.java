@@ -12,10 +12,16 @@ public class OrderItem {
 
     private Goods goods;
     private int amount;
+    private int orderId;
 
-    public OrderItem(Goods goods, int amount) {
+    public OrderItem(){
+
+    }
+
+    public OrderItem(Goods goods, int amount, int orderId) {
         this.goods = goods;
         this.amount = amount;
+        this.orderId=orderId;
     }
 
     public int getPrice(){
@@ -36,5 +42,13 @@ public class OrderItem {
 
     public void setAmount(int amount) {
         this.amount = amount;
+    }
+
+    public int getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
     }
 }

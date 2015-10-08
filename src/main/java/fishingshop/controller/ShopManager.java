@@ -16,12 +16,13 @@ public class ShopManager {
 
     private Goods goods;
     private int amount;
+    private int orderId;
 
     @Autowired
     private Cart cart;
 
     public void addGoodsToTheCart(){
-        cart.addItem(goods, amount);
+        cart.addItem(goods, amount, orderId);
     }
 
     public void makeOrder(){
@@ -41,7 +42,7 @@ public class ShopManager {
     }
 
     public void buyGoods(){
-
+        cart.saveOrderToDB();
     }
 
     public int getAmount() {
@@ -58,5 +59,13 @@ public class ShopManager {
 
     public void setGoods(Goods goods) {
         this.goods = goods;
+    }
+
+    public int getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(int orderId) {
+        this.orderId = orderId;
     }
 }

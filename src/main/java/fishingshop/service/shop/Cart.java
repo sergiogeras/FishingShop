@@ -30,8 +30,8 @@ public class Cart {
         this.goods = goods;
     }
 
-    public void addItem(Goods goods, int amount){
-        OrderItem orderItem=new OrderItem(goods, amount);
+    public void addItem(Goods goods, int amount, int orderId){
+        OrderItem orderItem=new OrderItem(goods, amount, orderId);
         orderItems.add(orderItem);
         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("item", orderItems);
     }

@@ -94,10 +94,10 @@ public class GoodsServiceTest {
         goods=goodsService.getGoodsById(lastId);
         goods.setName("Wobbler");
         goodsService.editGoods(goods);
-        assertEquals("Wobbler", goods.getName());
+        assertEquals("Wobbler", goodsService.getGoodsById(lastId).getName());
     }
 
-    //@Ignore
+    @Ignore
     @Test
     public void getGoodsById(){
         Goods goods;
