@@ -9,7 +9,7 @@ public interface OrderDao {
     void addOrder(Orders orders);
     void editOrder(Orders orders);
     void deleteOrder(int orderId);
-    void deleteOrderPositions(int id);   //delete certain position from Order
+    void deleteOrderPosition(int id);   //delete certain position from Order
     List<Orders> getAllOrders();
     List<Orders> getOrdersByOrderId(int orderId);
     Orders getOrderById(int id);

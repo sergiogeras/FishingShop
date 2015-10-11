@@ -33,7 +33,7 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
-    public void deleteOrderPositions(int id) {
+    public void deleteOrderPosition(int id) {
         sessionFactory.getCurrentSession().delete(getOrderById(id));
     }
 

@@ -40,13 +40,13 @@ public class OrdersServiceTest {
         List<OrderItem> items=new ArrayList<>();
 
         OrderItem item=new OrderItem();
-        item.setGoods(goodsService.getGoodsById(264));
+        item.setGoods(goodsService.getGoodsById(262));
         item.setAmount(2);
         item.setOrderId(1);
         items.add(item);
 
         OrderItem item2=new OrderItem();
-        item2.setGoods(goodsService.getGoodsById(263));
+        item2.setGoods(goodsService.getGoodsById(266));
         item2.setAmount(3);
         item2.setOrderId(1);
         items.add(item2);
@@ -60,7 +60,7 @@ public class OrdersServiceTest {
     @Test
     public void deleteOrder(){
 //        int beforeValue=orderService.getAllOrders().size();
-        orderService.deleteOrder(2);
+        orderService.deleteOrder(1);
 //        int afterValue=orderService.getAllOrders().size()-1;
 //        assertEquals(beforeValue, afterValue);
     }
@@ -68,7 +68,7 @@ public class OrdersServiceTest {
     @Ignore
     @Test
     public void deleteOrderPositions(){
-        int [] positions={7};
+        int [] positions={15,16};
         orderService.deleteOrderPositions(positions);
     }
 

@@ -2,7 +2,6 @@ package fishingshop.domain.goods;
 
 
 import fishingshop.domain.order.Orders;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -30,6 +29,9 @@ public class Goods implements Serializable {
 
     @Column
     private String type;
+
+    @Column
+    private Integer goodsAmount;    // Remains goods in the store
 
     @Column
     @Lob
@@ -123,5 +125,13 @@ public class Goods implements Serializable {
 
     public void setOrders(List<Orders> orders) {
         this.orders = orders;
+    }
+
+    public Integer getGoodsAmount() {
+        return goodsAmount;
+    }
+
+    public void setGoodsAmount(Integer balance) {
+        this.goodsAmount = balance;
     }
 }
