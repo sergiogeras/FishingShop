@@ -66,7 +66,7 @@ public class TableController implements Serializable {
         Map<String, Object> props=new HashMap<>();
         props.put("resizable", false);
         props.put("contentWidth", 490);
-        props.put("contentHeight", 260);
+        props.put("contentHeight", 295);
 
         if(selectedNode==null){
             RequestContext.getCurrentInstance().openDialog("addGoods", props, null);
@@ -97,8 +97,8 @@ public class TableController implements Serializable {
 
         Map<String, Object> props=new HashMap<>();
         props.put("resizable", false);
-        props.put("contentWidth", 400);
-        props.put("contentHeight", 80);
+        props.put("contentWidth", 420);
+        props.put("contentHeight", 90);
 
         Groups groups =null;
         if(selectedNode==null){
@@ -150,6 +150,26 @@ public class TableController implements Serializable {
             selectedNode=null;
         }
     }
+
+
+    public void amountDialog(){
+        if(selectedNode!=null){
+            if(selectedNode.getData().getClass()==Goods.class){
+                Map<String, Object> props=new HashMap<>();
+                props.put("resizable", false);
+                props.put("contentWidth", 420);
+                props.put("contentHeight", 90);
+                RequestContext.getCurrentInstance().openDialog("changeAmount", props,null);
+                Goods goods=(Goods) selectedNode.getData();
+                FacesContext context=FacesContext.getCurrentInstance();
+                context.getExternalContext().getSessionMap().put("goods", goods);
+                selectedNode=null;
+            }
+
+        }
+
+    }
+
 
 
 

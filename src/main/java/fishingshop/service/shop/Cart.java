@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import javax.faces.context.FacesContext;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -27,6 +28,10 @@ public class Cart {
     @Autowired
     OrderService orderService;
 
+
+    public Cart() {
+        orderItems=new ArrayList<>();
+    }
 
     public Cart(List<OrderItem> orderItems,int amount, Goods goods) {
         this.orderItems=orderItems;
@@ -70,6 +75,10 @@ public class Cart {
             result+=order.getPrice();
         }
         return result;
+    }
+
+    public int getAmount(){
+        return orderItems.size();
     }
 
     public void saveOrderToDB(){

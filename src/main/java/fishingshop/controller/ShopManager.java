@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import javax.annotation.PostConstruct;
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
@@ -16,16 +18,29 @@ import java.util.Map;
 
 @Controller
 @Scope("session")
-public class ShopManager {
+public class ShopManager implements Serializable {
 
     private Goods goods;
     private int amount;
     private int orderId;
     private int goodsPositionId;
     private Map<Integer, Integer> positionsAndAmount;   //Map with index and amount of goods for editing order
+    private int totalSum;
+    private int totalAmount;
+
 
     @Autowired
     private Cart cart;
+
+    @PostConstruct
+    public void init(){
+        totalSum=cart.getSumm();
+        totalAmount=cart.getAmount();
+    }
+
+    public ShopManager() {
+    }
+
 
     public void addGoodsToTheCart(){
         cart.addItem(goods, amount, orderId);
@@ -46,6 +61,7 @@ public class ShopManager {
     public List<OrderItem> showListOfGoods(){
         return cart.getOrderItems();
     }
+
 
     public void buyGoods(){
         cart.saveOrderToDB();
@@ -90,4 +106,22 @@ public class ShopManager {
     public void setPositionsAndAmount(Map<Integer, Integer> positionsAndAmount) {
         this.positionsAndAmount = positionsAndAmount;
     }
+
+    public int getTotalSum() {
+        return totalSum;
+    }
+
+    public void setTotalSum(int totalSum) {
+        this.totalSum = totalSum;
+    }
+
+    public int getTotalAmount() {
+        return totalAmount;
+    }
+
+    public void setTotalAmount(int totalAmount) {
+        this.totalAmount = totalAmount;
+    }
+
+
 }

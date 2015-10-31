@@ -72,6 +72,10 @@
                                  actionListener="#{tableController.editDialog}">
                     <p:ajax event="dialogReturn" listener="#{tableController.updateTable('update')}" update="admin_table messages"/>
                 </p:commandButton>
+                <p:commandButton styleClass="table_button" value="#{msg.change_Amount}" update="messages" icon="ui-icon-transfer-e-w"
+                                 actionListener="#{tableController.amountDialog}">
+                    <p:ajax event="dialogReturn" listener="#{tableController.updateTable('update')}" update="admin_table messages"/>
+                </p:commandButton>
                 <h:form>
                     <p:commandButton styleClass="table_button" value="#{msg.delete}" icon="ui-icon-trash"
                                      actionListener="#{tableController.deleteItem}" update="@([id$=messages]) @([id$=admin_table])"
@@ -86,6 +90,7 @@
                         <p:commandButton value="#{msg.no}" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
                     </p:confirmDialog>
                 </h:form>
+
 
             </h:form>
 

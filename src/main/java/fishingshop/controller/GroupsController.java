@@ -27,8 +27,6 @@ public class GroupsController {
 
     private List<Groups> groupsList;
     private Groups selectedGroups; //Выбранная группа
-    private String name;
-    private  String type;
     private Groups groups;
 
 
@@ -40,6 +38,7 @@ public class GroupsController {
 
     public GroupsController(){
         bundle=ResourceBundle.getBundle("locales.messages", FacesContext.getCurrentInstance().getViewRoot().getLocale());
+        groups=new Groups();
     }
 
     @PostConstruct
@@ -51,8 +50,6 @@ public class GroupsController {
 
     public void addGroup(){
         FacesContext context=FacesContext.getCurrentInstance();
-        groups =new Groups();
-        groups.setName(name);
         groups.setDescription("- "+bundle.getString("group")+" -");
         groups.setType("group");
         groups.setParentId((Groups) context.getExternalContext().getSessionMap().get("group"));
@@ -66,8 +63,8 @@ public class GroupsController {
         this.groups=groups;
         Map<String, Object> props=new HashMap<>();
         props.put("resizable", false);
-        props.put("contentWidth", 400);
-        props.put("contentHeight", 80);
+        props.put("contentWidth", 420);
+        props.put("contentHeight", 90);
         RequestContext.getCurrentInstance().openDialog("editGroup",props,null);
     }
 
@@ -122,22 +119,6 @@ public class GroupsController {
 
     public void setSelectedGroups(Groups selectedGroups) {
         this.selectedGroups = selectedGroups;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     public Groups getGroups() {

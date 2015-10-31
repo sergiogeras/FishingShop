@@ -44,4 +44,9 @@ public class GoodsDaoImpl implements GoodsDao{
        //return (List<Goods>)sessionFactory.getCurrentSession().createSQLQuery("SELECT FROM goods WHERE GROUP_ID=:id").setParameter("id", id);
         return sessionFactory.getCurrentSession().createQuery("from Goods where id=:id").setParameter("id", id).list();
     }
+
+    @Override
+    public void changeGoodsAmount(Goods goods) {
+        sessionFactory.getCurrentSession().update(goods);
+    }
 }

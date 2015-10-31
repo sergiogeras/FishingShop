@@ -16,6 +16,9 @@ public class Goods implements Serializable {
     private Integer id;
 
     @Column
+    private String article;
+
+    @Column
     private String name;
 
     @Column
@@ -43,14 +46,6 @@ public class Goods implements Serializable {
 
     @OneToMany
     private List<Orders> orders;
-
-    public Goods(String name, Integer price, String manufacturer, String description, String type) {
-        this.name = name;
-        this.description = description;
-        this.price = price;
-        this.manufacturer = manufacturer;
-        this.type=type;
-    }
 
     public Goods() {
     }
@@ -133,5 +128,13 @@ public class Goods implements Serializable {
 
     public void setGoodsAmount(Integer balance) {
         this.goodsAmount = balance;
+    }
+
+    public String getArticle() {
+        return article;
+    }
+
+    public void setArticle(String article) {
+        this.article = article;
     }
 }

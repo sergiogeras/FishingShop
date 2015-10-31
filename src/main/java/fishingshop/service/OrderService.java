@@ -14,5 +14,4 @@ public interface OrderService {
     void deleteOrderPositions(int [] id);
     List<OrderItem> getAllOrders();
     List<OrderItem> getOrdersByOrderId(int orderId);
-
 }

@@ -14,7 +14,7 @@
       xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core">
 
 <h:head>
-    <title>#{msg.adding_new_goods}</title>
+    <title>#{msg.adding_new_group}</title>
     <h:outputStylesheet name="admin-console-style.css" library="css"/>
 </h:head>
 
@@ -24,7 +24,7 @@
             <p:growl id="messages" showDetail="false" escape="false"/>
                 <h:panelGrid columns="3" cellpadding="5">
                     <h:outputLabel for="name" value="#{msg.name}" />
-                    <p:inputText id="name" required="true" value="#{groupsController.name}">
+                    <p:inputText id="name" required="true" value="#{groupsController.groups.name}">
                         <p:message for="name"/>
                     </p:inputText>
                     <p:commandButton styleClass="table_button" value="#{msg.save}" update="messages"

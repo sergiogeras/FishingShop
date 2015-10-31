@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Created by IntelliJ IDEA.
+  User: Сергей
+  Date: 11.10.2015
+  Time: 19:25
+-->
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head>
+    <title>Simple JSF Facelets page</title>
+    <h:outputScript name="jquery/jquery.js" library="primefaces"/>
+    <h:outputStylesheet name="header-style.css" library="css"/>
+</h:head>
+
+<h:body>
+    <ui:composition>
+        <h:form>
+            <p:dataGrid var="goods" value="#{goodsController.goodsList}" columns="3" layout="grid"
+                        rows="12" paginator="true" id="cars"
+                        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                        rowsPerPageTemplate="6,12,16">
+
+                <f:facet name="header">
+                    Товары
+                </f:facet>
+
+                <p:panel header="#{goods.name}" style="text-align:center">
+                    <h:panelGrid columns="1" style="width:100%">
+                        <p:graphicImage cache="false" value="#{showImage.image}" alt="#{msg.image_not_found}" style="width: 200px">
+                            <f:param name="goodsId" value="#{goods.id}"/>
+                        </p:graphicImage>
+
+                        <h:outputText value="#{goods.price}" />
+
+                        <!--<p:commandLink update=":form:carDetail" oncomplete="PF('carDialog').show()" title="View Detail">-->
+                            <!--<h:outputText styleClass="ui-icon ui-icon-search" style="margin:0 auto;" />-->
+                            <!--<f:setPropertyActionListener value="#{car}" target="#{dataGridView.selectedCar}" />-->
+                        <!--</p:commandLink>-->
+                    </h:panelGrid>
+                </p:panel>
+
+            </p:dataGrid>
+        </h:form>
+    </ui:composition>
+</h:body>
+
+</html>

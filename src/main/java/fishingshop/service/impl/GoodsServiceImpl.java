@@ -45,4 +45,9 @@ public class GoodsServiceImpl implements GoodsService {
     public List<Goods> getGoodsByGroup(Integer id) {
         return goodsDao.getGoodsByGroup(id);
     }
+
+    @Override
+    public void changeGoodsAmount(Goods goods) {
+        goodsDao.changeGoodsAmount(goods);
+    }
 }

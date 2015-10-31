@@ -20,21 +20,26 @@
 
 <h:body>
     <h:form id="goodsForm">
-        <h:panelGrid id="pg" columns="2" cellpadding="5">
+        <p:graphicImage cache="false" value="#{showImage.image}" alt="#{msg.image_not_found}" style="padding-right: 5px ;float: left; width: 270px">
+            <f:param name="goodsId" value="#{goodsController.goods.id}"/>
+        </p:graphicImage>
+        <h:panelGrid id="pg" columns="2" cellpadding="5" >
             <h:outputLabel for="id" value="ID" />
             <h:outputText id="id"  value="#{goodsController.goods.id}"/>
+            <h:outputLabel for="article" value="#{msg.article}" />
+            <h:outputText id="article"  value="#{goodsController.goods.article}"/>
             <h:outputLabel for="name" value="#{msg.name}" />
             <h:outputText id="name"  value="#{goodsController.goods.name}"/>
             <h:outputLabel for="price" value="#{msg.price}" />
             <h:outputText id="price" value="#{goodsController.goods.price}"/>
             <h:outputLabel for="man" value="#{msg.manufacturer}" />
             <h:outputText id="man"  value="#{goodsController.goods.manufacturer}"/>
+            <h:outputLabel  for="amount" value="#{msg.onStock}" />
+            <h:outputText id="amount"  value="#{goodsController.goods.goodsAmount}"/>
             <h:outputLabel  for="descr" value="#{msg.description}" />
-            <h:outputText id="descr"  value="#{goodsController.goods.description}"/>
+            <h:outputText id="descr"  value="#{goodsController.goods.description}" style="text-wrap: normal"/>
         </h:panelGrid>
-        <p:graphicImage cache="false" value="#{showImage.image}" alt="#{msg.image_not_found}" style="width: 400px">
-            <f:param name="goodsId" value="#{goodsController.goods.id}"/>
-        </p:graphicImage>
+
     </h:form>
 </h:body>
 

@@ -14,4 +14,5 @@ public interface GoodsDao {
     Goods getGoodsById(Integer id);
     List<Goods> getAllGoods();
     List<Goods> getGoodsByGroup(Integer id);
+    void changeGoodsAmount(Goods goods);
 }

@@ -23,13 +23,15 @@
         <h:form id="addForm" enctype="multipart/form-data">
                 <h:panelGrid id="pg" columns="2" cellpadding="5">
                     <h:outputLabel for="name" value="#{msg.name}" />
-                    <p:inputText id="name" required="true" value="#{goodsController.name}"/>
+                    <p:inputText id="name" required="true" value="#{goodsController.goods.name}"/>
+                    <h:outputLabel for="article" value="#{msg.article}" />
+                    <p:inputText id="article"  value="#{goodsController.goods.article}"/>
                     <h:outputLabel for="price" value="#{msg.price}" />
-                    <p:inputText id="price" required="false" value="#{goodsController.price}"/>
+                    <p:inputText id="price" required="true" value="#{goodsController.goods.price}"/>
                     <h:outputLabel for="man" value="#{msg.manufacturer}" />
-                    <p:inputText id="man" required="false" value="#{goodsController.manufacturer}"/>
+                    <p:inputText id="man"  value="#{goodsController.goods.manufacturer}"/>
                     <h:outputLabel  for="descr" value="#{msg.description}" />
-                    <p:inputTextarea style="width: 340px" id="descr" required="false" value="#{goodsController.description}"/>
+                    <p:inputTextarea style="width: 340px" id="descr"  value="#{goodsController.goods.description}"/>
                 </h:panelGrid>
 
                 <p:commandButton  styleClass="table_button" value="#{msg.save}"
