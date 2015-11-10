@@ -12,10 +12,123 @@
        <h:outputScript name="jquery/jquery.js" library="primefaces"/>
        <h:outputStylesheet name="header-style.css" library="css"/>
        <h:outputStylesheet name="common-style.css" library="css"/>
+       <h:outputStylesheet name="left-menu-style.css" library="css"/>
+       <h:outputStylesheet name="content-style.css" library="css"/>
+
    </h:head>
    <h:body>
+
         <ui:composition template="pages/templates/shop-template.xhtml">
 
+            <ui:define name="left-menu">
+
+                <h:form styleClass="login-form">
+                    <h:panelGrid >
+                        <p:row>
+                            <p:column>
+                                Имя пользователя
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column >
+                                <p:inputText style="width: 150px; margin-bottom: 5px; border-radius: 0"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                Пароль
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column>
+                                <p:password style="width: 150px; border-radius: 0"/>
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column colspan="2" >
+                                <p:commandLink styleClass="enter-button" actionListener="#{goodsController.addGoodsDialog}">
+                                    <h:outputText value="Вход" />
+                                </p:commandLink>
+                            </p:column>
+                        </p:row>
+                    </h:panelGrid>
+                </h:form>
+
+                <h:form styleClass="catalog-form">
+                    <h3 class="catalog_header">Категории</h3>
+                    <p:tree value="#{catalogController.root}" var="group"
+                            selectionMode="single"
+                            selection="#{catalogController.selectedNode}" styleClass="tree-catalog" style="width: inherit">
+                        <p:ajax event="select" update=":goods :search" listener="#{catalogController.chooseCategory}" />
+                        <p:treeNode >
+                            <h:outputText value="#{group.name}"/>
+                        </p:treeNode>
+                    </p:tree>
+                </h:form>
+
+            </ui:define>
+
+            <ui:define name="content">
+                <p:growl id="messages" showDetail="false" escape="false"/>
+
+                <p:dataGrid id="goods" var="goods" value="#{catalogController.goodsList}" columns="3" layout="grid"
+                            rows="9" paginator="true" paginatorPosition="bottom" emptyMessage="Товары в данной категории отсутствуют"
+                            paginatorTemplate="  {PreviousPageLink} {PageLinks} {NextPageLink} "
+                            paginatorAlwaysVisible="false" lazy="true"  >
+
+                    <p:panel style="text-align: center; border-radius: 0;">
+
+                        <h:panelGrid style="width:100%;">
+
+                            <p:row>
+                                <p:column colspan="2">
+                                    <p:graphicImage cache="false" value="#{showImage.image}" alt="#{msg.image_not_found}" style="width: 170px">
+                                        <f:param name="goodsId" value="#{goods.id}"/>
+                                    </p:graphicImage>
+                                </p:column>
+                            </p:row>
+                            <p:row >
+                                <p:column>
+                                    <h:outputText value="#{goods.name}" style="color:brown; font-weight: bold;"/>
+                                </p:column>
+                            </p:row>
+                            <p:row >
+                                <p:column>
+                                    <hr style="background:#dddddd;  height: 1px; border: none"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column  colspan="2">
+                                    <h:outputText value="На складе: #{goods.goodsAmount} шт."/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="2">
+                                    <h:outputText value="#{goods.price} руб." />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <h:form style="padding-top: 10px">
+                                    <p:column>
+                                        <p:spinner id="minMax" value="#{shopManager.amount}"  min="1" max="100" size="2" style="margin-right: 5px;"/>
+                                    </p:column>
+                                    <p:column >
+                                        <p:commandLink style="color:#fff" styleClass="cart-button" value="В корзину"
+                                                       actionListener="#{shopManager.addGoodsToTheCart(goods)}"
+                                                       update=":cart :messages"/>
+                                    </p:column>
+                                </h:form>
+                            </p:row>
+
+                            <!--<p:commandLink update=":form:carDetail" oncomplete="PF('carDialog').show()" title="View Detail">-->
+                            <!--<h:outputText styleClass="ui-icon ui-icon-search" style="margin:0 auto;" />-->
+                            <!--<f:setPropertyActionListener value="#{car}" target="#{dataGridView.selectedCar}" />-->
+                            <!--</p:commandLink>-->
+                        </h:panelGrid>
+                    </p:panel>
+                </p:dataGrid>
+            </ui:define>
         </ui:composition>
+
    </h:body>
 </html>

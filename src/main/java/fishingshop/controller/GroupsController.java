@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,7 +20,7 @@ import java.util.ResourceBundle;
 
 @Controller
 @Scope("session")
-public class GroupsController {
+public class GroupsController implements Serializable {
 
 
     private int id;

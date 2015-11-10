@@ -10,16 +10,48 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <h:head>
     <title>Simple JSF Facelets page</title>
     <h:outputScript name="jquery/jquery.js" library="primefaces"/>
     <h:outputStylesheet name="header-style.css" library="css"/>
+    <h:outputStylesheet name="content-style.css" library="css"/>
 </h:head>
 
 <h:body>
-    Place your content here
+    <ui:composition>
+        <ul class="footer_buttons">
+            <li>
+                <p:link outcome="index"  styleClass="footer-button">
+                    <h:outputText value="#{msg.catalog}" />
+                </p:link>
+            </li>
+            <li>
+                <p:link outcome="news" styleClass="footer-button">
+                    <h:outputText value="#{msg.news}" />
+                </p:link>
+            </li>
+            <li>
+                <p:link outcome="delivery" styleClass="footer-button">
+                    <h:outputText value="#{msg.delivery}" />
+                </p:link>
+            </li>
+            <li>
+                <p:link outcome="payment" styleClass="footer-button">
+                    <h:outputText value="#{msg.payment}" />
+                </p:link>
+            </li>
+            <li>
+                <p:link outcome="contacts" styleClass="footer-button">
+                    <h:outputText value="#{msg.contacts}" />
+                </p:link>
+            </li>
+        </ul>
+        <p style="color: #c6c9cb">Разработчик Сергей Герасимов</p>
+    </ui:composition>
 </h:body>
 
 </html>

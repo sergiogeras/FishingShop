@@ -1,7 +1,7 @@
 package fishingshop.controller;
 
 
-import fishingshop.beans.AdminTable;
+import fishingshop.beans.AdminTreeTable;
 import fishingshop.domain.goods.Goods;
 import fishingshop.domain.goods.Groups;
 import org.primefaces.context.RequestContext;
@@ -21,13 +21,13 @@ import java.util.ResourceBundle;
 
 @Controller
 @Scope("session")
-public class TableController implements Serializable {
+public class AdminTableController implements Serializable {
 
     private ResourceBundle bundle;
     private TreeNode rootNode;
 
     @Autowired
-    private AdminTable adminTable;
+    private AdminTreeTable adminTreeTable;
 
     @Autowired
     private GoodsController goodsController;
@@ -40,14 +40,14 @@ public class TableController implements Serializable {
 
     @PostConstruct
     public void init(){
-        root=adminTable.createTreeTable();
+        root= adminTreeTable.createTreeTable();
         bundle= ResourceBundle.getBundle("locales.messages", FacesContext.getCurrentInstance().getViewRoot().getLocale());
 
     }
 
     public void updateTable(String item){
         TreeNode node=new DefaultTreeNode("root", null);
-        root=adminTable.createTreeTable();
+        root= adminTreeTable.createTreeTable();
         if(item.equals("goods")) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(bundle.getString("added_goods")));
         }
@@ -181,12 +181,12 @@ public class TableController implements Serializable {
         this.root = root;
     }
 
-    public AdminTable getAdminTable() {
-        return adminTable;
+    public AdminTreeTable getAdminTreeTable() {
+        return adminTreeTable;
     }
 
-    public void setAdminTable(AdminTable adminTable) {
-        this.adminTable = adminTable;
+    public void setAdminTreeTable(AdminTreeTable adminTreeTable) {
+        this.adminTreeTable = adminTreeTable;
     }
 
     public TreeNode getSelectedNode() {

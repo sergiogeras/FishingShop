@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Created by IntelliJ IDEA.
+  User: Сергей
+  Date: 07.11.2015
+  Time: 15:14
+-->
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+    <title>Simple JSF Facelets page</title>
+    <h:outputScript name="jquery/jquery.js" library="primefaces"/>
+    <h:outputStylesheet name="header-style.css" library="css"/>
+    <h:outputStylesheet name="common-style.css" library="css"/>
+    <h:outputStylesheet name="left-menu-style.css" library="css"/>
+    <h:outputStylesheet name="content-style.css" library="css"/>
+</h:head>
+
+<h:body>
+    <ui:composition template="pages/templates/shop-template.xhtml">
+        <ui:define name="content">
+            <h:form id="form" styleClass="content-background">
+            <h3>Ваши данные:</h3>
+          <h:panelGrid  id="address_grid" columns="2" columnClasses="col">
+              <h:outputText value="Имя"/>
+              <p:inputText value="#{userController.customer.name}" />
+
+              <h:outputText value="Фамилия"/>
+              <p:inputText value="#{userController.customer.surname}"/>
+
+              <h:outputText value="Телефон"/>
+              <p:inputText value="#{userController.customer.phone}"/>
+
+              <h:outputText value="E-mail"/>
+              <p:inputText value="#{userController.customer.email}"/>
+
+              <h:outputText value="Индекс"/>
+              <p:inputText value="#{userController.customer.zip}"/>
+
+              <h:outputText value="Город"/>
+              <p:inputText value="#{userController.customer.city}"/>
+
+              <h:outputText value="Улица"/>
+              <p:inputText value="#{userController.customer.street}"/>
+
+              <h:outputText value="Дом"/>
+              <p:inputText value="#{userController.customer.house}"/>
+
+              <h:outputText value="Квартира"/>
+              <p:inputText value="#{userController.customer.flat}"/>
+
+          </h:panelGrid>
+
+            <p:commandLink id="next-button" action="delpay" style="color:#fff; margin-top: 10px" styleClass="agree-button" value="Доставка и оплата"
+                                    actionListener="#{userController.saveCustomerData}" />
+        </h:form>
+            <h:form id="goods"/>
+        </ui:define>
+
+    </ui:composition>
+
+</h:body>
+
+</html>

@@ -1,4 +1,3 @@
-import fishingshop.domain.goods.Goods;
 import fishingshop.domain.order.OrderItem;
 import fishingshop.service.GoodsService;
 import fishingshop.service.OrderService;

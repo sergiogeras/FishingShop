@@ -50,4 +50,9 @@ public class GoodsServiceImpl implements GoodsService {
     public void changeGoodsAmount(Goods goods) {
         goodsDao.changeGoodsAmount(goods);
     }
+
+    @Override
+    public List<Goods> getGoodsViaMainSearch(String searchStr) {
+        return goodsDao.getGoodsViaMainSearch(searchStr);
+    }
 }

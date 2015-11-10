@@ -18,22 +18,47 @@
     <title>Simple JSF Facelets page</title>
     <h:outputScript name="jquery/jquery.js" library="primefaces"/>
     <h:outputStylesheet name="header-style.css" library="css"/>
+    <h:outputStylesheet name="left-menu-style.css" library="css"/>
+
 </h:head>
 
-<h:body>
+
+<h:body >
     <ui:composition>
-        <h4>#{msg.catalog}</h4>
-        <h:form >
-            <ui:repeat value="#{groupsController.groupsList}" var="groups">
-                <tr>
-                    <td>
-                        <p:commandLink value="#{groups.name}" id="ajax" actionListener="#{goodsController.addGoodsDialog}">
-                            <ui:param name="group_id" value="#{groups.id}"/>
+
+        <h:form styleClass="login-form">
+            <h:panelGrid >
+                <p:row>
+                    <p:column>
+                        Имя пользователя
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column >
+                        <p:inputText style="width: 150px; margin-bottom: 5px; border-radius: 0"/>
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column>
+                        Пароль
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column>
+                        <p:password style="width: 150px; border-radius: 0"/>
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column colspan="2" >
+                        <p:commandLink styleClass="enter-button" actionListener="#{goodsController.addGoodsDialog}">
+                            <h:outputText value="Вход" />
                         </p:commandLink>
-                    </td>
-                </tr>
-            </ui:repeat>
+                    </p:column>
+                </p:row>
+            </h:panelGrid>
         </h:form>
+
+
     </ui:composition>
 </h:body>
 

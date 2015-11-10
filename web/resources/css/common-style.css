@@ -1,7 +1,7 @@
 body {
     font: 100%/1.4 Verdana, Arial, Helvetica, sans-serif;
-    color: black;
-    background-color: lightgray;
+    color: #535353;
+    background-color: #fff;
     margin: 0;
     padding: 0;
     font-size: 13px;
@@ -17,8 +17,8 @@ body {
     border-radius: 10px 0 10px 0;
 }
 
-.lower-container{
-    background-color: white;
+.main-container {
+    background-color: #fff;
     width: 1000px;
     height: 1000px;
     margin: 5px auto;

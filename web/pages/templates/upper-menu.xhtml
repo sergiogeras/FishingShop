@@ -23,38 +23,45 @@
 
 <h:body>
     <ui:composition>
-        <div class="header_buttons">
-            <div>
-                <p:commandLink actionListener="#{goodsController.addGoodsDialog}">
-                    <h:outputText value="#{msg.main_page}" />
-                </p:commandLink>
-            </div>
-            <div>
-                <p:commandLink actionListener="#{goodsController.addGoodsDialog}">
-                    <h:outputText value="#{msg.news}" />
-                </p:commandLink>
-            </div>
-            <div>
-                <p:commandLink actionListener="#{goodsController.addGoodsDialog}">
-                    <h:outputText value="#{msg.delivery}" />
-                </p:commandLink>
-            </div>
-            <div>
-                <p:commandLink actionListener="#{goodsController.addGoodsDialog}">
-                    <h:outputText value="#{msg.payment}" />
-                </p:commandLink>
-            </div>
-            <div>
-                <p:commandLink  actionListener="#{goodsController.addGoodsDialog}">
-                    <h:outputText value="#{msg.about_shop}" />
-                </p:commandLink>
-            </div>
-            <div>
-                <p:commandLink  actionListener="#{goodsController.addGoodsDialog}">
-                    <h:outputText value="#{msg.contacts}" />
-                </p:commandLink>
-            </div>
-        </div>
+            <ul class="header_buttons">
+                <h:form id="search">
+                <li>
+                    <p:link outcome="index"  styleClass="li-button">
+                        <h:outputText value="#{msg.catalog}" />
+                    </p:link>
+                </li>
+                <li>
+                    <p:link outcome="news" styleClass="li-button">
+                        <h:outputText value="#{msg.news}" />
+                    </p:link>
+                </li>
+                <li>
+                    <p:link outcome="delivery" styleClass="li-button">
+                        <h:outputText value="#{msg.delivery}" />
+                    </p:link>
+                </li>
+                <li>
+                    <p:link outcome="payment" styleClass="li-button">
+                        <h:outputText value="#{msg.payment}" />
+                    </p:link>
+                </li>
+                <li>
+                    <p:link outcome="contacts" styleClass="li-button">
+                        <h:outputText value="#{msg.contacts}" />
+                    </p:link>
+                </li>
+
+                    <li>
+                        <p:inputText id="search_field"  style="border-radius: 0; width: 350px; margin-left: 40px" value="#{catalogController.searchStr}"/>
+                    </li>
+                    <li>
+                        <p:commandLink  actionListener="#{catalogController.mainSearch}" update=":goods" styleClass="li-button" >
+                            <h:outputText value="#{msg.search}" />
+                        </p:commandLink>
+                    </li>
+                </h:form>
+
+            </ul>
     </ui:composition>
 </h:body>
 

@@ -2,15 +2,20 @@ package fishingshop.service.impl;
 
 
 import fishingshop.dao.OrderDao;
+import fishingshop.domain.customer.Customer;
 import fishingshop.domain.goods.Goods;
+import fishingshop.domain.order.Delivery;
 import fishingshop.domain.order.Orders;
 import fishingshop.domain.order.OrderItem;
+import fishingshop.domain.order.Payment;
 import fishingshop.service.GoodsService;
 import fishingshop.service.OrderService;
+import fishingshop.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.faces.context.FacesContext;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -25,15 +30,23 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     GoodsService goodsService;
 
+
     @Override
     public void addOrder(List<OrderItem> orderItems){
+        FacesContext context=FacesContext.getCurrentInstance();
+
+        int orderId=generateOrderId();
         for(OrderItem item: orderItems){
+            if(item.getAmount()==0) break;
             Orders orders =new Orders();
-            orders.setOrderId(item.getOrderId());
+            orders.setOrderId(orderId);
             orders.setAmount(item.getAmount());
             orders.setOrderDate(new Date());
             orders.setCost(item.getGoods().getPrice()*item.getAmount());
             orders.setGoods(item.getGoods());
+            orders.setCustomer((Customer)context.getExternalContext().getSessionMap().get("customer"));
+            orders.setDelivery((Delivery)context.getExternalContext().getSessionMap().get("delivery"));
+            orders.setPayment((Payment)context.getExternalContext().getSessionMap().get("payment"));
 
             //Changing count of goods
 
@@ -44,6 +57,7 @@ public class OrderServiceImpl implements OrderService {
             orderDao.addOrder(orders);
 
         }
+        orderItems.clear();
     }
 
     @Override
@@ -112,5 +126,17 @@ public class OrderServiceImpl implements OrderService {
         return orderItems;
     }
 
+    /**
+    Generate orderId by getting previous id from Orders
+     */
+    private int generateOrderId(){
+        ArrayList<Orders> list= (ArrayList<Orders>) orderDao.getAllOrders();
+        if(!list.isEmpty()){
+            return  list.get((list.size()-1)).getOrderId()+1;
+        } else {
+            return 1;
+        }
+
+    }
 
 }

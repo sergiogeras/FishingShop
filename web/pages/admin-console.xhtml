@@ -27,10 +27,10 @@
         <h:form>
             <p:menubar>
                 <p:submenu label="#{msg.add}" icon="ui-icon-gear">
-                    <p:menuitem value="#{msg.one_goods}" action="#{tableController.addGoodsDialog}">
+                    <p:menuitem value="#{msg.one_goods}" action="#{adminTableController.addGoodsDialog}">
 
                     </p:menuitem>
-                    <p:menuitem value="#{msg.group}" action="#{tableController.addGroupDialog}">
+                    <p:menuitem value="#{msg.group}" action="#{adminTableController.addGroupDialog}">
 
                     </p:menuitem>
                 </p:submenu>
@@ -42,8 +42,8 @@
 
             <h:form id="main_form">
                 <p:growl id="messages" showDetail="false" escape="false"/>
-                <p:treeTable id="admin_table"  value="#{tableController.root}" var="g" selectionMode="single"
-                             selection="#{tableController.selectedNode}" resizableColumns="true" style="margin-top:0">
+                <p:treeTable id="admin_table"  value="#{adminTableController.root}" var="g" selectionMode="single"
+                             selection="#{adminTableController.selectedNode}" resizableColumns="true" style="margin-top:0">
                     <f:facet name="header">
                         #{msg.gooods_manager}
                     </f:facet>
@@ -61,25 +61,25 @@
 
 
                 <p:commandButton styleClass="table_button" value="#{msg.add_goods}"  icon="ui-icon-plus"
-                                 action="#{tableController.addGoodsDialog}">
-                    <p:ajax event="dialogReturn" listener="#{tableController.updateTable('goods')}" update="admin_table messages"/>
+                                 action="#{adminTableController.addGoodsDialog}">
+                    <p:ajax event="dialogReturn" listener="#{adminTableController.updateTable('goods')}" update="admin_table messages"/>
                 </p:commandButton>
                 <p:commandButton styleClass="table_button" value="#{msg.add_group}" icon="ui-icon-plusthick"
-                                 actionListener="#{tableController.addGroupDialog}">
-                    <p:ajax event="dialogReturn" listener="#{tableController.updateTable('group')}" update="admin_table messages"/>
+                                 actionListener="#{adminTableController.addGroupDialog}">
+                    <p:ajax event="dialogReturn" listener="#{adminTableController.updateTable('group')}" update="admin_table messages"/>
                 </p:commandButton>
                 <p:commandButton styleClass="table_button" value="#{msg.edit}" update="messages" icon="ui-icon-pencil"
-                                 actionListener="#{tableController.editDialog}">
-                    <p:ajax event="dialogReturn" listener="#{tableController.updateTable('update')}" update="admin_table messages"/>
+                                 actionListener="#{adminTableController.editDialog}">
+                    <p:ajax event="dialogReturn" listener="#{adminTableController.updateTable('update')}" update="admin_table messages"/>
                 </p:commandButton>
                 <p:commandButton styleClass="table_button" value="#{msg.change_Amount}" update="messages" icon="ui-icon-transfer-e-w"
-                                 actionListener="#{tableController.amountDialog}">
-                    <p:ajax event="dialogReturn" listener="#{tableController.updateTable('update')}" update="admin_table messages"/>
+                                 actionListener="#{adminTableController.amountDialog}">
+                    <p:ajax event="dialogReturn" listener="#{adminTableController.updateTable('update')}" update="admin_table messages"/>
                 </p:commandButton>
                 <h:form>
                     <p:commandButton styleClass="table_button" value="#{msg.delete}" icon="ui-icon-trash"
-                                     actionListener="#{tableController.deleteItem}" update="@([id$=messages]) @([id$=admin_table])"
-                                     action="#{tableController.updateTable('')}" >
+                                     actionListener="#{adminTableController.deleteItem}" update="@([id$=messages]) @([id$=admin_table])"
+                                     action="#{adminTableController.updateTable('')}" >
                         <p:confirm message="#{msg.delete_item}" header="#{msg.confirmation}" icon="ui-icon-alert"/>
 
                     </p:commandButton>

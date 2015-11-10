@@ -39,12 +39,12 @@ public class ControllerLogger {
         logger.info("******");
     }
 
-    @Before("execution(* fishingshop.controller.TableController..*(..))")
+    @Before("execution(* fishingshop.controller.AdminTableController..*(..))")
     public void logBeforeTableController(JoinPoint joinPoint) {
         logger.info("Start : " + joinPoint.getSignature().getName());
     }
 
-    @After("execution(* fishingshop.controller.TableController..*(..))")
+    @After("execution(* fishingshop.controller.AdminTableController..*(..))")
     public void logAfterTableController(JoinPoint joinPoint) {
         logger.info("End : " + joinPoint.getSignature().getName());
         logger.info("******");

@@ -1,0 +1,113 @@
+
+#goods_content .ui-datagrid-content .ui-widget-content .ui-grid .ui-grid-responsive{
+    background-color: #ffffff;
+    text-align:center;
+}
+
+.goods-panel{
+    background-color: #ffffff;
+    text-align:center;
+}
+
+.cart-button {
+    background-color: rgb(212,75,56) ;
+    text-decoration: none;
+    padding: 8px 12px 8px 12px;
+    border: 1px solid #dddddd;
+    margin-left: 6px;
+}
+
+.cart-button:hover {
+    background: rgb(232,95,76);
+}
+
+.cart-button:active {
+    background: rgb(152,15,0);
+}
+
+
+#goods_content .ui-widget-content{
+    background-color: #ffffff;
+}
+
+.content-background{
+    padding: 5px 15px;
+    background-color: #ffffff;
+    border: 1px solid #dddddd;
+    text-align: center;
+}
+
+#minMax input  {
+    width: 25px;
+}
+
+.agree-button {
+
+    background-color: #5cb85c ;
+    text-decoration: none;
+    padding: 8px 12px 8px 12px;
+    border: 1px solid #dddddd;
+}
+
+.agree:hover {
+    background: #4cae4c;
+}
+
+.agree:active {
+    background: #4a974a;
+}
+
+
+.footer_buttons{
+    list-style: none;
+    color: white;
+    font-weight:bold;
+    padding-left: 0;
+}
+
+.footer_buttons li{
+
+    display: inline;
+    padding: 3px;
+}
+
+.footer-button{
+
+    background-color: #ffffff;
+    text-decoration: none;
+    color: #535353;
+    font-weight: bold;
+    padding: 10px 14px 10px 14px;
+    border: 1px solid #dddddd;
+}
+
+.footer_buttons li :hover{
+    background: #DADFE7;
+}
+
+.footer_buttons li :active{
+    background: #b4b9c1;
+}
+
+.footer{
+    padding: 10px 0 10px 0;
+    text-align: center;
+    background-color: #ffffff;
+    border: 1px solid #dddddd;
+}
+
+#address_grid {
+    text-align: center
+}
+
+.col{
+    padding: 10px;
+}
+
+.col input{
+    border-radius: 0;
+}
+
+.content-background table{
+    text-align: center;
+}

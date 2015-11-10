@@ -41,12 +41,19 @@ public class GoodsDaoImpl implements GoodsDao{
 
     @Override
     public List<Goods> getGoodsByGroup(Integer id) {
-       //return (List<Goods>)sessionFactory.getCurrentSession().createSQLQuery("SELECT FROM goods WHERE GROUP_ID=:id").setParameter("id", id);
+       //return sessionFactory.getCurrentSession().createSQLQuery("SELECT FROM goods WHERE GROUP_ID=:id").setParameter("id", id).list();
         return sessionFactory.getCurrentSession().createQuery("from Goods where id=:id").setParameter("id", id).list();
     }
 
     @Override
     public void changeGoodsAmount(Goods goods) {
         sessionFactory.getCurrentSession().update(goods);
+    }
+
+    @Override
+    public List<Goods> getGoodsViaMainSearch(String searchStr) {
+        return sessionFactory.getCurrentSession()
+                .createQuery("from Goods where name like :searchStr or manufacturer like :searchStr " +
+                        "or description like :searchStr").setParameter("searchStr", "%"+searchStr+"%").list();
     }
 }

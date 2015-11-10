@@ -43,4 +43,79 @@
             <redirect/>
         </navigation-case>
     </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/pages/templates/upper-menu.xhtml</from-view-id>
+        <navigation-case>
+            <to-view-id>/index.xhtml</to-view-id>
+            <from-outcome>index</from-outcome>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/pages/templates/upper-menu.xhtml</from-view-id>
+        <navigation-case>
+            <to-view-id>/news.xhtml</to-view-id>
+            <from-outcome>news</from-outcome>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/pages/templates/upper-menu.xhtml</from-view-id>
+        <navigation-case>
+            <to-view-id>/delivery.xhtml</to-view-id>
+            <from-outcome>delivery</from-outcome>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/pages/templates/upper-menu.xhtml</from-view-id>
+        <navigation-case>
+            <to-view-id>/payment.xhtml</to-view-id>
+            <from-outcome>payment</from-outcome>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/pages/templates/upper-menu.xhtml</from-view-id>
+        <navigation-case>
+            <to-view-id>/contacts.xhtml</to-view-id>
+            <from-outcome>contacts</from-outcome>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/pages/templates/header.xhtml</from-view-id>
+        <navigation-case>
+            <to-view-id>/cart.xhtml</to-view-id>
+            <from-outcome>cart</from-outcome>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/cart.xhtml</from-view-id>
+        <navigation-case>
+            <to-view-id>/address.xhtml</to-view-id>
+            <from-outcome>address</from-outcome>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/address.xhtml</from-view-id>
+        <navigation-case>
+            <to-view-id>/delivery-payment.xhtml</to-view-id>
+            <from-outcome>delpay</from-outcome>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/delivery-payment.xhtml</from-view-id>
+        <navigation-case>
+            <to-view-id>/approveOrder.xhtml</to-view-id>
+            <from-outcome>approve</from-outcome>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
 </faces-config>

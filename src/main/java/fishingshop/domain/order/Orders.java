@@ -1,5 +1,6 @@
 package fishingshop.domain.order;
 
+import fishingshop.domain.customer.Customer;
 import fishingshop.domain.goods.Goods;
 
 import javax.persistence.*;
@@ -18,7 +19,7 @@ public class Orders implements Serializable {
     @Column
     private Integer id;
 
-    @Column
+    @Column(name = "ORDER_ID")
     private Integer orderId;
 
     @Column
@@ -27,12 +28,30 @@ public class Orders implements Serializable {
     @Column
     private Integer cost;
 
-    @Column
+    @Column(name = "ORDER_DATE")
     private Date orderDate;
+
+    @Column
+    private String note;
+
+    @Column
+    private  String status;
 
     @ManyToOne
     @JoinColumn(name = "GOODS_ID")
     private Goods goods;
+
+    @ManyToOne
+    @JoinColumn(name = "CUSTOMER_ID")
+    private Customer customer;
+
+    @ManyToOne
+    @JoinColumn(name = "PAYMENT_ID")
+    private Payment payment;
+
+    @ManyToOne
+    @JoinColumn(name = "DELIVERY_ID")
+    private Delivery delivery;
 
     public Orders(){
 
@@ -86,4 +105,43 @@ public class Orders implements Serializable {
         this.goods = goods;
     }
 
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Payment getPayment() {
+        return payment;
+    }
+
+    public void setPayment(Payment payment) {
+        this.payment = payment;
+    }
+
+    public Delivery getDelivery() {
+        return delivery;
+    }
+
+    public void setDelivery(Delivery delivery) {
+        this.delivery = delivery;
+    }
 }

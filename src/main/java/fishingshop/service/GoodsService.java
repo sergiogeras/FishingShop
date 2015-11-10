@@ -13,4 +13,5 @@ public interface GoodsService {
     List<Goods> getAllGoods();
     List<Goods> getGoodsByGroup(Integer id);
     void changeGoodsAmount(Goods goods);
+    List<Goods> getGoodsViaMainSearch(String searchStr);
 }

@@ -1,6 +1,7 @@
 
 .header{
     background-color: white;
+    border: 1px solid #dddddd;
     border-radius: 10px 0 10px 0;
     width: inherit;
     height: 179px;
@@ -103,25 +104,44 @@
 }
 
 .header_buttons{
-
-}
-
-.header_buttons div{
-    width: 125px;
-    height: 20px;
-    background-color:#1A87ED;
-    padding: 10px;
-    font-weight:bold;
-    float: left;
-    margin-left: 20px;
-    margin-top: 10px;
-    border-radius: 10px 0 10px 0;
-    text-align: center;
-
-}
-.header_buttons div a{
+    text-align: left;
+    list-style: none;
     color: white;
-    font-size: 16px;
-    text-decoration: none;
+    font-weight:bold;
+    padding-left: 0;
+    /*padding-right: 8px;*/
+
 }
+
+.header_buttons li{
+
+    display: inline;
+    /*margin-right: 5px;*/
+    padding: 3px;
+}
+
+.li-button{
+
+    background-color: #ffffff;
+    text-decoration: none;
+    color: #535353;
+    font-weight: bold;
+    padding: 10px 14px 10px 14px;
+    border: 1px solid #dddddd;
+}
+
+.header_buttons li :hover{
+    background: #DADFE7;
+}
+
+.header_buttons li :active{
+    background: #b4b9c1;
+}
+
+
+
+.upper-menu{
+    padding-left: 0;
+}
+
 

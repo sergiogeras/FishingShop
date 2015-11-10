@@ -7,10 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.ResourceBundle;
 
 /**
  * Cart of goods
@@ -24,6 +27,7 @@ public class Cart {
     private List<OrderItem> orderItems;
     private int amount;
     private Goods goods;
+    private ResourceBundle bundle;
 
     @Autowired
     OrderService orderService;
@@ -37,13 +41,36 @@ public class Cart {
         this.orderItems=orderItems;
         this.amount = amount;
         this.goods = goods;
+
+    }
+
+    @PostConstruct
+    public void init(){
+        bundle= ResourceBundle.getBundle("locales.messages", FacesContext.getCurrentInstance().getViewRoot().getLocale());
     }
 
     public void addItem(Goods goods, int amount, int orderId){
         if(goods.getGoodsAmount()>=amount){     //Are there enough goods in the store?
             OrderItem orderItem=new OrderItem(goods, amount, orderId);
-            orderItems.add(orderItem);
+
+            boolean exists=false; //Checking for duplicates
+            for(OrderItem item: orderItems ){
+                if(item.getGoods().getId()==goods.getId()){
+                    item.setAmount(item.getAmount()+amount);
+                    exists=true;
+                    break;
+                }
+            }
+
+            if(orderItems.isEmpty() || !exists) {
+                orderItems.add(orderItem);
+
+            }
+            exists=false;
             FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("items", orderItems);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(bundle.getString("added_to_the_cart")));
+        }   else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(bundle.getString("empty_stock")));
         }
 
     }
@@ -84,6 +111,7 @@ public class Cart {
     public void saveOrderToDB(){
         orderService.addOrder(orderItems);
     }
+
 
     public List<OrderItem> getOrderItems() {
         return orderItems;

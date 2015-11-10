@@ -46,7 +46,7 @@ public class GoodsController implements Serializable{
         FacesContext context=FacesContext.getCurrentInstance();
         goods.setType("goods");
         goods.setGroups((Groups) context.getExternalContext().getSessionMap().get("group"));
-
+        goods.setGoodsAmount(0);
         byte[] image=uploadImage.getImage();
         if(image!=null){
             goods.setImage(image);

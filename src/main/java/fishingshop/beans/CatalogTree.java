@@ -1,8 +1,6 @@
 package fishingshop.beans;
 
-import fishingshop.domain.goods.Goods;
 import fishingshop.domain.goods.Groups;
-import fishingshop.service.GoodsService;
 import fishingshop.service.GroupsService;
 import org.primefaces.model.DefaultTreeNode;
 import org.primefaces.model.TreeNode;
@@ -10,15 +8,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+/**
+ * Class for building tree of groups
+ */
+
 @Component
 @Scope("session")
-public class AdminTable {
+public class CatalogTree {
 
     @Autowired
     private GroupsService groupsService;
 
-    @Autowired
-    private GoodsService goodsService;
 
     private TreeNode root;
 
@@ -28,14 +28,6 @@ public class AdminTable {
             if(groups.getParentId()==null){
                 TreeNode child=new DefaultTreeNode(groups,root);
                 createChildrenNodes(child, groups);
-                for(Goods goods: groups.getGoodsList()){
-                    TreeNode childGoods= new DefaultTreeNode(goods, child);
-                }
-            }
-        }
-        for(Goods goods: goodsService.getAllGoods()){
-            if(goods.getGroups()==null){
-                TreeNode child=new DefaultTreeNode(goods,root);
             }
         }
         return root;
@@ -44,12 +36,9 @@ public class AdminTable {
     public TreeNode createChildrenNodes(TreeNode root, Groups groups){
         for(Groups gr: groups.getChildrenList()){
             TreeNode child=new DefaultTreeNode(gr, root);
-            for(Goods goods: gr.getGoodsList()){
-                TreeNode childGoods= new DefaultTreeNode(goods, child);
-            }
             createChildrenNodes(child, gr);
         }
-       return root;
+        return root;
     }
 
     public TreeNode getRoot() {

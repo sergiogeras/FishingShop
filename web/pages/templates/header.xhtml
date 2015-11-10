@@ -23,6 +23,7 @@
 
 <h:body>
     <ui:composition>
+
         <div class="shop_name">
             <h1>поплавок</h1>
             <div class="line">
@@ -40,8 +41,8 @@
                 <li style="margin-left: 15px">
                     <p:inputText styleClass="search_string"/>
                 </li>
-                <li style="margin-right: 25px">
-                    <p:button value="#{msg.search}" styleClass="search_button"/>
+                <li style="margin-right: 25px" class="search_button">
+                    <p:link value="#{msg.search}" outcome="cart"/>
                 </li>
                 <li >
                     <h:link value="#{msg.log_in}" outcome="admin"/>
@@ -59,14 +60,15 @@
             <p style="font-size: 20px">#{msg.phone}</p>
         </div>
 
-        <div class="user_block">
+        <div id="div-cart" class="user_block">
+            <h:form id="cart">
+                <div class="cart">
+                    <h4>#{msg.cart}</h4>
+                    <p >#{msg.cart_goods} #{shopManager.totalAmount}</p>
+                    <p >#{msg.cart_price} #{shopManager.totalSum}</p>
+                </div>
+            </h:form>
 
-
-            <div class="cart">
-                <h4>#{msg.cart}</h4>
-                <p>#{msg.cart_goods} #{shopManager.totalAmount}</p>
-                <p>#{msg.cart_price} #{shopManager.totalSum}</p>
-            </div>
         </div>
 
     <!--<div style="clear: both"></div>-->

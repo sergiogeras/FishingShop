@@ -19,38 +19,20 @@
     <title>Simple JSF Facelets page</title>
     <h:outputScript name="jquery/jquery.js" library="primefaces"/>
     <h:outputStylesheet name="header-style.css" library="css"/>
+    <h:outputStylesheet name="left-menu-style.css" library="css"/>
+
 </h:head>
 
 <h:body>
     <ui:composition>
-        <h:form>
-            <p:dataGrid var="goods" value="#{goodsController.goodsList}" columns="3" layout="grid"
-                        rows="12" paginator="true" id="cars"
-                        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                        rowsPerPageTemplate="6,12,16">
 
-                <f:facet name="header">
-                    Товары
-                </f:facet>
 
-                <p:panel header="#{goods.name}" style="text-align:center">
-                    <h:panelGrid columns="1" style="width:100%">
-                        <p:graphicImage cache="false" value="#{showImage.image}" alt="#{msg.image_not_found}" style="width: 200px">
-                            <f:param name="goodsId" value="#{goods.id}"/>
-                        </p:graphicImage>
+       Content
 
-                        <h:outputText value="#{goods.price}" />
-
-                        <!--<p:commandLink update=":form:carDetail" oncomplete="PF('carDialog').show()" title="View Detail">-->
-                            <!--<h:outputText styleClass="ui-icon ui-icon-search" style="margin:0 auto;" />-->
-                            <!--<f:setPropertyActionListener value="#{car}" target="#{dataGridView.selectedCar}" />-->
-                        <!--</p:commandLink>-->
-                    </h:panelGrid>
-                </p:panel>
-
-            </p:dataGrid>
-        </h:form>
     </ui:composition>
+
+
+
 </h:body>
 
 </html>

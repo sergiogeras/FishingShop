@@ -1,0 +1,51 @@
+
+
+.login-form{
+    background-color: white;
+    border: 1px solid #dddddd;
+    /*border-radius: 6px;*/
+    padding: 5px 0 5px 5px ;
+
+}
+
+.catalog_header{
+    color: brown;
+    text-align: center;
+    margin-bottom: 2px;
+}
+
+.tree-catalog{
+    background-color: #ffffff;
+    color: #535353;
+    border-radius: 0;
+    font-weight: bold;
+
+}
+
+
+
+.enter-button{
+    background-color: #ffffff;
+    text-decoration: none;
+    color: #535353;
+    font-weight: bold;
+    padding: 6px 12px 6px 12px;
+    border: 1px solid #dddddd;
+    margin: 5px 0 5px 0;
+    float: right;
+}
+
+.enter-button a:hover{
+    background: #DADFE7;
+}
+
+.enter-button a:active{
+    background: #b4b9c1;
+}
+
+.catalog-form ul{
+    background-color: #ffffff;
+}
+
+
+

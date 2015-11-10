@@ -8,7 +8,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "goods")
-public class Goods implements Serializable {
+public class Goods implements Serializable, Comparable {
 
     @Id
     @Column(name = "ID")
@@ -33,7 +33,7 @@ public class Goods implements Serializable {
     @Column
     private String type;
 
-    @Column
+    @Column(name = "GOODS_AMOUNT")
     private Integer goodsAmount;    // Remains goods in the store
 
     @Column
@@ -136,5 +136,10 @@ public class Goods implements Serializable {
 
     public void setArticle(String article) {
         this.article = article;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        return name.compareTo(((Goods)o).name);
     }
 }
