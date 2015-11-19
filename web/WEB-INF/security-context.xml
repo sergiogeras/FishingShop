@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:sec="http://www.springframework.org/schema/security"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/security
+       http://www.springframework.org/schema/security/spring-security.xsd">
+
+
+       <sec:http  use-expressions="true">
+
+
+              <!--<sec:intercept-url pattern="/pages/*" access="isAuthenticated()"/>-->
+              <!--<sec:intercept-url pattern="/javax.faces.resource/**" access="permitAll"/>-->
+              <sec:form-login login-processing-url="/j_spring_security_check" default-target-url="/pages/manager.xhtml"
+                                   login-page="/login.xhtml"
+                      username-parameter="user" password-parameter="pass"/>
+              <sec:logout invalidate-session="true" logout-url="/j_spring_security_logout" logout-success-url="/login.xhtml"/>
+       </sec:http>
+
+       <sec:authentication-manager alias="authenticationManager">
+              <sec:authentication-provider>
+                     <sec:password-encoder hash="md5"/>
+                     <sec:user-service>
+                            <sec:user name="admin" password="21232f297a57a5a743894a0e4a801fc3" authorities="Admin, User"/> <!--pass: admin-->
+                            <sec:user name="user" password="ee11cbb19052e40b07aac0ca060c23ee" authorities="User"/> <!--pass: user-->
+                     </sec:user-service>
+                     <!--<sec:jdbc-user-service data-source-ref="dataSource"/>-->
+              </sec:authentication-provider>
+
+       </sec:authentication-manager>
+
+
+</beans>

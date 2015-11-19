@@ -59,41 +59,35 @@
 
 
 .footer_buttons{
-    list-style: none;
-    color: white;
-    font-weight:bold;
-    padding-left: 0;
+    font-weight: bold;
+
 }
 
 .footer_buttons li{
-
+    margin-right: 15px;
+    text-decoration: none;
     display: inline;
-    padding: 3px;
 }
 
-.footer-button{
-
-    background-color: #ffffff;
+.footer_buttons li a{
     text-decoration: none;
     color: #535353;
-    font-weight: bold;
-    padding: 10px 14px 10px 14px;
-    border: 1px solid #dddddd;
 }
 
-.footer_buttons li :hover{
-    background: #DADFE7;
+
+.footer_buttons li a:hover{
+    text-decoration: underline;
 }
 
-.footer_buttons li :active{
-    background: #b4b9c1;
-}
 
 .footer{
+    margin: 10px 0 5px 0;
+    border-radius: 0 0 10px 10px;
     padding: 10px 0 10px 0;
     text-align: center;
     background-color: #ffffff;
     border: 1px solid #dddddd;
+    display: block;
 }
 
 #address_grid {

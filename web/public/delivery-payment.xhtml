@@ -25,25 +25,22 @@
 </h:head>
 
 <h:body>
-    <ui:composition template="pages/templates/shop-template.xhtml">
+    <ui:composition template="/public/templates/shop-template.xhtml">
         <ui:define name="content">
             <h:form id="form" styleClass="content-background">
-                <h3>Выберите способ доставки:</h3>
-                <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5" >
 
-                    <p:selectOneRadio id="delivery" value="#{shopManager.delivery}"  layout="pageDirection" columns="3">
+                <h3>Выберите способ доставки:</h3>
+                    <p:selectOneRadio id="delivery" value="#{shopManager.deliveryNumber}" layout="pageDirection" columns="3">
                         <f:selectItems value="#{shopManager.deliveryList}" var="d" itemLabel="#{d.name}" itemValue="#{d.id}"/>
                     </p:selectOneRadio>
-                </h:panelGrid>
-                <h3>Способ оплаты:</h3>
-                <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5" >
 
-                    <p:selectOneRadio id="payment" value="#{shopManager.payment}"  layout="pageDirection" columns="3">
+                <h3>Способ оплаты:</h3>
+                    <p:selectOneRadio id="payment" value="#{shopManager.paymentNumber}" layout="pageDirection" columns="3">
                         <f:selectItems value="#{shopManager.paymentList}" var="p" itemLabel="#{p.name}" itemValue="#{p.id}"/>
                     </p:selectOneRadio>
-                </h:panelGrid>
-                <p:commandLink id="next-button" action="approve" style="color:#fff; margin-top: 10px" styleClass="agree-button" value="Завершить оформление"
-                               actionListener="#{shopManager.saveDeliveryPaymentData}" />
+
+                <p:commandLink id="next-button" action="approve" style="color:#fff; margin-top: 10px" styleClass="agree-button"
+                               value="Завершить оформление" actionListener="#{shopManager.saveDeliveryPaymentData}" />
             </h:form>
             <h:form id="goods"/>
         </ui:define>

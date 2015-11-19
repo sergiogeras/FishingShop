@@ -10,6 +10,7 @@ import fishingshop.domain.order.OrderItem;
 import fishingshop.domain.order.Payment;
 import fishingshop.service.GoodsService;
 import fishingshop.service.OrderService;
+import fishingshop.service.StatusService;
 import fishingshop.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,12 +25,16 @@ import java.util.List;
 @Transactional
 public class OrderServiceImpl implements OrderService {
 
-    @Autowired
-    OrderDao orderDao;
+    private int orderId;
 
     @Autowired
-    GoodsService goodsService;
+    private OrderDao orderDao;
 
+    @Autowired
+    private GoodsService goodsService;
+
+    @Autowired
+    private StatusService statusService;
 
     @Override
     public void addOrder(List<OrderItem> orderItems){
@@ -47,7 +52,7 @@ public class OrderServiceImpl implements OrderService {
             orders.setCustomer((Customer)context.getExternalContext().getSessionMap().get("customer"));
             orders.setDelivery((Delivery)context.getExternalContext().getSessionMap().get("delivery"));
             orders.setPayment((Payment)context.getExternalContext().getSessionMap().get("payment"));
-
+            orders.setStatus(statusService.getStatusById(1));   // TODO: write logic of choosing first status
             //Changing count of goods
 
             Goods goods=goodsService.getGoodsById(item.getGoods().getId());
@@ -126,17 +131,18 @@ public class OrderServiceImpl implements OrderService {
         return orderItems;
     }
 
-    /**
-    Generate orderId by getting previous id from Orders
-     */
+    /** Generate orderId by getting previous id from Orders */
     private int generateOrderId(){
         ArrayList<Orders> list= (ArrayList<Orders>) orderDao.getAllOrders();
         if(!list.isEmpty()){
-            return  list.get((list.size()-1)).getOrderId()+1;
+            return  orderId = list.get((list.size()-1)).getOrderId()+1;
         } else {
-            return 1;
+            return orderId = 1;
         }
 
     }
 
+    public int getOrderId() {
+        return orderId;
+    }
 }

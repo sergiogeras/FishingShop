@@ -25,10 +25,10 @@
     <ui:composition>
             <ul class="header_buttons">
                 <h:form id="search">
+                    <p:defaultCommand target="search-button"/>
                 <li>
-                    <p:link outcome="index"  styleClass="li-button">
-                        <h:outputText value="#{msg.catalog}" />
-                    </p:link>
+                    <p:commandLink action="index" styleClass="li-button" update=":goods"
+                                   value="#{msg.catalog}" actionListener="#{catalogController.updateGoodsList}" />
                 </li>
                 <li>
                     <p:link outcome="news" styleClass="li-button">
@@ -55,7 +55,7 @@
                         <p:inputText id="search_field"  style="border-radius: 0; width: 350px; margin-left: 40px" value="#{catalogController.searchStr}"/>
                     </li>
                     <li>
-                        <p:commandLink  actionListener="#{catalogController.mainSearch}" update=":goods" styleClass="li-button" >
+                        <p:commandLink id="search-button" actionListener="#{catalogController.mainSearch}" update=":goods" styleClass="li-button" >
                             <h:outputText value="#{msg.search}" />
                         </p:commandLink>
                     </li>

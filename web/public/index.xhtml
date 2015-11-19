@@ -18,7 +18,7 @@
    </h:head>
    <h:body>
 
-        <ui:composition template="pages/templates/shop-template.xhtml">
+        <ui:composition template="templates/shop-template.xhtml">
 
             <ui:define name="left-menu">
 
@@ -82,14 +82,21 @@
 
                             <p:row>
                                 <p:column colspan="2">
-                                    <p:graphicImage cache="false" value="#{showImage.image}" alt="#{msg.image_not_found}" style="width: 170px">
-                                        <f:param name="goodsId" value="#{goods.id}"/>
-                                    </p:graphicImage>
+                                    <p:commandLink update=":goodsDetail" oncomplete="PF('goodsDialog').show()">
+                                        <p:graphicImage cache="false" value="#{showImage.image}" alt="#{msg.image_not_found}" style="width: 170px">
+                                            <f:param name="goodsId" value="#{goods.id}"/>
+                                        </p:graphicImage>
+                                        <f:setPropertyActionListener value="#{goods}" target="#{catalogController.goods}" />
+                                    </p:commandLink>
+
                                 </p:column>
                             </p:row>
                             <p:row >
                                 <p:column>
-                                    <h:outputText value="#{goods.name}" style="color:brown; font-weight: bold;"/>
+                                    <p:commandLink update=":goodsDetail" oncomplete="PF('goodsDialog').show()">
+                                        <h:outputText value="#{goods.name}" style="color:brown; font-weight: bold;"/>
+                                        <f:setPropertyActionListener value="#{goods}" target="#{catalogController.goods}" />
+                                    </p:commandLink>
                                 </p:column>
                             </p:row>
                             <p:row >
@@ -110,7 +117,7 @@
                             <p:row>
                                 <h:form style="padding-top: 10px">
                                     <p:column>
-                                        <p:spinner id="minMax" value="#{shopManager.amount}"  min="1" max="100" size="2" style="margin-right: 5px;"/>
+                                        <p:spinner styleClass="minMax" value="#{shopManager.amount}"  min="1" max="100" size="2" style="margin-right: 5px;"/>
                                     </p:column>
                                     <p:column >
                                         <p:commandLink style="color:#fff" styleClass="cart-button" value="В корзину"
@@ -119,14 +126,48 @@
                                     </p:column>
                                 </h:form>
                             </p:row>
-
-                            <!--<p:commandLink update=":form:carDetail" oncomplete="PF('carDialog').show()" title="View Detail">-->
-                            <!--<h:outputText styleClass="ui-icon ui-icon-search" style="margin:0 auto;" />-->
-                            <!--<f:setPropertyActionListener value="#{car}" target="#{dataGridView.selectedCar}" />-->
-                            <!--</p:commandLink>-->
                         </h:panelGrid>
                     </p:panel>
                 </p:dataGrid>
+
+                <p:dialog id="goodsDetail"  header="#{catalogController.goods.name}" widgetVar="goodsDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                    <p:outputPanel style="text-align:center; max-width: 550px">
+                        <p:panelGrid rendered="#{not empty catalogController.goods}" columnClasses="columnsDialog">
+                            <p:row>
+                                <p:column rowspan="4">
+                                    <p:graphicImage cache="false" value="#{showImage.image}" alt="#{msg.image_not_found}" style="width: 250px">
+                                        <f:param name="goodsId" value="#{catalogController.goods.id}"/>
+                                    </p:graphicImage>
+                                </p:column>
+                                <p:column>
+                                    <h:outputText style="color: red; font-weight: bold; font-size: 16px;" value="#{catalogController.goods.price} руб." />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <h:outputText value="Артикул: #{catalogController.goods.article}" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <h:outputText value="Производитель: #{catalogController.goods.manufacturer}" style="text-wrap: normal"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <p:spinner styleClass="minMax" value="#{shopManager.amount}"  min="1" max="100" size="2" style="margin-right: 5px;"/>
+                                    <p:commandLink style="color:#fff" styleClass="cart-button" value="В корзину"
+                                                   actionListener="#{shopManager.addGoodsToTheCart(catalogController.goods)}"
+                                                   update=":cart :messages"/>
+                                </p:column>
+                            </p:row>
+
+                        </p:panelGrid>
+                        <hr style="background:#dddddd;  height: 1px; border: none"/>
+                        <h:outputText value="#{catalogController.goods.description}" style="text-wrap: normal; text-align: left; margin: 10px;"/>
+                    </p:outputPanel>
+                </p:dialog>
+
             </ui:define>
         </ui:composition>
 

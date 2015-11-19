@@ -25,13 +25,16 @@ import java.util.TreeSet;
 public class CatalogController implements Serializable {
 
     private Groups groups;
+    private Goods goods;
     private TreeNode rootNode;
+    private List<Goods> startGoodsList;
     private List<Goods> goodsList;
     public TreeNode root;
     public TreeNode selectedNode;
     private String searchStr;
     private List<Goods> searchResult;
     private boolean searchMode=false;
+
 
     @Autowired
     private CatalogTree catalogTree;
@@ -48,18 +51,18 @@ public class CatalogController implements Serializable {
         //TODO: List depends on goods rating
         List<Goods> list=goodsService.getAllGoods();
         for(int i=0; i<9;i++ ){
-            Goods goods=list.get((int)Math.round(Math.random() * goodsList.size()));
+            goods=list.get((int)Math.round(Math.random() * goodsList.size()));
             if(goodsList.contains(goods)){
                 i--;
                 continue;
             }
             goodsList.add(goods);
         }
+        startGoodsList=goodsList;
     }
 
-    /**
-     * Shows content of current group
-     */
+
+    /** Shows content of current group */
     public void chooseCategory(){
         searchMode=false;
         searchStr="";
@@ -69,9 +72,7 @@ public class CatalogController implements Serializable {
 
     }
 
-    /**
-     * Build group`s tree with subgroups
-     */
+    /** Build group`s tree with subgroups */
     private List<Goods> getGoodsByCategory(Groups groups){
         goodsList.addAll(groups.getGoodsList());
         for (Groups gr: groups.getChildrenList()) {
@@ -81,9 +82,7 @@ public class CatalogController implements Serializable {
     }
 
 
-    /**
-     * Search %searchStr% by name, manufacturer and description
-     */
+    /** Search %searchStr% by name, manufacturer and description */
     public void mainSearch(){
         if(!searchStr.equals("")){
             searchResult=goodsService.getGoodsViaMainSearch(searchStr);
@@ -93,7 +92,6 @@ public class CatalogController implements Serializable {
             searchMode=true;
         }
     }
-
 
     public TreeNode getSelectedNode() {
         return selectedNode;
@@ -151,5 +149,16 @@ public class CatalogController implements Serializable {
         this.searchMode = searchMode;
     }
 
+    public Goods getGoods() {
+        return goods;
+    }
 
+    public void setGoods(Goods goods) {
+        this.goods = goods;
+    }
+
+    public void updateGoodsList() {
+        searchMode=false;
+        goodsList=startGoodsList;
+    }
 }

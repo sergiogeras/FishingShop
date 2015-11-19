@@ -3,7 +3,7 @@
   Created by IntelliJ IDEA.
   User: Сергей
   Date: 07.11.2015
-  Time: 13:47
+  Time: 13:38
 -->
 <!DOCTYPE html
         PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
@@ -11,7 +11,6 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <h:head>
@@ -24,14 +23,14 @@
 </h:head>
 
 <h:body>
-    <ui:composition template="pages/templates/shop-template.xhtml">
-    <ui:define name="content">
-        <div class="content-background">
-            Контакты
-            <p:gmap center="41.381542, 2.122893" zoom="15" type="HYBRID" style="width:100%;height:400px" />
-        </div>
-        <h:form id="goods"/>
-    </ui:define>
+    <ui:composition template="/public/templates/shop-template.xhtml">
+
+        <ui:define name="content">
+            <div class="content-background">
+                Новости
+            </div>
+            <h:form id="goods"/>
+        </ui:define>
     </ui:composition>
 </h:body>
 

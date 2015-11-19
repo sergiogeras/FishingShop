@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Created by IntelliJ IDEA.
+  User: Сергей
+  Date: 04.08.2015
+  Time: 21:59
+-->
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head>
+    <title>Поплавок</title>
+    <h:outputScript name="jquery/jquery.js" library="primefaces"/>
+    <h:outputStylesheet name="header-style.css" library="css"/>
+    <h:outputStylesheet name="common-style.css" library="css"/>
+</h:head>
+
+<h:body>
+    <ui:composition>
+
+        <div>
+            <h:graphicImage class="bobber_image" library="images" name="bobber.png"/>
+        </div>
+
+        <div class="name">
+            <p>Интернет-магазин рыболовных товаров</p>
+            <p class="shop_name">поплавок</p>
+            <p style="font-size: 18px">#{msg.phone}</p>
+         </div>
+
+        <div style="float: right">
+            <div class="header_panel">
+                <ul>
+                    <li >
+                        <h:link value="#{msg.log_in}" outcome="admin"/>
+                    </li>
+                    <li >
+                        <h:link value="#{msg.registration}" outcome="admin"/>
+                    </li>
+                    <!--<li class="flags">-->
+                        <!--<p:graphicImage library="images" name="rus.png" />-->
+                    <!--</li>-->
+                    <!--<li class="flags">-->
+                        <!--<h:graphicImage library="images" name="eng.png"/>-->
+                    <!--</li>-->
+                </ul>
+            </div>
+
+            <div id="div-cart" class="user_block">
+                <h:form id="cart">
+                    <table class="cart" style="border: 2px solid #dddddd; width: 230px;">
+                        <tr>
+                            <td colspan="2">
+                                <p:link value="#{msg.cart}" outcome="cart" style="color: brown;"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td rowspan="2">
+                                <p:link outcome="cart">
+                                    <h:graphicImage class="bobber_image" library="images" name="cart.png" style="width: 50px;"/>
+                                </p:link>
+                            </td>
+                            <td style="text-align: left">
+                                <p >#{msg.cart_goods} #{shopManager.totalAmount}</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: left">
+                                <p >#{msg.cart_price} #{shopManager.totalSum} руб.</p>
+                            </td>
+                        </tr>
+                    </table>
+
+                </h:form>
+            </div>
+        </div>
+
+
+
+
+
+
+    <!--<div style="clear: both"></div>-->
+    </ui:composition>
+</h:body>
+
+</html>

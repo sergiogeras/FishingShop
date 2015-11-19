@@ -28,94 +28,114 @@
 
 
     <navigation-rule>
-        <from-view-id>/pages/admin-console.xhtml</from-view-id>
+        <from-view-id>/private/admin-console.xhtml</from-view-id>
         <navigation-case>
-            <to-view-id>/index.xhtml</to-view-id>
+            <to-view-id>/public/index.xhtml</to-view-id>
             <from-outcome>exit</from-outcome>
             <redirect/>
         </navigation-case>
     </navigation-rule>
     <navigation-rule>
-        <from-view-id>/index.xhtml</from-view-id>
+        <from-view-id>/public/index.xhtml</from-view-id>
         <navigation-case>
-            <to-view-id>/pages/admin-console.xhtml</to-view-id>
+            <to-view-id>/private/admin-console.xhtml</to-view-id>
             <from-outcome>admin</from-outcome>
             <redirect/>
         </navigation-case>
     </navigation-rule>
 
     <navigation-rule>
-        <from-view-id>/pages/templates/upper-menu.xhtml</from-view-id>
+        <from-view-id>/public/templates/upper-menu.xhtml</from-view-id>
         <navigation-case>
-            <to-view-id>/index.xhtml</to-view-id>
+            <to-view-id>/public/index.xhtml</to-view-id>
             <from-outcome>index</from-outcome>
+            <redirect/>
         </navigation-case>
     </navigation-rule>
 
     <navigation-rule>
-        <from-view-id>/pages/templates/upper-menu.xhtml</from-view-id>
+        <from-view-id>/public/templates/upper-menu.xhtml</from-view-id>
         <navigation-case>
-            <to-view-id>/news.xhtml</to-view-id>
+            <to-view-id>/public/news.xhtml</to-view-id>
             <from-outcome>news</from-outcome>
         </navigation-case>
     </navigation-rule>
 
     <navigation-rule>
-        <from-view-id>/pages/templates/upper-menu.xhtml</from-view-id>
+        <from-view-id>/public/templates/upper-menu.xhtml</from-view-id>
         <navigation-case>
-            <to-view-id>/delivery.xhtml</to-view-id>
+            <to-view-id>/public/delivery.xhtml</to-view-id>
             <from-outcome>delivery</from-outcome>
         </navigation-case>
     </navigation-rule>
 
     <navigation-rule>
-        <from-view-id>/pages/templates/upper-menu.xhtml</from-view-id>
+        <from-view-id>/public/templates/upper-menu.xhtml</from-view-id>
         <navigation-case>
-            <to-view-id>/payment.xhtml</to-view-id>
+            <to-view-id>/public/payment.xhtml</to-view-id>
             <from-outcome>payment</from-outcome>
         </navigation-case>
     </navigation-rule>
 
     <navigation-rule>
-        <from-view-id>/pages/templates/upper-menu.xhtml</from-view-id>
+        <from-view-id>/public/templates/upper-menu.xhtml</from-view-id>
         <navigation-case>
-            <to-view-id>/contacts.xhtml</to-view-id>
+            <to-view-id>/public/contacts.xhtml</to-view-id>
             <from-outcome>contacts</from-outcome>
         </navigation-case>
     </navigation-rule>
 
     <navigation-rule>
-        <from-view-id>/pages/templates/header.xhtml</from-view-id>
+        <from-view-id>/public/templates/header.xhtml</from-view-id>
         <navigation-case>
-            <to-view-id>/cart.xhtml</to-view-id>
+            <to-view-id>/public/cart.xhtml</to-view-id>
             <from-outcome>cart</from-outcome>
         </navigation-case>
     </navigation-rule>
 
     <navigation-rule>
-        <from-view-id>/cart.xhtml</from-view-id>
+        <from-view-id>/public/cart.xhtml</from-view-id>
         <navigation-case>
-            <to-view-id>/address.xhtml</to-view-id>
+            <to-view-id>/public/address.xhtml</to-view-id>
             <from-outcome>address</from-outcome>
-            <redirect/>
+
         </navigation-case>
     </navigation-rule>
 
     <navigation-rule>
-        <from-view-id>/address.xhtml</from-view-id>
+        <from-view-id>/public/address.xhtml</from-view-id>
         <navigation-case>
-            <to-view-id>/delivery-payment.xhtml</to-view-id>
+            <to-view-id>/public/delivery-payment.xhtml</to-view-id>
             <from-outcome>delpay</from-outcome>
-            <redirect/>
+
         </navigation-case>
     </navigation-rule>
 
     <navigation-rule>
-        <from-view-id>/delivery-payment.xhtml</from-view-id>
+        <from-view-id>/public/delivery-payment.xhtml</from-view-id>
         <navigation-case>
-            <to-view-id>/approveOrder.xhtml</to-view-id>
+            <to-view-id>/public/approveOrder.xhtml</to-view-id>
             <from-outcome>approve</from-outcome>
+
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/public/approveOrder.xhtml</from-view-id>
+        <navigation-case>
+            <to-view-id>/public/final-step.xhtml</to-view-id>
+            <from-outcome>final</from-outcome>
+
+        </navigation-case>
+    </navigation-rule>
+
+    <navigation-rule>
+        <from-view-id>/public/final-step.xhtml</from-view-id>
+        <navigation-case>
+            <to-view-id>/public/index.xhtml</to-view-id>
+            <from-outcome>catalog</from-outcome>
             <redirect/>
         </navigation-case>
     </navigation-rule>
+
 </faces-config>

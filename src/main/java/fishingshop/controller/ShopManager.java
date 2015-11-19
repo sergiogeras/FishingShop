@@ -5,6 +5,7 @@ import fishingshop.domain.order.Delivery;
 import fishingshop.domain.order.OrderItem;
 import fishingshop.domain.order.Payment;
 import fishingshop.service.DeliveryService;
+import fishingshop.service.OrderService;
 import fishingshop.service.PaymentService;
 import fishingshop.service.shop.Cart;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,6 @@ import org.springframework.stereotype.Controller;
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -28,20 +28,26 @@ public class ShopManager implements Serializable {
 
     private Goods goods;
     private int amount;
-    private int orderId;
+    private int tempOrderId;
     private int goodsPositionId;
     private Map<Integer, Integer> positionsAndAmount;   //Map with index and amount of goods for editing order
     private int totalSum;
     private int totalAmount;
+    private int orderId;
     List<OrderItem> orderItems;
     private List<Delivery> deliveryList;
     private List<Payment> paymentList;
     private Payment payment;
     private Delivery delivery;
+    private int deliveryNumber;
+    private int paymentNumber;
 
 
     @Autowired
     private Cart cart;
+
+    @Autowired
+    private OrderService orderService;
 
     @Autowired
     private DeliveryService deliveryService;
@@ -51,12 +57,14 @@ public class ShopManager implements Serializable {
 
     @PostConstruct
     public void init(){
-        orderId=1;
+        tempOrderId =1;
         amount=1;
         totalSum=cart.getSumm();
         totalAmount=cart.getAmount();
         deliveryList=deliveryService.getAllDeliveries();
         paymentList=paymentService.getAllPayments();
+        delivery=deliveryList.get(0);
+        payment=paymentList.get(0);
 
     }
 
@@ -67,12 +75,12 @@ public class ShopManager implements Serializable {
 
     public void saveDeliveryPaymentData(){
         FacesContext context=FacesContext.getCurrentInstance();
-        context.getExternalContext().getSessionMap().put("delivery", delivery );
-        context.getExternalContext().getSessionMap().put("payment", payment );
+        context.getExternalContext().getSessionMap().put("delivery", deliveryList.get(deliveryNumber-1) );
+        context.getExternalContext().getSessionMap().put("payment", paymentList.get(paymentNumber-1) );
     }
 
     public void addGoodsToTheCart(Goods goods){
-        cart.addItem(goods, amount, orderId);
+        cart.addItem(goods, amount, tempOrderId);
         amount=1;
     }
 
@@ -116,12 +124,12 @@ public class ShopManager implements Serializable {
         this.goods = goods;
     }
 
-    public int getOrderId() {
-        return orderId;
+    public int getTempOrderId() {
+        return tempOrderId;
     }
 
-    public void setOrderId(int orderId) {
-        this.orderId = orderId;
+    public void setTempOrderId(int tempOrderId) {
+        this.tempOrderId = tempOrderId;
     }
 
     public int getGoodsPositionId() {
@@ -150,6 +158,10 @@ public class ShopManager implements Serializable {
 
     public int getTotalAmount() {
         return cart.getAmount();
+    }
+
+    public int getOrderId(){
+        return orderService.getOrderId();
     }
 
     public void setTotalAmount(int totalAmount) {
@@ -186,5 +198,21 @@ public class ShopManager implements Serializable {
 
     public void setDelivery(Delivery delivery) {
         this.delivery = delivery;
+    }
+
+    public int getDeliveryNumber() {
+        return deliveryNumber;
+    }
+
+    public void setDeliveryNumber(int deliveryNumber) {
+        this.deliveryNumber = deliveryNumber;
+    }
+
+    public int getPaymentNumber() {
+        return paymentNumber;
+    }
+
+    public void setPaymentNumber(int paymentNumber) {
+        this.paymentNumber = paymentNumber;
     }
 }

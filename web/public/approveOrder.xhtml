@@ -25,7 +25,7 @@
 </h:head>
 
 <h:body>
-    <ui:composition template="pages/templates/shop-template.xhtml">
+    <ui:composition template="/public/templates/shop-template.xhtml">
         <ui:define name="content">
             <h:form id="form" styleClass="content-background">
                 <p style="font-weight: bold;">Список покупок</p>
@@ -54,10 +54,10 @@
 
                 <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5" >
                     <h:outputLabel value="Доставка:"/>
-                    <h:outputText value="#{shopManager.delivery}"/>
+                    <h:outputText value="#{shopManager.delivery.name}"/>
 
                     <h:outputLabel value="Оплата:"/>
-                    <h:outputText value="#{shopManager.payment}"/>
+                    <h:outputText value="#{shopManager.payment.name}"/>
 
                     <h:outputLabel value="Клиент:"/>
                     <h:outputText value="#{userController.customer.name} #{userController.customer.surname}"/>
@@ -70,7 +70,7 @@
 
                     <h:outputLabel value="Адрес:"/>
                     <h:outputText value="#{userController.customer.zip}, #{userController.customer.city}
-                    , ул. #{userController.customer.street}, д. #{userController.customer.house}, кв. #{userController.customer.flat}<"/>
+                    , ул. #{userController.customer.street}, д. #{userController.customer.house}, кв. #{userController.customer.flat}"/>
 
                 </h:panelGrid>
 
@@ -79,7 +79,7 @@
                               value="Стоимость заказа: #{shopManager.totalSum}"/>
 
 
-                <p:commandLink id="next-button" action="approve" style="color:#fff; margin-top: 10px" styleClass="agree-button" value="Готово"
+                <p:commandLink id="next-button" action="final" style="color:#fff; margin-top: 10px" styleClass="agree-button" value="Подтвердить"
                                actionListener="#{shopManager.buyGoods}" />
 
 

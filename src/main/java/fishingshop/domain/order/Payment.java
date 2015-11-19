@@ -14,7 +14,7 @@ public class Payment implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column
+    @Column(name = "ID")
     private Integer id;
 
     @Column

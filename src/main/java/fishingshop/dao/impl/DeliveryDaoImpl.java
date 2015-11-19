@@ -14,7 +14,6 @@ import java.util.List;
  */
 
 @Repository
-@Transactional
 @SuppressWarnings("unchecked")
 public class DeliveryDaoImpl implements DeliveryDao {
 

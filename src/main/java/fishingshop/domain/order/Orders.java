@@ -16,7 +16,7 @@ public class Orders implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column
+    @Column(name = "ID")
     private Integer id;
 
     @Column(name = "ORDER_ID")
@@ -34,14 +34,11 @@ public class Orders implements Serializable {
     @Column
     private String note;
 
-    @Column
-    private  String status;
-
     @ManyToOne
     @JoinColumn(name = "GOODS_ID")
     private Goods goods;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "CUSTOMER_ID")
     private Customer customer;
 
@@ -52,6 +49,10 @@ public class Orders implements Serializable {
     @ManyToOne
     @JoinColumn(name = "DELIVERY_ID")
     private Delivery delivery;
+
+    @ManyToOne
+    @JoinColumn(name = "STATUS_ID")
+    private Status status;
 
     public Orders(){
 
@@ -121,14 +122,6 @@ public class Orders implements Serializable {
         this.customer = customer;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
     public Payment getPayment() {
         return payment;
     }
@@ -143,5 +136,13 @@ public class Orders implements Serializable {
 
     public void setDelivery(Delivery delivery) {
         this.delivery = delivery;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 }

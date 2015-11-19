@@ -26,34 +26,35 @@
     <div class="upper-container">
         <div class="header">
             <ui:insert name="header">
-                <ui:include src="header.xhtml"/>
+                <ui:include src="/public/templates/header.xhtml"/>
             </ui:insert>
         </div>
         <div class="upper-menu">
             <ui:insert name="upper-menu">
-                <ui:include src="upper-menu.xhtml"/>
+                <ui:include src="/public/templates/upper-menu.xhtml"/>
             </ui:insert>
         </div>
         <div class="main-container">
 
-            <div style="float: left; width: 18% ">
+            <div style="float: left; width: 18%; ">
                 <ui:insert name="left-menu">
-                    <ui:include src="left-menu.xhtml"/>
+                    <ui:include src="/public/templates/left-menu.xhtml"/>
                 </ui:insert>
             </div>
-            <div style="float: right; width: 81%">
+            <div style="float: right; width: 81%;">
                 <ui:insert name="content">
-                    <ui:include src="content.xhtml"/>
+                    <ui:include src="/public/templates/content.xhtml"/>
                 </ui:insert>
             </div>
-
+            <div style="clear: both;"/>
         </div>
         <div class="footer">
             <ui:insert name="footer">
-                <ui:include src="footer.xhtml"/>
+                <ui:include src="/public/templates/footer.xhtml"/>
             </ui:insert>
         </div>
     </div>
+
 
 </h:body>
 

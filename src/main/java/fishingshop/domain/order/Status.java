@@ -5,25 +5,24 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * Created by Сергей on 10.11.2015.
+ * Created by Сергей on 17.11.2015.
  */
-
 @Entity
-@Table(name = "delivery")
-public class Delivery implements Serializable {
+@Table(name = "status")
+public class Status implements Serializable {
 
     @Id
+    @Column
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "ID")
     private Integer id;
 
     @Column
-    private String name;
+    private String status;
 
-    @OneToMany(mappedBy = "delivery", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "status", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Orders> orders;
 
-    public Delivery(){
+    public Status(){
 
     }
 
@@ -35,12 +34,12 @@ public class Delivery implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getStatus() {
+        return status;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public List<Orders> getOrders() {
