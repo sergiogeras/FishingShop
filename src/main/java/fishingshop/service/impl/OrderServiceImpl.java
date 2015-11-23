@@ -1,6 +1,7 @@
 package fishingshop.service.impl;
 
 
+import fishingshop.controller.UserController;
 import fishingshop.dao.OrderDao;
 import fishingshop.domain.customer.Customer;
 import fishingshop.domain.goods.Goods;
@@ -13,6 +14,8 @@ import fishingshop.service.OrderService;
 import fishingshop.service.StatusService;
 import fishingshop.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -39,6 +42,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void addOrder(List<OrderItem> orderItems){
         FacesContext context=FacesContext.getCurrentInstance();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         int orderId=generateOrderId();
         for(OrderItem item: orderItems){
@@ -49,7 +53,9 @@ public class OrderServiceImpl implements OrderService {
             orders.setOrderDate(new Date());
             orders.setCost(item.getGoods().getPrice()*item.getAmount());
             orders.setGoods(item.getGoods());
+
             orders.setCustomer((Customer)context.getExternalContext().getSessionMap().get("customer"));
+            orders.setNote((String)context.getExternalContext().getSessionMap().get("note"));
             orders.setDelivery((Delivery)context.getExternalContext().getSessionMap().get("delivery"));
             orders.setPayment((Payment)context.getExternalContext().getSessionMap().get("payment"));
             orders.setStatus(statusService.getStatusById(1));   // TODO: write logic of choosing first status
@@ -62,6 +68,9 @@ public class OrderServiceImpl implements OrderService {
             orderDao.addOrder(orders);
 
         }
+        context.getExternalContext().getSessionMap().remove("customer");
+        context.getExternalContext().getSessionMap().remove("delivery");
+        context.getExternalContext().getSessionMap().remove("payment");
         orderItems.clear();
     }
 

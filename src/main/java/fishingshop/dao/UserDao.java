@@ -1,5 +1,6 @@
 package fishingshop.dao;
 
+import fishingshop.domain.customer.Customer;
 import fishingshop.domain.user.User;
 
 import java.util.List;
@@ -11,6 +12,6 @@ public interface UserDao {
 
     void addUser(User user);
     void editUser(User user);
-    User getUserById(Integer id);
+    User getUserByUsername(String username);
     List<User> getAllUsers();
 }

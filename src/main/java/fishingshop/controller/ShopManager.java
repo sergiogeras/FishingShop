@@ -37,10 +37,11 @@ public class ShopManager implements Serializable {
     List<OrderItem> orderItems;
     private List<Delivery> deliveryList;
     private List<Payment> paymentList;
-    private Payment payment;
+    private int deliveryIndex;
+    private int paymentIndex;
     private Delivery delivery;
-    private int deliveryNumber;
-    private int paymentNumber;
+    private Payment payment;
+    private String note;
 
 
     @Autowired
@@ -57,14 +58,14 @@ public class ShopManager implements Serializable {
 
     @PostConstruct
     public void init(){
-        tempOrderId =1;
-        amount=1;
-        totalSum=cart.getSumm();
-        totalAmount=cart.getAmount();
-        deliveryList=deliveryService.getAllDeliveries();
-        paymentList=paymentService.getAllPayments();
-        delivery=deliveryList.get(0);
-        payment=paymentList.get(0);
+        tempOrderId = 1;
+        amount = 1;
+        totalSum = cart.getSumm();
+        totalAmount = cart.getAmount();
+        deliveryList = deliveryService.getAllDeliveries();
+        paymentList = paymentService.getAllPayments();
+        deliveryIndex = 1;
+        paymentIndex = 1;
 
     }
 
@@ -75,13 +76,16 @@ public class ShopManager implements Serializable {
 
     public void saveDeliveryPaymentData(){
         FacesContext context=FacesContext.getCurrentInstance();
-        context.getExternalContext().getSessionMap().put("delivery", deliveryList.get(deliveryNumber-1) );
-        context.getExternalContext().getSessionMap().put("payment", paymentList.get(paymentNumber-1) );
+        delivery = deliveryList.get(deliveryIndex -1);
+        payment = paymentList.get(paymentIndex -1);
+        context.getExternalContext().getSessionMap().put("delivery", delivery );
+        context.getExternalContext().getSessionMap().put("payment", payment );
+        context.getExternalContext().getSessionMap().put("note", note);
     }
 
     public void addGoodsToTheCart(Goods goods){
         cart.addItem(goods, amount, tempOrderId);
-        amount=1;
+        amount = 1;
     }
 
 
@@ -184,12 +188,20 @@ public class ShopManager implements Serializable {
         this.paymentList = paymentList;
     }
 
-    public Payment getPayment() {
-        return payment;
+    public int getDeliveryIndex() {
+        return deliveryIndex;
     }
 
-    public void setPayment(Payment payment) {
-        this.payment = payment;
+    public void setDeliveryIndex(int deliveryIndex) {
+        this.deliveryIndex = deliveryIndex;
+    }
+
+    public int getPaymentIndex() {
+        return paymentIndex;
+    }
+
+    public void setPaymentIndex(int paymentIndex) {
+        this.paymentIndex = paymentIndex;
     }
 
     public Delivery getDelivery() {
@@ -200,19 +212,19 @@ public class ShopManager implements Serializable {
         this.delivery = delivery;
     }
 
-    public int getDeliveryNumber() {
-        return deliveryNumber;
+    public Payment getPayment() {
+        return payment;
     }
 
-    public void setDeliveryNumber(int deliveryNumber) {
-        this.deliveryNumber = deliveryNumber;
+    public void setPayment(Payment payment) {
+        this.payment = payment;
     }
 
-    public int getPaymentNumber() {
-        return paymentNumber;
+    public String getNote() {
+        return note;
     }
 
-    public void setPaymentNumber(int paymentNumber) {
-        this.paymentNumber = paymentNumber;
+    public void setNote(String note) {
+        this.note = note;
     }
 }

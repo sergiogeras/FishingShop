@@ -25,7 +25,6 @@
 
 .user_block{
     border: 1px solid #dddddd;
-
     margin-right: 15px;
     padding:0 3px 0 3px;
     float: right;
@@ -128,11 +127,27 @@
     border: 1px solid #dddddd;
 }
 
-.header_buttons li :hover{
+.catalog_button{
+    background-color: rgb(212,75,56) ;
+    text-decoration: none;
+    color: #FFF;
+    font-weight: bold;
+    padding: 10px 14px 10px 14px;
+    border: 1px solid #dddddd;
+}
+.catalog_button:hover{
+    background: rgb(232,95,76);
+}
+
+.catalog_button:active{
+    background: rgb(152,15,0);
+}
+
+.header_buttons li :hover:not(.catalog_button){
     background: #DADFE7;
 }
 
-.header_buttons li :active{
+.header_buttons li :active:not(.catalog_button){
     background: #b4b9c1;
 }
 

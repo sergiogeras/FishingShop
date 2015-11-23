@@ -12,6 +12,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
+      xmlns:sec="http://www.springframework.org/security/tags"
       xmlns:h="http://java.sun.com/jsf/html">
 
 <h:head>
@@ -25,39 +26,39 @@
 
 <h:body >
     <ui:composition>
-
-        <h:form styleClass="login-form">
-            <h:panelGrid >
-                <p:row>
-                    <p:column>
-                        Имя пользователя
-                    </p:column>
-                </p:row>
-                <p:row>
-                    <p:column >
-                        <p:inputText style="width: 150px; margin-bottom: 5px; border-radius: 0"/>
-                    </p:column>
-                </p:row>
-                <p:row>
-                    <p:column>
-                        Пароль
-                    </p:column>
-                </p:row>
-                <p:row>
-                    <p:column>
-                        <p:password style="width: 150px; border-radius: 0"/>
-                    </p:column>
-                </p:row>
-                <p:row>
-                    <p:column colspan="2" >
-                        <p:commandLink styleClass="enter-button" actionListener="#{goodsController.addGoodsDialog}">
-                            <h:outputText value="Вход" />
-                        </p:commandLink>
-                    </p:column>
-                </p:row>
-            </h:panelGrid>
-        </h:form>
-
+        <sec:authorize access="isAnonymous()">
+            <h:form styleClass="login-form" prependId="false" id="login_panel">
+                <h:panelGrid >
+                    <p:row>
+                        <p:column>
+                            Имя пользователя
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column >
+                            <p:inputText id="user" required="true" style="width: 150px; margin-bottom: 5px; border-radius: 0"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column>
+                            Пароль
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column>
+                            <p:password id="pass" required="true" style="width: 150px; border-radius: 0"/>
+                        </p:column>
+                    </p:row>
+                    <p:row>
+                        <p:column colspan="2" >
+                            <p:commandLink styleClass="enter-button" action="#{authentication.doLogin}" ajax="false">
+                                <h:outputText value="Вход" />
+                            </p:commandLink>
+                        </p:column>
+                    </p:row>
+                </h:panelGrid>
+            </h:form>
+        </sec:authorize>
 
     </ui:composition>
 </h:body>

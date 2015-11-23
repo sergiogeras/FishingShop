@@ -15,17 +15,13 @@ import java.io.Serializable;
 public class User implements Serializable {
 
     @Id
-    @Column(name = "ID")
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
-
-    @Column
+    @Column(name= "USERNAME", unique = true, nullable = false, length = 45)
     private String username;
 
-    @Column
+    @Column(name= "PASSWORD", nullable = false, length = 60)
     private String password;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "customer")
     private Customer customer;
 
@@ -37,12 +33,10 @@ public class User implements Serializable {
 
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
+    public User(String username, String password, Role role) {
+        this.username = username;
+        this.password = password;
+        this.role = role;
     }
 
     public String getUsername() {

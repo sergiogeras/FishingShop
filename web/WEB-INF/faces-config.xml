@@ -25,23 +25,29 @@
         </view-handler>
     </application>
 
-
-
     <navigation-rule>
-        <from-view-id>/private/admin-console.xhtml</from-view-id>
+        <from-view-id>/private/admin-console.admin-area.xhtml</from-view-id>
         <navigation-case>
+            <from-action>#{navigationBean.showIndex}</from-action>
             <to-view-id>/public/index.xhtml</to-view-id>
+            <from-outcome>index</from-outcome>
+            <redirect/>
+        </navigation-case>
+        <navigation-case>
+            <to-view-id>/j_spring_security_logout?faces-redirect=true</to-view-id>
             <from-outcome>exit</from-outcome>
             <redirect/>
         </navigation-case>
     </navigation-rule>
+
     <navigation-rule>
         <from-view-id>/public/index.xhtml</from-view-id>
         <navigation-case>
-            <to-view-id>/private/admin-console.xhtml</to-view-id>
+            <to-view-id>/private/admin-console.admin-area.xhtml</to-view-id>
             <from-outcome>admin</from-outcome>
             <redirect/>
         </navigation-case>
+
     </navigation-rule>
 
     <navigation-rule>
@@ -51,39 +57,24 @@
             <from-outcome>index</from-outcome>
             <redirect/>
         </navigation-case>
-    </navigation-rule>
-
-    <navigation-rule>
-        <from-view-id>/public/templates/upper-menu.xhtml</from-view-id>
         <navigation-case>
             <to-view-id>/public/news.xhtml</to-view-id>
             <from-outcome>news</from-outcome>
         </navigation-case>
-    </navigation-rule>
-
-    <navigation-rule>
-        <from-view-id>/public/templates/upper-menu.xhtml</from-view-id>
         <navigation-case>
             <to-view-id>/public/delivery.xhtml</to-view-id>
             <from-outcome>delivery</from-outcome>
         </navigation-case>
-    </navigation-rule>
-
-    <navigation-rule>
-        <from-view-id>/public/templates/upper-menu.xhtml</from-view-id>
         <navigation-case>
             <to-view-id>/public/payment.xhtml</to-view-id>
             <from-outcome>payment</from-outcome>
         </navigation-case>
-    </navigation-rule>
-
-    <navigation-rule>
-        <from-view-id>/public/templates/upper-menu.xhtml</from-view-id>
         <navigation-case>
             <to-view-id>/public/contacts.xhtml</to-view-id>
             <from-outcome>contacts</from-outcome>
         </navigation-case>
     </navigation-rule>
+
 
     <navigation-rule>
         <from-view-id>/public/templates/header.xhtml</from-view-id>
@@ -107,7 +98,6 @@
         <navigation-case>
             <to-view-id>/public/delivery-payment.xhtml</to-view-id>
             <from-outcome>delpay</from-outcome>
-
         </navigation-case>
     </navigation-rule>
 
@@ -116,7 +106,6 @@
         <navigation-case>
             <to-view-id>/public/approveOrder.xhtml</to-view-id>
             <from-outcome>approve</from-outcome>
-
         </navigation-case>
     </navigation-rule>
 
@@ -125,7 +114,6 @@
         <navigation-case>
             <to-view-id>/public/final-step.xhtml</to-view-id>
             <from-outcome>final</from-outcome>
-
         </navigation-case>
     </navigation-rule>
 

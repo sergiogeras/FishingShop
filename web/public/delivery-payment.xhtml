@@ -30,14 +30,20 @@
             <h:form id="form" styleClass="content-background">
 
                 <h3>Выберите способ доставки:</h3>
-                    <p:selectOneRadio id="delivery" value="#{shopManager.deliveryNumber}" layout="pageDirection" columns="3">
+                    <p:selectOneRadio id="delivery" value="#{shopManager.deliveryIndex}" layout="pageDirection" columns="3">
                         <f:selectItems value="#{shopManager.deliveryList}" var="d" itemLabel="#{d.name}" itemValue="#{d.id}"/>
                     </p:selectOneRadio>
 
                 <h3>Способ оплаты:</h3>
-                    <p:selectOneRadio id="payment" value="#{shopManager.paymentNumber}" layout="pageDirection" columns="3">
+                    <p:selectOneRadio id="payment" value="#{shopManager.paymentIndex}" layout="pageDirection" columns="3">
                         <f:selectItems value="#{shopManager.paymentList}" var="p" itemLabel="#{p.name}" itemValue="#{p.id}"/>
                     </p:selectOneRadio>
+
+
+                <h3>Комментарий:</h3>
+                    <p:inputTextarea value="#{shopManager.note}" />
+
+
 
                 <p:commandLink id="next-button" action="approve" style="color:#fff; margin-top: 10px" styleClass="agree-button"
                                value="Завершить оформление" actionListener="#{shopManager.saveDeliveryPaymentData}" />

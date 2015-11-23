@@ -4,6 +4,7 @@ import fishingshop.beans.CatalogTree;
 import fishingshop.domain.goods.Goods;
 import fishingshop.domain.goods.Groups;
 import fishingshop.service.GoodsService;
+import fishingshop.service.GroupsService;
 import org.primefaces.model.TreeNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -50,14 +51,19 @@ public class CatalogController implements Serializable {
         //Create goods list on the start page (random, without duplicates)
         //TODO: List depends on goods rating
         List<Goods> list=goodsService.getAllGoods();
-        for(int i=0; i<9;i++ ){
-            goods=list.get((int)Math.round(Math.random() * goodsList.size()));
-            if(goodsList.contains(goods)){
-                i--;
-                continue;
+        if(goodsList.size()>=9){
+            for(int i=0; i<9;i++ ){
+                goods=list.get((int)Math.round(Math.random() * goodsList.size()));
+                if(goodsList.contains(goods)){
+                    i--;
+                    continue;
+                }
+                goodsList.add(goods);
             }
-            goodsList.add(goods);
+        } else {
+            goodsList=goodsService.getAllGoods();
         }
+
         startGoodsList=goodsList;
     }
 
@@ -69,12 +75,11 @@ public class CatalogController implements Serializable {
         groups=(Groups)selectedNode.getData();
         goodsList.clear();
         goodsList=getGoodsByCategory(groups);
-
     }
 
     /** Build group`s tree with subgroups */
     private List<Goods> getGoodsByCategory(Groups groups){
-        goodsList.addAll(groups.getGoodsList());
+        goodsList.addAll(goodsService.getGoodsByGroup(groups.getId()));
         for (Groups gr: groups.getChildrenList()) {
             getGoodsByCategory(gr);
         }
@@ -92,6 +97,8 @@ public class CatalogController implements Serializable {
             searchMode=true;
         }
     }
+
+
 
     public TreeNode getSelectedNode() {
         return selectedNode;
@@ -160,5 +167,8 @@ public class CatalogController implements Serializable {
     public void updateGoodsList() {
         searchMode=false;
         goodsList=startGoodsList;
+        root=catalogTree.createTreeTable();
     }
+
+
 }

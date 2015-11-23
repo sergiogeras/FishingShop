@@ -27,8 +27,8 @@
                 <h:form id="search">
                     <p:defaultCommand target="search-button"/>
                 <li>
-                    <p:commandLink action="index" styleClass="li-button" update=":goods"
-                                   value="#{msg.catalog}" actionListener="#{catalogController.updateGoodsList}" />
+                    <p:commandLink action="#{navigationBean.showIndex}" styleClass="catalog_button"  update=":goods"
+                                   value="#{msg.catalog}"  />
                 </li>
                 <li>
                     <p:link outcome="news" styleClass="li-button">
@@ -52,7 +52,8 @@
                 </li>
 
                     <li>
-                        <p:inputText id="search_field"  style="border-radius: 0; width: 350px; margin-left: 40px" value="#{catalogController.searchStr}"/>
+                        <p:inputText id="search_field"  style="border-radius: 0; width: 350px; margin-left: 40px"
+                                     value="#{catalogController.searchStr}" placeholder="Поиск в каталоге..."/>
                     </li>
                     <li>
                         <p:commandLink id="search-button" actionListener="#{catalogController.mainSearch}" update=":goods" styleClass="li-button" >

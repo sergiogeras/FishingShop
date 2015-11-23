@@ -18,7 +18,7 @@ public class OrderDaoImpl implements OrderDao {
 
     @Override
     public void addOrder(Orders orders) {
-        sessionFactory.getCurrentSession().save(orders);
+        sessionFactory.getCurrentSession().merge(orders);
     }
 
     @Override

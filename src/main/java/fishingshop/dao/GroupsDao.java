@@ -11,4 +11,5 @@ public interface GroupsDao {
     void editGroups(Groups groups);
     Groups getGroupsById(Integer id);
     List<Groups> getAllGroups();
+
 }

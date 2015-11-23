@@ -20,7 +20,7 @@
 
 <h:body>
     <h:form id="goodsForm">
-        <p:graphicImage cache="false" value="#{showImage.image}" alt="#{msg.image_not_found}" style="padding-right: 5px ;float: left; width: 270px">
+        <p:graphicImage cache="false" value="#{showImage.image}" alt="#{msg.image_not_found}" style="padding-right: 5px ;float: left; width: 250px">
             <f:param name="goodsId" value="#{goodsController.goods.id}"/>
         </p:graphicImage>
         <h:panelGrid id="pg" columns="2" cellpadding="5" >
@@ -36,10 +36,8 @@
             <h:outputText id="man"  value="#{goodsController.goods.manufacturer}"/>
             <h:outputLabel  for="amount" value="#{msg.onStock}" />
             <h:outputText id="amount"  value="#{goodsController.goods.goodsAmount}"/>
-            <h:outputLabel  for="descr" value="#{msg.description}" />
-            <h:outputText id="descr"  value="#{goodsController.goods.description}" style="text-wrap: normal"/>
         </h:panelGrid>
-
+        <h:outputText id="descr"  value="#{goodsController.goods.description}" style="text-wrap: normal; float: right;"/>
     </h:form>
 </h:body>
 

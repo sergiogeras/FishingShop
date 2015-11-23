@@ -34,7 +34,7 @@ public class Orders implements Serializable {
     @Column
     private String note;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "GOODS_ID")
     private Goods goods;
 

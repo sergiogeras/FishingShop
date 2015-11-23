@@ -12,6 +12,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
+      xmlns:sec="http://www.springframework.org/security/tags"
       xmlns:h="http://java.sun.com/jsf/html">
 
 <h:head>
@@ -24,9 +25,12 @@
 <h:body>
     <ui:composition>
 
-        <div>
-            <h:graphicImage class="bobber_image" library="images" name="bobber.png"/>
-        </div>
+        <h:form>
+            <p:commandLink action="#{navigationBean.showIndex}" ajax="fasle">
+                <h:graphicImage class="bobber_image" library="images" name="bobber.png"/>
+            </p:commandLink>
+
+        </h:form>
 
         <div class="name">
             <p>Интернет-магазин рыболовных товаров</p>
@@ -35,14 +39,34 @@
          </div>
 
         <div style="float: right">
-            <div class="header_panel">
+            <h:form class="header_panel">
                 <ul>
+                    <sec:authorize access="hasRole('ADMIN')">
+                        <li >
+                            Здравствуйте,
+                            <p:commandLink action="#{navigationBean.showAdminArea}" value="Администратор" ajax="false"/>
+                        </li>
+                        <li >
+                            <p:commandLink  value="выход" action="#{authentication.doLogout}" ajax="false" />
+                        </li>
+                    </sec:authorize>
+                    <sec:authorize access="hasRole('USER')">
+                        <li >
+                            Здравствуйте,
+                            <p:commandLink action="#{navigationBean.showPersonalArea}" value="#{userController.customer.name}" ajax="false"/>
+                        </li>
+                        <li >
+                            <p:commandLink  value="выход" action="#{authentication.doLogout}" ajax="false" />
+                        </li>
+                    </sec:authorize>
+                    <sec:authorize access="isAnonymous()">
                     <li >
-                        <h:link value="#{msg.log_in}" outcome="admin"/>
+                        <p:commandLink action="#{navigationBean.showLogin}" value="#{msg.log_in}" ajax="false"/>
                     </li>
                     <li >
-                        <h:link value="#{msg.registration}" outcome="admin"/>
+                        <p:commandLink action="#{navigationBean.showRegistration}" value="#{msg.registration}" ajax="false"/>
                     </li>
+                    </sec:authorize>
                     <!--<li class="flags">-->
                         <!--<p:graphicImage library="images" name="rus.png" />-->
                     <!--</li>-->
@@ -50,11 +74,11 @@
                         <!--<h:graphicImage library="images" name="eng.png"/>-->
                     <!--</li>-->
                 </ul>
-            </div>
+            </h:form>
 
             <div id="div-cart" class="user_block">
                 <h:form id="cart">
-                    <table class="cart" style="border: 2px solid #dddddd; width: 230px;">
+                    <table class="cart" >
                         <tr>
                             <td colspan="2">
                                 <p:link value="#{msg.cart}" outcome="cart" style="color: brown;"/>
@@ -63,10 +87,10 @@
                         <tr>
                             <td rowspan="2">
                                 <p:link outcome="cart">
-                                    <h:graphicImage class="bobber_image" library="images" name="cart.png" style="width: 50px;"/>
+                                    <h:graphicImage class="bobber_image" library="images" name="cart.png" style="width: 70px;"/>
                                 </p:link>
                             </td>
-                            <td style="text-align: left">
+                            <td style="text-align: left;">
                                 <p >#{msg.cart_goods} #{shopManager.totalAmount}</p>
                             </td>
                         </tr>

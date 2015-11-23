@@ -36,10 +36,14 @@ public class GoodsController implements Serializable{
     private List<Goods> goodsList;
     private int amount;
 
+    public GoodsController(){
+        goods=new Goods();
+    }
+
     @PostConstruct
     public void init(){
         goodsList=goodsService.getAllGoods();
-        goods=new Goods();
+
     }
 
     public void addGoods(){
@@ -54,8 +58,8 @@ public class GoodsController implements Serializable{
         goodsService.addGoods(goods);
         uploadImage.setImage(null);
         context.getExternalContext().getSessionMap().remove("group");
-        RequestContext.getCurrentInstance().closeDialog(0);
-        goods=null;
+        RequestContext.getCurrentInstance().closeDialog(goods);
+        goods=new Goods();
     }
 
     public void editGoodsDialog(Goods goods){
@@ -76,6 +80,7 @@ public class GoodsController implements Serializable{
         goodsService.editGoods(goods);
         uploadImage.setImage(null);
         RequestContext.getCurrentInstance().closeDialog(goods);
+        goods=new Goods();
     }
 
     public void showGoodsDetails(int id){

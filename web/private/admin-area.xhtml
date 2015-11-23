@@ -25,18 +25,18 @@
     <div class="container">
 
         <h:form>
-            <p:menubar>
-                <p:submenu label="#{msg.add}" icon="ui-icon-gear">
-                    <p:menuitem value="#{msg.one_goods}" action="#{adminTableController.addGoodsDialog}">
 
-                    </p:menuitem>
-                    <p:menuitem value="#{msg.group}" action="#{adminTableController.addGroupDialog}">
+            <p:toolbar>
+                <f:facet name="left">
 
-                    </p:menuitem>
-                </p:submenu>
-                <p:menuitem value="#{msg.to_the_shop}" outcome="exit" icon="ui-icon-close" />
-                <p:menuitem  value="#{msg.logout}" icon="ui-icon-extlink" />
-            </p:menubar>
+                </f:facet>
+
+                <f:facet name="right">
+                    <p:commandButton action="#{navigationBean.showIndex}" value="#{msg.to_the_shop}" icon="ui-icon-close" ajax="false"/>
+                    <p:commandButton action="#{authentication.doLogout}" value="#{msg.logout}" icon="ui-icon-extlink" ajax="false"/>
+                </f:facet>
+
+            </p:toolbar>
         </h:form>
 
 

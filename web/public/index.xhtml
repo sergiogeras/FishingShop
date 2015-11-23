@@ -5,6 +5,7 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
+      xmlns:sec="http://www.springframework.org/security/tags"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
    <h:head>
@@ -21,8 +22,9 @@
         <ui:composition template="templates/shop-template.xhtml">
 
             <ui:define name="left-menu">
-
-                <h:form styleClass="login-form">
+                <sec:authorize access="isAnonymous()">
+                <h:form styleClass="login-form" prependId="false" id="login_panel">
+                    <p:defaultCommand target="enter_btn"/>
                     <h:panelGrid >
                         <p:row>
                             <p:column>
@@ -31,7 +33,7 @@
                         </p:row>
                         <p:row>
                             <p:column >
-                                <p:inputText style="width: 150px; margin-bottom: 5px; border-radius: 0"/>
+                                <p:inputText id="user" required="true" style="width: 150px; margin-bottom: 5px; border-radius: 0"/>
                             </p:column>
                         </p:row>
                         <p:row>
@@ -41,27 +43,28 @@
                         </p:row>
                         <p:row>
                             <p:column>
-                                <p:password style="width: 150px; border-radius: 0"/>
+                                <p:password id="pass"  required="true" style="width: 150px; border-radius: 0"/>
                             </p:column>
                         </p:row>
                         <p:row>
                             <p:column colspan="2" >
-                                <p:commandLink styleClass="enter-button" actionListener="#{goodsController.addGoodsDialog}">
+                                <p:commandLink id="enter_btn" styleClass="enter-button" action="#{userController.setCurrentCustomer}" actionListener="#{authentication.doLogin}" ajax="false">
                                     <h:outputText value="Вход" />
                                 </p:commandLink>
                             </p:column>
                         </p:row>
                     </h:panelGrid>
                 </h:form>
+                </sec:authorize>
 
                 <h:form styleClass="catalog-form">
                     <h3 class="catalog_header">Категории</h3>
                     <p:tree value="#{catalogController.root}" var="group"
-                            selectionMode="single"
+                            selectionMode="single" animate="true"
                             selection="#{catalogController.selectedNode}" styleClass="tree-catalog" style="width: inherit">
                         <p:ajax event="select" update=":goods :search" listener="#{catalogController.chooseCategory}" />
-                        <p:treeNode >
-                            <h:outputText value="#{group.name}"/>
+                        <p:treeNode>
+                            <h:outputText value="#{group.name}" />
                         </p:treeNode>
                     </p:tree>
                 </h:form>
@@ -83,7 +86,7 @@
                             <p:row>
                                 <p:column colspan="2">
                                     <p:commandLink update=":goodsDetail" oncomplete="PF('goodsDialog').show()">
-                                        <p:graphicImage cache="false" value="#{showImage.image}" alt="#{msg.image_not_found}" style="width: 170px">
+                                        <p:graphicImage cache="false" value="#{showImage.image}" alt="#{msg.image_not_found}" style="height: 170px">
                                             <f:param name="goodsId" value="#{goods.id}"/>
                                         </p:graphicImage>
                                         <f:setPropertyActionListener value="#{goods}" target="#{catalogController.goods}" />
@@ -106,7 +109,7 @@
                             </p:row>
                             <p:row>
                                 <p:column  colspan="2">
-                                    <h:outputText value="На складе: #{goods.goodsAmount} шт."/>
+                                    <h:outputText value="На складе: #{goods.goodsAmount > 5 ? 'Много' : 'Мало'}"/>
                                 </p:column>
                             </p:row>
                             <p:row>
@@ -130,11 +133,11 @@
                     </p:panel>
                 </p:dataGrid>
 
-                <p:dialog id="goodsDetail"  header="#{catalogController.goods.name}" widgetVar="goodsDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                <p:dialog id="goodsDetail" styleClass="goods-dialog"  header="#{catalogController.goods.name}" widgetVar="goodsDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
                     <p:outputPanel style="text-align:center; max-width: 550px">
                         <p:panelGrid rendered="#{not empty catalogController.goods}" columnClasses="columnsDialog">
                             <p:row>
-                                <p:column rowspan="4">
+                                <p:column rowspan="5">
                                     <p:graphicImage cache="false" value="#{showImage.image}" alt="#{msg.image_not_found}" style="width: 250px">
                                         <f:param name="goodsId" value="#{catalogController.goods.id}"/>
                                     </p:graphicImage>
@@ -149,12 +152,17 @@
                                 </p:column>
                             </p:row>
                             <p:row>
+                                <p:column >
+                                    <h:outputText value="На складе: #{catalogController.goods.goodsAmount > 5 ? 'Много' : 'Мало'}"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
                                 <p:column>
                                     <h:outputText value="Производитель: #{catalogController.goods.manufacturer}" style="text-wrap: normal"/>
                                 </p:column>
                             </p:row>
                             <p:row>
-                                <p:column>
+                                <p:column >
                                     <p:spinner styleClass="minMax" value="#{shopManager.amount}"  min="1" max="100" size="2" style="margin-right: 5px;"/>
                                     <p:commandLink style="color:#fff" styleClass="cart-button" value="В корзину"
                                                    actionListener="#{shopManager.addGoodsToTheCart(catalogController.goods)}"
@@ -164,7 +172,10 @@
 
                         </p:panelGrid>
                         <hr style="background:#dddddd;  height: 1px; border: none"/>
-                        <h:outputText value="#{catalogController.goods.description}" style="text-wrap: normal; text-align: left; margin: 10px;"/>
+                        <div style="text-wrap: avoid; text-align: left; margin: 20px;">
+                            <h:outputText value="#{catalogController.goods.description}" />
+                        </div>
+
                     </p:outputPanel>
                 </p:dialog>
 

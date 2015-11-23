@@ -13,4 +13,5 @@ public interface CustomerDao {
     void editCustomer(Customer customer);
     Customer getCustomerById(Integer id);
     List<Customer> getAllCustomers();
+    Customer getCustomerByUser(String username);
 }

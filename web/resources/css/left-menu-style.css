@@ -18,8 +18,28 @@
     background-color: #ffffff;
     color: #535353;
     border-radius: 0;
+    border: none;
     font-weight: bold;
 
+}
+
+.tree-catalog.ui-tree .ui-treenode-label.ui-state-hover {
+    color: #535353;
+    text-decoration: underline;
+    font-size: 15px;
+    font-weight: bold;
+    border: 0 none;
+    background-color: white !important;
+
+}
+
+.ui-tree .ui-treenode-label.ui-state-highlight{
+    color: brown;
+    background-color: #fff !important;
+    font-weight: bold !important;
+    text-decoration: underline;
+    padding: 3px 0 3px 0 !important;
+    outline: none !important;
 }
 
 

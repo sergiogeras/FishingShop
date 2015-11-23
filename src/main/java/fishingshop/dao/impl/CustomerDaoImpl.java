@@ -38,4 +38,9 @@ public class CustomerDaoImpl implements CustomerDao {
     public List<Customer> getAllCustomers() {
         return sessionFactory.getCurrentSession().createQuery("from Customer").list();
     }
+
+    @Override
+    public Customer getCustomerByUser(String username) {
+        return  (Customer)sessionFactory.getCurrentSession().createQuery("from Customer where user.username=:username").setParameter("username", username);
+    }
 }

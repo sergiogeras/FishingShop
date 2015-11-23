@@ -72,6 +72,7 @@ public class GroupsController implements Serializable {
     public void editGroup(){
         groupsService.editGroups(groups);
         RequestContext.getCurrentInstance().closeDialog(groups);
+        groups=null;
     }
 
     public String showGroupDetails(int id){

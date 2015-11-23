@@ -31,7 +31,7 @@
                     <h:outputLabel for="man" value="#{msg.manufacturer}" />
                     <p:inputText id="man"  value="#{goodsController.goods.manufacturer}"/>
                     <h:outputLabel  for="descr" value="#{msg.description}" />
-                    <p:inputTextarea style="width: 340px" id="descr"  value="#{goodsController.goods.description}"/>
+                    <p:inputTextarea cols="60" id="descr"  value="#{goodsController.goods.description}"/>
                 </h:panelGrid>
 
                 <p:commandButton  styleClass="table_button" value="#{msg.save}"

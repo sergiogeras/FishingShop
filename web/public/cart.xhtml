@@ -42,7 +42,7 @@
                             <h:outputText value="#{item.goods.name}"/>
                         </p:column>
                         <p:column headerText="Количество" style="width: 80px">
-                            <p:spinner id="amount" value="#{item.amount}" min="0" max="100" size="3">
+                            <p:spinner id="amount" value="#{item.amount}" min="1" max="100" size="3">
                                 <p:ajax update="total form:summ form:next-button" event="change"/>
                             </p:spinner>
                         </p:column>
@@ -60,7 +60,7 @@
 
                         </li>
                         <li>
-                            <p:commandLink id="next-button" action="address" style="color:#fff;" styleClass="agree-button" value="Продолжить оформление"
+                            <p:commandLink id="next-button" action="address"  style="color:#fff;" styleClass="agree-button" value="Продолжить оформление"
                                             disabled="#{shopManager.totalSum==0}"/>
                         </li>
                     </ul>

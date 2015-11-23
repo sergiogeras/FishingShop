@@ -25,9 +25,9 @@
     <ui:composition>
         <ul class="footer_buttons">
             <li>
-                <p:link outcome="index"  styleClass="footer-button">
+                <p:commandLink action="#{navigationBean.showIndex}" styleClass="footer-button">
                     <h:outputText value="#{msg.catalog}" />
-                </p:link>
+                </p:commandLink>
             </li>
             <li>
                 <p:link outcome="news" styleClass="footer-button">

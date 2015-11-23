@@ -50,9 +50,11 @@ public class AdminTableController implements Serializable {
         root= adminTreeTable.createTreeTable();
         if(item.equals("goods")) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(bundle.getString("added_goods")));
+            goodsController.setGoods(null);
         }
         if(item.equals("group")) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(bundle.getString("added_group")));
+            groupsController.setGroups(null);
         }
         if(item.equals("update")) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(bundle.getString("successfully_updated")));
@@ -64,9 +66,9 @@ public class AdminTableController implements Serializable {
     public void addGoodsDialog(){
 
         Map<String, Object> props=new HashMap<>();
-        props.put("resizable", false);
-        props.put("contentWidth", 490);
-        props.put("contentHeight", 295);
+//        props.put("resizable", false);
+//        props.put("contentWidth", 490);
+//        props.put("contentHeight", 295);
 
         if(selectedNode==null){
             RequestContext.getCurrentInstance().openDialog("addGoods", props, null);
@@ -74,7 +76,6 @@ public class AdminTableController implements Serializable {
         if(selectedNode!=null){
             Groups groups =null;
             RequestContext.getCurrentInstance().openDialog("addGoods",props,null);
-            FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("goodsController", null);
             if(selectedNode.getData().getClass()==Goods.class){
                 if(selectedNode.getParent().getData().equals("root")){
                     RequestContext.getCurrentInstance().openDialog("addGoods",props,null);
@@ -87,6 +88,7 @@ public class AdminTableController implements Serializable {
             }
             FacesContext context=FacesContext.getCurrentInstance();
             context.getExternalContext().getSessionMap().put("group", groups);
+            selectedNode=null;
         }
     }
 
@@ -130,6 +132,7 @@ public class AdminTableController implements Serializable {
             if(selectedNode.getData().getClass()==Groups.class){
                 groupsController.editGroupDialog((Groups)selectedNode.getData());
             }
+            selectedNode=null;
         }
     }
 
