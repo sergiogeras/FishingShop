@@ -38,8 +38,8 @@
             <p style="font-size: 18px">#{msg.phone}</p>
          </div>
 
-        <div style="float: right">
-            <h:form class="header_panel">
+        <div  style="float: right">
+            <h:form id="header-panel" class="header_panel">
                 <ul>
                     <sec:authorize access="hasRole('ADMIN')">
                         <li >
@@ -76,7 +76,7 @@
                 </ul>
             </h:form>
 
-            <div id="div-cart" class="user_block">
+            <div  class="user_block">
                 <h:form id="cart">
                     <table class="cart" >
                         <tr>

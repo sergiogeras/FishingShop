@@ -15,7 +15,7 @@
        <h:outputStylesheet name="common-style.css" library="css"/>
        <h:outputStylesheet name="left-menu-style.css" library="css"/>
        <h:outputStylesheet name="content-style.css" library="css"/>
-
+       <h:outputStylesheet name="pf-style.css" library="css"/>
    </h:head>
    <h:body>
 
@@ -55,6 +55,29 @@
                         </p:row>
                     </h:panelGrid>
                 </h:form>
+                </sec:authorize>
+
+                <sec:authorize access="hasRole('USER')">
+                    <h:form styleClass="user-form"  >
+                        <h:panelGrid >
+                            <p:row>
+                                <p:column>
+                                    <p:commandLink action="#{navigationBean.showPersonalArea}" value="Личные данные"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column >
+                                    <p:commandLink action="#{navigationBean.showOrdersHistory}" value="История заказов"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <p:commandLink action="#{authentication.doLogout}" ajax="false" value="Выход"/>
+                                </p:column>
+                            </p:row>
+
+                        </h:panelGrid>
+                    </h:form>
                 </sec:authorize>
 
                 <h:form styleClass="catalog-form">
@@ -120,7 +143,9 @@
                             <p:row>
                                 <h:form style="padding-top: 10px">
                                     <p:column>
-                                        <p:spinner styleClass="minMax" value="#{shopManager.amount}"  min="1" max="100" size="2" style="margin-right: 5px;"/>
+                                        <p:selectOneMenu id="amount" value="#{shopManager.amount}" style="width:50px" editable="true">
+                                            <f:selectItems value="#{catalogController.getAmountList(goods)}"/>
+                                        </p:selectOneMenu>
                                     </p:column>
                                     <p:column >
                                         <p:commandLink style="color:#fff" styleClass="cart-button" value="В корзину"

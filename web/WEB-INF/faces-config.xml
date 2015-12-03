@@ -104,13 +104,13 @@
     <navigation-rule>
         <from-view-id>/public/delivery-payment.xhtml</from-view-id>
         <navigation-case>
-            <to-view-id>/public/approveOrder.xhtml</to-view-id>
+            <to-view-id>/public/approveOrder.approve-order.xhtml</to-view-id>
             <from-outcome>approve</from-outcome>
         </navigation-case>
     </navigation-rule>
 
     <navigation-rule>
-        <from-view-id>/public/approveOrder.xhtml</from-view-id>
+        <from-view-id>/public/approveOrder.approve-order.xhtml</from-view-id>
         <navigation-case>
             <to-view-id>/public/final-step.xhtml</to-view-id>
             <from-outcome>final</from-outcome>

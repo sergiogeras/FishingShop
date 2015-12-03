@@ -39,4 +39,27 @@ public class NavigationBean implements Serializable {
         return "/private/admin-area.xhtml?faces-redirect=true";
     }
 
+    public String showCart(){
+        return "/public/cart.xhtml?faces-redirect=true";
+    }
+
+    public String showAddress(){
+        return "/public/address.xhtml?faces-redirect=true";
+    }
+
+    public String showDeliveryPayment(){
+        return "/public/delivery-payment.xhtml?faces-redirect=true";
+    }
+
+    public String showApproveOrder(){
+        return "/public/approve-order.xhtml?faces-redirect=true";
+    }
+
+    public String showFinalStep(){
+        return "/public/final-step.xhtml?faces-redirect=true";
+    }
+
+    public String showOrdersHistory(){
+        return "/public/orders-history.xhtml?faces-redirect=true";
+    }
 }

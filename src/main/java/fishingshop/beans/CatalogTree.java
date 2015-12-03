@@ -19,9 +19,6 @@ public class CatalogTree {
     @Autowired
     private GroupsService groupsService;
 
-
-    private TreeNode root;
-
     public TreeNode createTreeTable(){
         TreeNode root=new DefaultTreeNode("root", null);
         for(Groups groups : groupsService.getAllGroups()){
@@ -41,11 +38,4 @@ public class CatalogTree {
         return root;
     }
 
-    public TreeNode getRoot() {
-        return root;
-    }
-
-    public void setRoot(TreeNode root) {
-        this.root = root;
-    }
 }

@@ -8,6 +8,13 @@
 
 }
 
+.user-form{
+    background-color: white;
+    border: 1px solid #dddddd;
+    padding: 10px 0 10px 15px ;
+    color: brown;
+}
+
 .catalog_header{
     color: brown;
     text-align: center;

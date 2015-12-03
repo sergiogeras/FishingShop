@@ -3,14 +3,18 @@ package fishingshop.controller;
 import fishingshop.domain.goods.Goods;
 import fishingshop.domain.order.Delivery;
 import fishingshop.domain.order.OrderItem;
+import fishingshop.domain.order.Orders;
 import fishingshop.domain.order.Payment;
 import fishingshop.service.DeliveryService;
+import fishingshop.service.GoodsService;
 import fishingshop.service.OrderService;
 import fishingshop.service.PaymentService;
 import fishingshop.service.shop.Cart;
+import fishingshop.utils.MailSender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
@@ -50,11 +54,18 @@ public class ShopManager implements Serializable {
     @Autowired
     private OrderService orderService;
 
+
     @Autowired
     private DeliveryService deliveryService;
 
     @Autowired
     private PaymentService paymentService;
+
+    @Autowired
+    private GoodsService goodsService;
+
+    @Autowired
+    private MailSender mailSender;
 
     @PostConstruct
     public void init(){
@@ -90,6 +101,7 @@ public class ShopManager implements Serializable {
 
 
 
+
     public void makeOrder(){
         cart.saveOrderToDB();
     }
@@ -98,7 +110,7 @@ public class ShopManager implements Serializable {
         cart.editItems(positionsAndAmount);
     }
 
-    public void deleteItem(){
+    public void deleteItem(int id){
         cart.deleteItem(goodsPositionId);
     }
 
@@ -107,8 +119,15 @@ public class ShopManager implements Serializable {
     }
 
 
+    @Transactional
     public void buyGoods(){
+        mailSender.sendOrderMessage();
         cart.saveOrderToDB();
+
+    }
+
+    public List<Integer> getAmountList(Goods goods) {
+        return goodsService.getAmountList(goods);
     }
 
 
@@ -227,4 +246,6 @@ public class ShopManager implements Serializable {
     public void setNote(String note) {
         this.note = note;
     }
+
+
 }

@@ -14,10 +14,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.ResourceBundle;
+import java.util.*;
 
 @Controller
 @Scope("session")
@@ -36,14 +33,15 @@ public class GoodsController implements Serializable{
     private List<Goods> goodsList;
     private int amount;
 
+
     public GoodsController(){
-        goods=new Goods();
+
     }
 
     @PostConstruct
     public void init(){
         goodsList=goodsService.getAllGoods();
-
+        goods=new Goods();
     }
 
     public void addGoods(){
@@ -103,6 +101,8 @@ public class GoodsController implements Serializable{
         this.amount=0;
     }
 
+
+
     public int getId() {
         return id;
     }
@@ -119,29 +119,12 @@ public class GoodsController implements Serializable{
         this.goodsService = goodsService;
     }
 
-
     public Goods getGoods() {
         return goods;
     }
 
     public void setGoods(Goods goods) {
         this.goods = goods;
-    }
-
-    public byte[] getImage() {
-        return image;
-    }
-
-    public void setImage(byte[] image) {
-        this.image = image;
-    }
-
-    public List<Goods> getGoodsList() {
-        return goodsList;
-    }
-
-    public void setGoodsList(List<Goods> goodsList) {
-        this.goodsList = goodsList;
     }
 
     public int getAmount() {

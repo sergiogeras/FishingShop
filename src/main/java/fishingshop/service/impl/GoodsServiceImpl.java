@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service("goodsService")
@@ -54,5 +55,18 @@ public class GoodsServiceImpl implements GoodsService {
     @Override
     public List<Goods> getGoodsViaMainSearch(String searchStr) {
         return goodsDao.getGoodsViaMainSearch(searchStr);
+    }
+
+    /** Create list of goodsAmount numbers */
+    @Override
+    public List<Integer> getAmountList(Goods goods){
+        List<Integer> list=new ArrayList<>();
+        if(goods.getGoodsAmount()!=0){
+            for(int i=1; i<= goods.getGoodsAmount() && i<=5; i++){
+                list.add(i);
+            }
+        } else list.add(0);
+
+       return list;
     }
 }

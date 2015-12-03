@@ -28,25 +28,39 @@
     <ui:composition template="/public/templates/shop-template.xhtml">
         <ui:define name="content">
             <h:form id="form" styleClass="content-background">
-
-                <h3>Выберите способ доставки:</h3>
+                <p:defaultCommand target="next-button"/>
+                <div style="text-align: left; padding-left: 30px;">
+                    <h3>Выберите способ доставки:</h3>
                     <p:selectOneRadio id="delivery" value="#{shopManager.deliveryIndex}" layout="pageDirection" columns="3">
                         <f:selectItems value="#{shopManager.deliveryList}" var="d" itemLabel="#{d.name}" itemValue="#{d.id}"/>
+                        <f:ajax render="payment"/>
                     </p:selectOneRadio>
 
-                <h3>Способ оплаты:</h3>
+                    <h3>Способ оплаты:</h3>
                     <p:selectOneRadio id="payment" value="#{shopManager.paymentIndex}" layout="pageDirection" columns="3">
-                        <f:selectItems value="#{shopManager.paymentList}" var="p" itemLabel="#{p.name}" itemValue="#{p.id}"/>
+                        <f:selectItems value="#{shopManager.paymentList}" var="p" itemLabel="#{p.name}" itemValue="#{p.id}"
+                                itemDisabled="#{(p.name eq 'Наложенный платёж' and (shopManager.deliveryList.get(shopManager.deliveryIndex-1).name eq 'Самовывоз'))
+                                or (p.name eq 'Наложенный платёж' and (shopManager.deliveryList.get(shopManager.deliveryIndex-1).name eq 'Доставка курьером'))
+                                or (p.name eq 'Наличные' and (shopManager.deliveryList.get(shopManager.deliveryIndex-1).name eq 'Почта России'))
+                                or (p.name eq 'Наличные' and (shopManager.deliveryList.get(shopManager.deliveryIndex-1).name eq 'Почта EMS'))}"/>
                     </p:selectOneRadio>
 
 
-                <h3>Комментарий:</h3>
-                    <p:inputTextarea value="#{shopManager.note}" />
+                    <h3>Комментарий:</h3>
+                    <p:inputTextarea value="#{shopManager.note}" style="width: 60%;"/>
+                </div>
 
-
-
-                <p:commandLink id="next-button" action="approve" style="color:#fff; margin-top: 10px" styleClass="agree-button"
-                               value="Завершить оформление" actionListener="#{shopManager.saveDeliveryPaymentData}" />
+                <table class="button-table">
+                    <tr>
+                        <td style="text-align: left;">
+                            <p:commandLink action="#{navigationBean.showCart}" style="color:#fff; margin-right: 10px;" styleClass="cart-index-button" value="Назад"/>
+                        </td>
+                        <td style="text-align: right;">
+                            <p:commandLink id="next-button" action="#{navigationBean.showAddress}"  style="color:#fff; " styleClass="agree-button" value="Далее"
+                                           actionListener="#{shopManager.saveDeliveryPaymentData}"/>
+                        </td>
+                    </tr>
+                </table>
             </h:form>
             <h:form id="goods"/>
         </ui:define>

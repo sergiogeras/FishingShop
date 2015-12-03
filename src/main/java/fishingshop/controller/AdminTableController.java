@@ -24,7 +24,6 @@ import java.util.ResourceBundle;
 public class AdminTableController implements Serializable {
 
     private ResourceBundle bundle;
-    private TreeNode rootNode;
 
     @Autowired
     private AdminTreeTable adminTreeTable;
@@ -182,14 +181,6 @@ public class AdminTableController implements Serializable {
 
     public void setRoot(TreeNode root) {
         this.root = root;
-    }
-
-    public AdminTreeTable getAdminTreeTable() {
-        return adminTreeTable;
-    }
-
-    public void setAdminTreeTable(AdminTreeTable adminTreeTable) {
-        this.adminTreeTable = adminTreeTable;
     }
 
     public TreeNode getSelectedNode() {

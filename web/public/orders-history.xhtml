@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Created by IntelliJ IDEA.
+  User: Сергей
+  Date: 07.11.2015
+  Time: 15:14
+-->
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+    <title>Simple JSF Facelets page</title>
+    <h:outputScript name="jquery/jquery.js" library="primefaces"/>
+    <h:outputStylesheet name="header-style.css" library="css"/>
+    <h:outputStylesheet name="common-style.css" library="css"/>
+    <h:outputStylesheet name="left-menu-style.css" library="css"/>
+    <h:outputStylesheet name="content-style.css" library="css"/>
+</h:head>
+
+<h:body>
+    <ui:composition template="/public/templates/shop-template.xhtml">
+        <ui:define name="content">
+            <h:form id="form" styleClass="content-background">
+                <p style="font-weight: bold;">История заказов</p>
+                <p:dataTable var="item" value="#{userTableController.ordersList}" rowHover="true">
+                    <p:column headerText="№" style="width: 20px">
+                        <h:outputText value="#{userTableController.ordersList.indexOf(item)+1}"/>
+                    </p:column>
+                    <p:column headerText="№ заказа">
+                        <h:outputText value="#{item.orderId}"/>
+                    </p:column>
+                    <p:column headerText="Дата">
+                        <h:outputText value="#{item.orderDate}"/>
+                    </p:column>
+                    <p:column headerText="Доставка" >
+                        <h:outputText  value="#{item.delivery.name}"/>
+                    </p:column>
+                    <p:column headerText="Оплата" >
+                        <h:outputText value="#{item.payment.name}"/>
+                    </p:column>
+                    <p:column headerText="Стоимость" >
+                        <h:outputText  value="#{item.cost}"/>
+                    </p:column>
+                    <p:column headerText="Статус" >
+                        <h:outputText value="#{item.status.status}"/>
+                    </p:column>
+                </p:dataTable>
+
+                <div style="text-align: right; margin: 15px;">
+                    <h:outputText id="summ" style="font-weight: bold;"
+                                  value="Общая сумма заказов: #{userTableController.total} руб."/>
+                </div>
+
+
+
+
+
+            </h:form>
+            <h:form id="goods"/>
+        </ui:define>
+
+    </ui:composition>
+
+</h:body>
+
+</html>

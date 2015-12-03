@@ -27,7 +27,6 @@ public class CatalogController implements Serializable {
 
     private Groups groups;
     private Goods goods;
-    private TreeNode rootNode;
     private List<Goods> startGoodsList;
     private List<Goods> goodsList;
     public TreeNode root;
@@ -108,14 +107,6 @@ public class CatalogController implements Serializable {
         this.selectedNode = selectedNode;
     }
 
-    public TreeNode getRootNode() {
-        return rootNode;
-    }
-
-    public void setRootNode(TreeNode rootNode) {
-        this.rootNode = rootNode;
-    }
-
     public TreeNode getRoot() {
         return root;
     }
@@ -148,14 +139,6 @@ public class CatalogController implements Serializable {
         this.searchStr = searchStr;
     }
 
-    public boolean isSearchMode() {
-        return searchMode;
-    }
-
-    public void setSearchMode(boolean searchMode) {
-        this.searchMode = searchMode;
-    }
-
     public Goods getGoods() {
         return goods;
     }
@@ -168,6 +151,10 @@ public class CatalogController implements Serializable {
         searchMode=false;
         goodsList=startGoodsList;
         root=catalogTree.createTreeTable();
+    }
+
+    public List<Integer> getAmountList(Goods goods) {
+        return goodsService.getAmountList(goods);
     }
 
 

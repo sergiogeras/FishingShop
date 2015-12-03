@@ -13,6 +13,7 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:sec="http://www.springframework.org/security/tags"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 <h:head>
@@ -28,11 +29,18 @@
     <ui:composition template="/public/templates/shop-template.xhtml">
         <ui:define name="content">
             <h:form id="form" styleClass="content-background">
-                <p>Спасибо за Ваш заказ! Мы свяжемся с Вами в ближайшее время.</p>
-               <h3>Номер Вашего заказа: #{shopManager.orderId}</h3>
 
-                <p:commandLink id="next-button" action="catalog" style="color:#fff; margin-top: 10px" styleClass="agree-button"
-                               value="В каталог" actionListener="#{catalogController.updateGoodsList}" />
+                <div style="padding-bottom: 10px;text-align: center;">
+                    <h3>Номер Вашего заказа: #{shopManager.orderId}</h3>
+                    <p>На указанный адрес электронной почты была отправлена информация о заказе.<br/> Мы свяжемся с Вами в ближайшее время.</p>
+                    <sec:authorize access="hasRole('USER')">
+                    <p>Отслеживать состояние своего заказа Вы можете в <p:commandLink action="#{navigationBean.showOrdersHistory}" value="личном кабинете"/></p>
+                    </sec:authorize>
+                    <h4>Спасибо за Ваш заказ!</h4>
+
+                    <p:commandLink action="#{navigationBean.showIndex}" actionListener="#{catalogController.updateGoodsList}" style="color:#fff; " styleClass="cart-index-button" value="Продолжить покупки"/>
+
+                </div>
             </h:form>
             <h:form id="goods"/>
         </ui:define>

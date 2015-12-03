@@ -1,5 +1,6 @@
 package fishingshop.dao;
 
+import fishingshop.domain.customer.Customer;
 import fishingshop.domain.order.Orders;
 
 import java.util.List;
@@ -13,4 +14,5 @@ public interface OrderDao {
     List<Orders> getAllOrders();
     List<Orders> getOrdersByOrderId(int orderId);
     Orders getOrderById(int id);
+    List<Orders> getOrdersByCustomer(Customer customer);
 }

@@ -1,6 +1,7 @@
 package fishingshop.service;
 
 
+import fishingshop.domain.customer.Customer;
 import fishingshop.domain.order.OrderItem;
 import fishingshop.domain.order.Orders;
 
@@ -15,4 +16,5 @@ public interface OrderService {
     List<OrderItem> getAllOrders();
     List<OrderItem> getOrdersByOrderId(int orderId);
     int getOrderId();
+    List<Orders> getOrdersByCustomer(Customer customer);
 }

@@ -35,6 +35,7 @@
     background-color: #ffffff;
     border: 1px solid #dddddd;
     text-align: center;
+    position: relative;
 }
 
 #minMax input  {
@@ -42,25 +43,48 @@
 }
 
 .agree-button {
-
+    outline: none;
     background-color: #5cb85c ;
     text-decoration: none;
     padding: 8px 12px 8px 12px;
     border: 1px solid #dddddd;
 }
 
-.agree:hover {
+
+.agree-button:hover {
     background: #4cae4c;
 }
 
-.agree:active {
+.agree-button:active {
     background: #4a974a;
 }
 
+.cart-index-button{
+    outline: none;
+    background-color: #0595ed;
+    text-decoration: none;
+    padding: 8px 12px 8px 12px;
+    border: 1px solid #dddddd;
+}
+
+.cart-index-button:hover {
+    background: #0574c4;
+}
+
+.cart-index-button:active {
+    background: #0562b3;
+}
+
+.delete-link{
+    text-decoration: none;
+}
+
+.delete-link:hover{
+    text-decoration: underline;
+}
 
 .footer_buttons{
     font-weight: bold;
-
 }
 
 .footer_buttons li{
@@ -90,18 +114,34 @@
     display: block;
 }
 
-#address_grid {
-    text-align: center
-}
+
 
 .col{
     padding: 10px;
+    text-align: left;
 }
 
-.col input{
-    border-radius: 0;
+
+.result-panel td{
+    text-align: left;
 }
 
-.content-background table{
-    text-align: center;
+.result-panel td:first-of-type{
+    font-weight: bold;
+}
+
+.button-table{
+    margin-bottom: 10px;
+    margin-top: 20px;
+    width: 100%;
+}
+
+.button-table tr td{
+    width: 50%;
+}
+
+.div-buttons{
+    text-align: right;
+    margin-bottom: 10px;
+    margin-top: 20px;
 }

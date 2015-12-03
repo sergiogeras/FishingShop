@@ -2,22 +2,80 @@
 <!--
   Created by IntelliJ IDEA.
   User: Сергей
-  Date: 23.11.2015
-  Time: 22:07
+  Date: 07.11.2015
+  Time: 15:14
 -->
 <!DOCTYPE html
         PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 <h:head>
     <title>Simple JSF Facelets page</title>
+    <h:outputScript name="jquery/jquery.js" library="primefaces"/>
+    <h:outputStylesheet name="header-style.css" library="css"/>
+    <h:outputStylesheet name="common-style.css" library="css"/>
+    <h:outputStylesheet name="left-menu-style.css" library="css"/>
+    <h:outputStylesheet name="content-style.css" library="css"/>
 </h:head>
 
 <h:body>
-    Place your content here
+    <ui:composition template="/public/templates/shop-template.xhtml">
+        <ui:define name="content">
+            <p:growl id="messages" showDetail="false" escape="false"/>
+            <h:form id="form" styleClass="content-background">
+                <p:defaultCommand target="next-button"/>
+                <div style="margin-left: 30px; text-align: left;" >
+                    <h3 style="margin-left: 30px;">Ваши данные:</h3>
+                    <h:panelGrid  id="address_grid" columns="2" columnClasses="col" >
+                        <h:outputText value="Имя"/>
+                        <p:inputText value="#{userController.customer.name}" />
+
+                        <h:outputText value="Фамилия"/>
+                        <p:inputText value="#{userController.customer.surname}"/>
+
+                        <h:outputText value="Телефон"/>
+                        <p:inputText value="#{userController.customer.phone}"/>
+
+                        <h:outputText value="E-mail"/>
+                        <p:inputText value="#{userController.customer.email}"/>
+
+                        <h:outputText value="Город" />
+                        <p:inputText value="#{userController.customer.city}" />
+
+                        <h:outputText value="Улица" />
+                        <p:inputText value="#{userController.customer.street}" />
+
+                        <h:outputText value="Дом" />
+                        <p:inputText value="#{userController.customer.house}" />
+
+                        <h:outputText value="Квартира" />
+                        <p:inputText value="#{userController.customer.flat}" />
+
+                        <h:outputText value="Индекс" />
+                        <p:inputText value="#{userController.customer.zip}" />
+                    </h:panelGrid>
+                </div>
+
+
+                <div style="text-align: left; margin: 20px 0 15px 200px">
+                    <p:commandLink id="next-button" action="#{userController.updateCustomerData}"  style="color:#fff; padding: 14px 18px 14px 18px; border-radius: 8px; " styleClass="agree-button" value="Записать"
+                                 update=":messages"  />
+                </div>
+
+
+
+            </h:form>
+            <h:form id="goods"/>
+        </ui:define>
+
+    </ui:composition>
+
 </h:body>
 
 </html>

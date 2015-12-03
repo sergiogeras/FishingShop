@@ -58,7 +58,7 @@ public class OrderServiceImpl implements OrderService {
             orders.setNote((String)context.getExternalContext().getSessionMap().get("note"));
             orders.setDelivery((Delivery)context.getExternalContext().getSessionMap().get("delivery"));
             orders.setPayment((Payment)context.getExternalContext().getSessionMap().get("payment"));
-            orders.setStatus(statusService.getStatusById(1));   // TODO: write logic of choosing first status
+            orders.setStatus(statusService.getStatusById(1));
             //Changing count of goods
 
             Goods goods=goodsService.getGoodsById(item.getGoods().getId());
@@ -82,7 +82,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void deleteOrder(int orderId) {
 
-        //Return goods to the store
+        //Return goods to the db
         Goods goods;
         for(Orders orders: orderDao.getOrdersByOrderId(orderId)){
             goods=goodsService.getGoodsById(orders.getGoods().getId());
@@ -97,7 +97,7 @@ public class OrderServiceImpl implements OrderService {
     public void deleteOrderPositions(int[] id) {
         for(int positionId: id){
 
-            //Return goods to the store
+            //Return goods to the db
             Orders orders=orderDao.getOrderById(positionId);
             Goods goods=goodsService.getGoodsById(orders.getGoods().getId());
             goods.setGoodsAmount(goods.getGoodsAmount() + orders.getAmount());
@@ -153,5 +153,11 @@ public class OrderServiceImpl implements OrderService {
 
     public int getOrderId() {
         return orderId;
+    }
+
+    @Override
+    public List<Orders> getOrdersByCustomer(Customer customer) {
+
+        return orderDao.getOrdersByCustomer(customer);
     }
 }

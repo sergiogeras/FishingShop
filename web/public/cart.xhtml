@@ -27,45 +27,59 @@
 <h:body>
     <ui:composition template="/public/templates/shop-template.xhtml">
         <ui:define name="content">
-                <h:form id="form" styleClass="content-background">
-                    <p style="font-weight: bold;">Список покупок</p>
-                    <p:dataTable var="item" value="#{shopManager.orderItems}"  rowHover="true" emptyMessage="Корзина пуста">
-                        <p:column headerText="№" style="width: 20px">
-                            <h:outputText value="#{shopManager.orderItems.indexOf(item)+1}"/>
-                        </p:column>
-                        <p:column style="width: 70px">
-                            <p:graphicImage cache="false" value="#{showImage.image}" alt="#{msg.image_not_found}" style="height: 50px">
-                                <f:param name="goodsId" value="#{item.goods.id}"/>
-                            </p:graphicImage>
-                        </p:column>
-                        <p:column headerText="Название">
-                            <h:outputText value="#{item.goods.name}"/>
-                        </p:column>
-                        <p:column headerText="Количество" style="width: 80px">
-                            <p:spinner id="amount" value="#{item.amount}" min="1" max="100" size="3">
-                                <p:ajax update="total form:summ form:next-button" event="change"/>
-                            </p:spinner>
-                        </p:column>
-                        <p:column headerText="Цена" style="width: 80px">
-                            <h:outputText id="price" value="#{item.goods.price}"/>
-                        </p:column>
-                        <p:column headerText="Стоимость" style="width: 80px">
-                            <h:outputText id="total" value="#{item.amount*item.goods.price}"/>
-                        </p:column>
-                    </p:dataTable>
-                    <ul style="text-align: right; list-style: none;">
-                        <li style="margin-bottom: 30px">
-                            <h:outputText id="summ" style="font-weight: bold;"
-                                          value="Итого: #{shopManager.totalSum}"/>
 
-                        </li>
-                        <li>
-                            <p:commandLink id="next-button" action="address"  style="color:#fff;" styleClass="agree-button" value="Продолжить оформление"
-                                            disabled="#{shopManager.totalSum==0}"/>
-                        </li>
-                    </ul>
+                <h:form id="form" styleClass="content-background">
+                    <p:defaultCommand target="next-button"/>
+                    <p style="font-weight: bold;">Список покупок</p>
+
+                        <p:dataTable var="item" value="#{shopManager.orderItems}" id="cart-table"  emptyMessage="Корзина пуста, купите что-нибудь">
+                            <p:column headerText="№" style="width: 20px">
+                                <h:outputText value="#{shopManager.orderItems.indexOf(item)+1}"/>
+                            </p:column>
+                            <p:column style="width: 70px">
+                                <p:graphicImage cache="false" value="#{showImage.image}" alt="#{msg.image_not_found}" style="height: 50px">
+                                    <f:param name="goodsId" value="#{item.goods.id}"/>
+                                </p:graphicImage>
+                            </p:column>
+                            <p:column headerText="Название">
+                                <h:outputText value="#{item.goods.name}"/>
+                            </p:column>
+                            <p:column headerText="Количество" style="width: 80px">
+                                <p:selectOneMenu id="amount" value="#{item.amount}" style="width:50px" editable="true">
+                                    <p:ajax update="total form:summ form:next-button cart" event="change"/>
+                                    <f:selectItems value="#{shopManager.getAmountList(item.goods)}"/>
+                                </p:selectOneMenu>
+                            </p:column>
+                            <p:column headerText="Цена" style="width: 80px">
+                                <h:outputText id="price" value="#{item.goods.price}"/>
+                            </p:column>
+                            <p:column headerText="Стоимость" style="width: 80px">
+                                <h:outputText id="total" value="#{item.amount*item.goods.price}"/>
+                            </p:column>
+                            <p:column style="width: 80px">
+                                <p:commandLink styleClass="delete-link" action="#{shopManager.deleteItem(shopManager.orderItems.indexOf(item))}"
+                                               value="Удалить" update="total form:summ form:next-button form:cart-table cart"/>
+                            </p:column>
+                        </p:dataTable>
+
+
+                    <div style="text-align: right; margin-top: 10px; margin-right: 15px;">
+                        <h:outputText id="summ" style="font-weight: bold; " value="Итого: #{shopManager.totalSum} руб."/>
+                    </div>
+
+                    <table class="button-table">
+                        <tr>
+                            <td style="text-align: left;">
+                                <p:commandLink action="#{navigationBean.showIndex}" style="color:#fff; " styleClass="cart-index-button" value="Продолжить покупки"/>
+                            </td>
+                            <td style="text-align: right;">
+                                <p:commandLink id="next-button" action="#{navigationBean.showDeliveryPayment}"  style="color:#fff; " styleClass="agree-button" value="Перейти к оформлению"
+                                               disabled="#{shopManager.totalSum==0}"/>
+                            </td>
+                        </tr>
+                    </table>
                 </h:form>
-            <h:form id="goods"/>
+            <h:form id="goods" />
         </ui:define>
 
     </ui:composition>

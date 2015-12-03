@@ -1,6 +1,7 @@
 package fishingshop.dao.impl;
 
 import fishingshop.dao.OrderDao;
+import fishingshop.domain.customer.Customer;
 import fishingshop.domain.order.Orders;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,5 +52,11 @@ public class OrderDaoImpl implements OrderDao {
     @Override
     public Orders getOrderById(int id) {
         return (Orders)sessionFactory.getCurrentSession().get(Orders.class, id);
+    }
+
+    @Override
+    public List<Orders> getOrdersByCustomer(Customer customer) {
+        return sessionFactory.getCurrentSession().createQuery("from Orders where customer=:customer").setParameter("customer", customer).list();
+
     }
 }

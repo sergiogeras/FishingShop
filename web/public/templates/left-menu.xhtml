@@ -51,7 +51,7 @@
                     </p:row>
                     <p:row>
                         <p:column colspan="2" >
-                            <p:commandLink styleClass="enter-button" action="#{authentication.doLogin}" ajax="false">
+                            <p:commandLink styleClass="enter-button"  action="#{userController.setCurrentCustomer}" actionListener="#{authentication.doLogin}" ajax="false">
                                 <h:outputText value="Вход" />
                             </p:commandLink>
                         </p:column>
@@ -59,7 +59,28 @@
                 </h:panelGrid>
             </h:form>
         </sec:authorize>
+        <sec:authorize access="hasRole('USER')">
+        <h:form styleClass="user-form"  >
+            <h:panelGrid >
+                <p:row>
+                    <p:column>
+                        <p:commandLink action="#{navigationBean.showPersonalArea}" value="Личные данные"/>
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column >
+                        <p:commandLink action="#{navigationBean.showOrdersHistory}" value="История заказов"/>
+                    </p:column>
+                </p:row>
+                <p:row>
+                    <p:column>
+                        <p:commandLink action="#{authentication.doLogout}" ajax="false" value="Выход"/>
+                    </p:column>
+                </p:row>
 
+            </h:panelGrid>
+        </h:form>
+        </sec:authorize>
     </ui:composition>
 </h:body>
 

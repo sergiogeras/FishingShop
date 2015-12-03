@@ -2,22 +2,65 @@
 <!--
   Created by IntelliJ IDEA.
   User: Сергей
-  Date: 23.11.2015
-  Time: 22:05
+  Date: 07.11.2015
+  Time: 15:14
 -->
 <!DOCTYPE html
         PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 <h:head>
-    <title>Simple JSF Facelets page</title>
+    <title>Registration</title>
+    <h:outputScript name="jquery/jquery.js" library="primefaces"/>
+    <h:outputStylesheet name="header-style.css" library="css"/>
+    <h:outputStylesheet name="common-style.css" library="css"/>
+    <h:outputStylesheet name="left-menu-style.css" library="css"/>
+    <h:outputStylesheet name="content-style.css" library="css"/>
 </h:head>
 
 <h:body>
-    Place your content here
+    <ui:composition template="/public/templates/shop-template.xhtml">
+        <ui:define name="content">
+            <h:form id="form" styleClass="content-background">
+                <h3>Ваши данные:</h3>
+                <h:panelGrid   columns="2" columnClasses="col">
+                    <h:outputText value="Имя пользователя"/>
+                    <p:inputText value="#{userController.user.username}" />
+
+                    <h:outputText value="Пароль"/>
+                    <p:password id="pass1" value="#{userController.user.password}" match="pass2" required="true"/>
+
+                    <h:outputText value="Повторите пароль"/>
+                    <p:password id="pass2" value="#{userController.user.password}"/>
+
+                    <h:outputText value="Имя"/>
+                    <p:inputText value="#{userController.user.customer.name}" />
+
+                    <h:outputText value="E-mail"/>
+                    <p:inputText value="#{userController.user.customer.email}"/>
+
+
+                </h:panelGrid>
+                <div style="text-align: left; margin: 20px 0 15px 155px">
+                <p:commandLink id="next-button" action="#{userController.registerUser}" style="color:#fff; padding: 14px 18px 14px 18px; border-radius: 8px; " styleClass="agree-button" value="Зарегистрироваться"
+                                ajax="true" onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()">
+                </p:commandLink>
+                </div>
+                <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+                    <p:graphicImage name="images/loading.gif" />
+                </p:dialog>
+            </h:form>
+            <h:form id="goods"/>
+        </ui:define>
+
+    </ui:composition>
+
 </h:body>
 
 </html>

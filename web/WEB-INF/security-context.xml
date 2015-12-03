@@ -20,7 +20,7 @@
 
        <sec:authentication-manager alias="authenticationManager">
               <sec:authentication-provider user-service-ref="customUserDetailsService">
-                     <sec:password-encoder hash="md5"/>
+                     <sec:password-encoder hash="bcrypt"/>
               </sec:authentication-provider>
 
        </sec:authentication-manager>

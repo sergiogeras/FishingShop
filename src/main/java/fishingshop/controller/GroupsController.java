@@ -25,7 +25,6 @@ public class GroupsController implements Serializable {
 
     private int id;
     private ResourceBundle bundle;
-
     private List<Groups> groupsList;
     private Groups selectedGroups; //Выбранная группа
     private Groups groups;
@@ -39,25 +38,27 @@ public class GroupsController implements Serializable {
 
     public GroupsController(){
         bundle=ResourceBundle.getBundle("locales.messages", FacesContext.getCurrentInstance().getViewRoot().getLocale());
-        groups=new Groups();
+
     }
 
     @PostConstruct
     public void init(){
         groupsList =groupsService.getAllGroups();
+        groups=new Groups();
     }
 
 
 
     public void addGroup(){
+
         FacesContext context=FacesContext.getCurrentInstance();
         groups.setDescription("- "+bundle.getString("group")+" -");
         groups.setType("group");
         groups.setParentId((Groups) context.getExternalContext().getSessionMap().get("group"));
         groupsService.addGroups(groups);
-        RequestContext.getCurrentInstance().closeDialog(groups);
+        RequestContext.getCurrentInstance().closeDialog(0);
         context.getExternalContext().getSessionMap().remove("group");
-        groups =null;
+
     }
 
     public void editGroupDialog(Groups groups){
@@ -72,13 +73,9 @@ public class GroupsController implements Serializable {
     public void editGroup(){
         groupsService.editGroups(groups);
         RequestContext.getCurrentInstance().closeDialog(groups);
-        groups=null;
+        groups=new Groups();
     }
 
-    public String showGroupDetails(int id){
-
-        return "";
-    }
 
     public void deleteGroup(int id) {
         Groups groups =groupsService.getGroupsById(id);

@@ -28,7 +28,7 @@
     <ui:composition template="/public/templates/shop-template.xhtml">
         <ui:define name="content">
             <h:form id="form" styleClass="content-background">
-                <p style="font-weight: bold;">Список покупок</p>
+                <p style="font-weight: bold;">Окончательный заказ</p>
                 <p:dataTable var="item" value="#{shopManager.orderItems}" >
                     <p:column headerText="№" style="width: 20px">
                         <h:outputText value="#{shopManager.orderItems.indexOf(item)+1}"/>
@@ -52,7 +52,12 @@
                     </p:column>
                 </p:dataTable>
 
-                <h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5" >
+                <div style="text-align: right; margin-top: 10px; margin-right: 15px;">
+                <h:outputText id="summ" style="font-weight: bold;"
+                              value="Итоговая стоимость заказа: #{shopManager.totalSum} руб."/>
+                </div>
+
+                <h:panelGrid styleClass="result-panel" columns="2" style="margin-bottom: 15px; margin-top: 15px;"  columnClasses="col" >
                     <h:outputLabel value="Доставка:"/>
                     <h:outputText value="#{shopManager.delivery.name}"/>
 
@@ -68,19 +73,34 @@
                     <h:outputLabel value="E-mail:"/>
                     <h:outputText value="#{userController.customer.email}"/>
 
-                    <h:outputLabel value="Адрес:"/>
+                    <h:outputLabel value="Адрес:" rendered="#{not (shopManager.delivery.name eq 'Самовывоз') and  not (shopManager.delivery.name eq 'Доставка курьером')}"/>
                     <h:outputText value="#{userController.customer.zip}, #{userController.customer.city}
-                    , ул. #{userController.customer.street}, д. #{userController.customer.house}, кв. #{userController.customer.flat}"/>
+                    , ул. #{userController.customer.street}, д. #{userController.customer.house}, кв. #{userController.customer.flat}"
+                                  rendered="#{not (shopManager.delivery.name eq 'Самовывоз') and  not (shopManager.delivery.name eq 'Доставка курьером')}"/>
 
+                    <h:outputLabel value="Комментарий:"/>
+                    <h:outputText value="#{shopManager.note}"/>
                 </h:panelGrid>
 
 
-                <h:outputText id="summ" style="font-weight: bold;"
-                              value="Стоимость заказа: #{shopManager.totalSum}"/>
 
 
-                <p:commandLink id="next-button" action="final" style="color:#fff; margin-top: 10px" styleClass="agree-button" value="Подтвердить"
-                               actionListener="#{shopManager.buyGoods}" />
+                <table class="button-table" style="width: 60%; padding-bottom: 10px;">
+                    <tr>
+                        <td style="text-align: left;">
+                            <p:commandLink action="#{navigationBean.showAddress}" style="color:#fff; margin-right: 10px;" styleClass="cart-index-button" value="Назад"/>
+                        </td>
+                        <td style="text-align: right;">
+                            <p:commandLink id="next-button" action="#{navigationBean.showFinalStep}"  style="color:#fff; padding: 14px 18px 14px 18px; border-radius: 8px; " styleClass="agree-button" value="Подтвердить"
+                                           actionListener="#{shopManager.buyGoods}" ajax="true" onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()"/>
+                            <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+                                <p:graphicImage name="images/loading.gif" />
+                            </p:dialog>
+                        </td>
+                    </tr>
+                </table>
+
+
 
 
             </h:form>

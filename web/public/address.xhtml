@@ -28,39 +28,54 @@
     <ui:composition template="/public/templates/shop-template.xhtml">
         <ui:define name="content">
             <h:form id="form" styleClass="content-background">
-            <h3>Ваши данные:</h3>
-          <h:panelGrid  id="address_grid" columns="2" columnClasses="col">
-              <h:outputText value="Имя"/>
-              <p:inputText value="#{userController.customer.name}" />
+                <p:defaultCommand target="next-button"/>
+                <div style="margin-left: 30px; text-align: left;" >
+                    <h3 style="margin-left: 30px;">Ваши данные:</h3>
+                    <h:panelGrid  id="address_grid" columns="2" columnClasses="col" >
+                        <h:outputText value="Имя"/>
+                        <p:inputText value="#{userController.customer.name}" />
 
-              <h:outputText value="Фамилия"/>
-              <p:inputText value="#{userController.customer.surname}"/>
+                        <h:outputText value="Фамилия"/>
+                        <p:inputText value="#{userController.customer.surname}"/>
 
-              <h:outputText value="Телефон"/>
-              <p:inputText value="#{userController.customer.phone}"/>
+                        <h:outputText value="Телефон"/>
+                        <p:inputText value="#{userController.customer.phone}"/>
 
-              <h:outputText value="E-mail"/>
-              <p:inputText value="#{userController.customer.email}"/>
+                        <h:outputText value="E-mail"/>
+                        <p:inputText value="#{userController.customer.email}"/>
 
-              <h:outputText value="Индекс"/>
-              <p:inputText value="#{userController.customer.zip}"/>
+                        <h:outputText value="Город" rendered="#{not (shopManager.delivery.name eq 'Самовывоз')}"/>
+                        <p:inputText value="#{userController.customer.city}" rendered="#{not (shopManager.delivery.name eq 'Самовывоз')}"/>
 
-              <h:outputText value="Город"/>
-              <p:inputText value="#{userController.customer.city}"/>
+                        <h:outputText value="Улица" rendered="#{not (shopManager.delivery.name eq 'Самовывоз')}"/>
+                        <p:inputText value="#{userController.customer.street}" rendered="#{not (shopManager.delivery.name eq 'Самовывоз')}"/>
 
-              <h:outputText value="Улица"/>
-              <p:inputText value="#{userController.customer.street}"/>
+                        <h:outputText value="Дом" rendered="#{not (shopManager.delivery.name eq 'Самовывоз')}"/>
+                        <p:inputText value="#{userController.customer.house}" rendered="#{not (shopManager.delivery.name eq 'Самовывоз')}"/>
 
-              <h:outputText value="Дом"/>
-              <p:inputText value="#{userController.customer.house}"/>
+                        <h:outputText value="Квартира" rendered="#{not (shopManager.delivery.name eq 'Самовывоз')}"/>
+                        <p:inputText value="#{userController.customer.flat}" rendered="#{not (shopManager.delivery.name eq 'Самовывоз')}"/>
 
-              <h:outputText value="Квартира"/>
-              <p:inputText value="#{userController.customer.flat}"/>
+                        <h:outputText value="Индекс" rendered="#{not (shopManager.delivery.name eq 'Самовывоз') and not (shopManager.delivery.name eq 'Доставка курьером')}"/>
+                        <p:inputText value="#{userController.customer.zip}" rendered="#{not (shopManager.delivery.name eq 'Самовывоз') and  not (shopManager.delivery.name eq 'Доставка курьером')}"/>
 
-          </h:panelGrid>
+                    </h:panelGrid>
+                </div>
 
-            <p:commandLink id="next-button" action="delpay" style="color:#fff; margin-top: 10px" styleClass="agree-button" value="Доставка и оплата"
-                                    actionListener="#{userController.saveCustomerData}" />
+
+                <table class="button-table">
+                    <tr>
+                        <td style="text-align: left;">
+                            <p:commandLink action="#{navigationBean.showDeliveryPayment}" style="color:#fff; margin-right: 10px;" styleClass="cart-index-button" value="Назад"/>
+                        </td>
+                        <td style="text-align: right;">
+                            <p:commandLink id="next-button" action="#{navigationBean.showApproveOrder}"  style="color:#fff; " styleClass="agree-button" value="Далее"
+                                           actionListener="#{userController.saveCustomerData}"/>
+                        </td>
+                    </tr>
+                </table>
+
+
         </h:form>
             <h:form id="goods"/>
         </ui:define>

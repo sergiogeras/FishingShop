@@ -1,15 +1,20 @@
 package fishingshop.service.impl;
 
 import fishingshop.dao.UserDao;
+import fishingshop.domain.user.Role;
 import fishingshop.domain.user.User;
+import fishingshop.service.RoleService;
 import fishingshop.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.encoding.MessageDigestPasswordEncoder;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.security.MessageDigest;
 import java.util.List;
 
 /**
@@ -23,8 +28,15 @@ public class UserServiceImpl implements UserService {
     @Autowired
     UserDao userDao;
 
+    @Autowired
+    RoleService roleService;
+
     @Override
     public void addUser(User user) {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String cryptPass=passwordEncoder.encode(user.getPassword());
+        user.setPassword(cryptPass);
+        user.setRole(roleService.getRole("USER").get(0));
         userDao.addUser(user);
     }
 
