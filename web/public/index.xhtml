@@ -98,7 +98,7 @@
                 <p:growl id="messages" showDetail="false" escape="false"/>
 
                 <p:dataGrid id="goods" var="goods" value="#{catalogController.goodsList}" columns="3" layout="grid"
-                            rows="9" paginator="true" paginatorPosition="bottom" emptyMessage="Товары в данной категории отсутствуют"
+                            rows="12" paginator="true" paginatorPosition="bottom" emptyMessage="Товары в данной категории отсутствуют"
                             paginatorTemplate="  {PreviousPageLink} {PageLinks} {NextPageLink} "
                             paginatorAlwaysVisible="false" lazy="true"  >
 
@@ -160,10 +160,10 @@
 
                 <p:dialog id="goodsDetail" styleClass="goods-dialog"  header="#{catalogController.goods.name}" widgetVar="goodsDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
                     <p:outputPanel style="text-align:center; max-width: 550px">
-                        <p:panelGrid rendered="#{not empty catalogController.goods}" columnClasses="columnsDialog">
+                        <p:panelGrid rendered="#{not empty catalogController.goods}" styleClass="ui-noborder goods-dialog" >
                             <p:row>
                                 <p:column rowspan="5">
-                                    <p:graphicImage cache="false" value="#{showImage.image}" alt="#{msg.image_not_found}" style="width: 250px">
+                                    <p:graphicImage cache="false" value="#{showImage.image}" alt="#{msg.image_not_found}" style="max-height: 250px;">
                                         <f:param name="goodsId" value="#{catalogController.goods.id}"/>
                                     </p:graphicImage>
                                 </p:column>
@@ -188,10 +188,14 @@
                             </p:row>
                             <p:row>
                                 <p:column >
-                                    <p:spinner styleClass="minMax" value="#{shopManager.amount}"  min="1" max="100" size="2" style="margin-right: 5px;"/>
-                                    <p:commandLink style="color:#fff" styleClass="cart-button" value="В корзину"
-                                                   actionListener="#{shopManager.addGoodsToTheCart(catalogController.goods)}"
-                                                   update=":cart :messages"/>
+                                    <h:form>
+                                        <p:selectOneMenu  value="#{shopManager.amount}" style="width:50px" editable="true">
+                                            <f:selectItems value="#{catalogController.getAmountList(catalogController.goods)}"/>
+                                        </p:selectOneMenu>
+                                        <p:commandLink style="color:#fff" styleClass="cart-button" value="В корзину"
+                                                       actionListener="#{shopManager.addGoodsToTheCart(catalogController.goods)}"
+                                                       update=":cart :messages" onclick="PF('goodsDialog').hide()"/>
+                                    </h:form>
                                 </p:column>
                             </p:row>
 

@@ -14,6 +14,7 @@ import fishingshop.service.OrderService;
 import fishingshop.service.StatusService;
 import fishingshop.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.faces.context.FacesContext;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 @Service("orderService")
@@ -141,7 +143,8 @@ public class OrderServiceImpl implements OrderService {
     }
 
     /** Generate orderId by getting previous id from Orders */
-    private int generateOrderId(){
+    @Override
+    public int generateOrderId(){
         ArrayList<Orders> list= (ArrayList<Orders>) orderDao.getAllOrders();
         if(!list.isEmpty()){
             return  orderId = list.get((list.size()-1)).getOrderId()+1;
@@ -157,7 +160,21 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public List<Orders> getOrdersByCustomer(Customer customer) {
-
-        return orderDao.getOrdersByCustomer(customer);
+        List<Orders> ordersList=orderDao.getOrdersByCustomer(customer);
+        LinkedList<Orders> result=new LinkedList<>();
+        result.add(ordersList.get(0));
+        boolean flag=false;
+        for(Orders item: ordersList){
+            if(flag){
+                if(item.getOrderId()==result.getLast().getOrderId()){
+                    int cost=item.getCost()+result.getLast().getCost();
+                    result.getLast().setCost(cost);
+                } else {
+                    result.add(item);
+                }
+            }
+           flag=true;
+        }
+        return result;
     }
 }

@@ -121,7 +121,8 @@ public class ShopManager implements Serializable {
 
     @Transactional
     public void buyGoods(){
-        mailSender.sendOrderMessage();
+
+        mailSender.sendOrderMessage(cart.getOrderItems(), cart.getSumm(), orderService.generateOrderId());
         cart.saveOrderToDB();
 
     }

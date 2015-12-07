@@ -76,6 +76,7 @@
 }
 
 .delete-link{
+    outline: none;
     text-decoration: none;
 }
 
@@ -144,4 +145,10 @@
     text-align: right;
     margin-bottom: 10px;
     margin-top: 20px;
+}
+
+
+
+.goods-dialog tr td {
+    text-align: left;
 }

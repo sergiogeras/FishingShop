@@ -28,28 +28,37 @@
     <ui:composition template="/public/templates/shop-template.xhtml">
         <ui:define name="content">
             <h:form id="form" styleClass="content-background">
+                <p:growl id="messages" showDetail="false" escape="false" sticky="true"/>
                 <h3>Ваши данные:</h3>
-                <h:panelGrid   columns="2" columnClasses="col">
+                <h:panelGrid  columns="2" columnClasses="col">
                     <h:outputText value="Имя пользователя"/>
-                    <p:inputText value="#{userController.user.username}" />
+                    <p:inputText id="username" value="#{userController.user.username}" required="true" requiredMessage="Введите Ваш логин">
+                        <f:validator binding="#{usernameValidator}"/>
+                    </p:inputText>
 
                     <h:outputText value="Пароль"/>
-                    <p:password id="pass1" value="#{userController.user.password}" match="pass2" required="true"/>
+                    <p:password id="pass1" value="#{userController.user.password}" match="pass2" required="true" requiredMessage="Введите Ваш пароль">
+                        <f:validator validatorId="passwordValidator"/>
+                    </p:password>
 
                     <h:outputText value="Повторите пароль"/>
-                    <p:password id="pass2" value="#{userController.user.password}"/>
+                    <p:password id="pass2" value="#{userController.user.password}" requiredMessage="Повторите пароль" required="true"/>
 
                     <h:outputText value="Имя"/>
-                    <p:inputText value="#{userController.user.customer.name}" />
+                    <p:inputText required="true" requiredMessage="Введите Ваше имя"  value="#{userController.user.customer.name}">
+                        <f:validator validatorId="nameValidator"/>
+                    </p:inputText>
 
                     <h:outputText value="E-mail"/>
-                    <p:inputText value="#{userController.user.customer.email}"/>
-
+                    <p:inputText required="true" requiredMessage="Введите Ваш e-mail"  value="#{userController.user.customer.email}">
+                        <f:validator validatorId="emailValidator"/>
+                    </p:inputText>
 
                 </h:panelGrid>
                 <div style="text-align: left; margin: 20px 0 15px 155px">
                 <p:commandLink id="next-button" action="#{userController.registerUser}" style="color:#fff; padding: 14px 18px 14px 18px; border-radius: 8px; " styleClass="agree-button" value="Зарегистрироваться"
-                                ajax="true" onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()">
+                                ajax="true" onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()"
+                               update=":form:messages ">
                 </p:commandLink>
                 </div>
                 <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">

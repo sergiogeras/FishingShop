@@ -37,7 +37,9 @@
                         <h:outputText value="#{item.orderId}"/>
                     </p:column>
                     <p:column headerText="Дата">
-                        <h:outputText value="#{item.orderDate}"/>
+                        <h:outputText value="#{item.orderDate}">
+                            <f:convertDateTime pattern="HH:mm dd.MM.yyyy" />
+                        </h:outputText>
                     </p:column>
                     <p:column headerText="Доставка" >
                         <h:outputText  value="#{item.delivery.name}"/>
@@ -45,7 +47,7 @@
                     <p:column headerText="Оплата" >
                         <h:outputText value="#{item.payment.name}"/>
                     </p:column>
-                    <p:column headerText="Стоимость" >
+                    <p:column headerText="Сумма заказа" >
                         <h:outputText  value="#{item.cost}"/>
                     </p:column>
                     <p:column headerText="Статус" >

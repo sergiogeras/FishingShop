@@ -28,6 +28,7 @@
     <ui:composition template="/public/templates/shop-template.xhtml">
         <ui:define name="content">
             <h:form id="form" styleClass="content-background">
+                <p:growl id="messages" showDetail="false" escape="false"/>
                 <p:defaultCommand target="next-button"/>
                 <div style="text-align: left; padding-left: 30px;">
                     <h3>Выберите способ доставки:</h3>
@@ -57,7 +58,7 @@
                         </td>
                         <td style="text-align: right;">
                             <p:commandLink id="next-button" action="#{navigationBean.showAddress}"  style="color:#fff; " styleClass="agree-button" value="Далее"
-                                           actionListener="#{shopManager.saveDeliveryPaymentData}"/>
+                                          update=":form:messages" actionListener="#{shopManager.saveDeliveryPaymentData}"/>
                         </td>
                     </tr>
                 </table>

@@ -1,10 +1,13 @@
 package fishingshop.utils;
 
 
+import fishingshop.controller.ShopManager;
 import fishingshop.domain.customer.Customer;
 import fishingshop.domain.order.OrderItem;
 import fishingshop.domain.order.Orders;
 import fishingshop.domain.user.User;
+import fishingshop.service.OrderService;
+import fishingshop.service.impl.OrderServiceImpl;
 import fishingshop.service.shop.Cart;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -14,6 +17,7 @@ import javax.faces.context.FacesContext;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.util.List;
 import java.util.Properties;
 
 /**
@@ -25,8 +29,8 @@ import java.util.Properties;
 public class MailSender {
 
 
-    @Autowired
-    private Cart cart;
+
+
 
     /** Send e-mail with registration data */
     public void sendRegistrationMessage(User user){
@@ -67,7 +71,7 @@ public class MailSender {
     }
 
     /** Send e-mail with order data */
-    public void sendOrderMessage(){
+    public void sendOrderMessage(List<OrderItem> orderItems, int totalSum, int orderId){
         final String username = "poplavok.fishshop@gmail.com";
         final String password = "poplavok1234";
 
@@ -97,9 +101,14 @@ public class MailSender {
 
             StringBuilder builder=new StringBuilder();
             builder.append("<html><body>");
-            builder.append("<div style=\" font-family:Arial, Helvetica, sans-serif; font-size:12px; color:#666666; background-color:#EEEEEE;\">");
+            builder.append("<div style=\" font: 100%/1.4 Verdana, Arial, Helvetica, sans-serif; font-size:14px;" +
+                    " color: #535353; text-align: left; padding-left: 30px;\">");
 
-            builder.append("<table>");
+            builder.append("<h3>Вы сделали заказ на сайте Poplavok.</h3>");
+            builder.append("<h3>Номер вашего заказа: ");
+            builder.append(orderId);
+            builder.append("</h3>");
+            builder.append("<table style=\"border: 1px solid #dddddd; cellspacing=\"2\" border=\"1\" cellpadding=\"5\"\">");
             builder.append("<tr>");
             builder.append("<th>№</th>");
             builder.append("<th>Название</th>");
@@ -109,7 +118,7 @@ public class MailSender {
             builder.append("</tr>");
 
             int i=0;
-            for(OrderItem item: cart.getOrderItems()){
+            for(OrderItem item: orderItems){
                 builder.append("<tr>");
                 builder.append("<td>");
                 builder.append(++i);
@@ -127,10 +136,14 @@ public class MailSender {
                 builder.append(item.getPrice());
                 builder.append("</td>");
                 builder.append("</tr>");
+
             }
 
-
             builder.append("</table>");
+            builder.append("<h3 style=\"padding-top: 10px;\">Итоговая сумма заказа: ");
+            builder.append(totalSum);
+            builder.append(" руб.</h3>");
+            builder.append("<p>Наш менеджер свяжется в Вами в ближайшее время для подтверждения заказа.</p>");
             builder.append("</div>");
             builder.append("</body></html>");
 

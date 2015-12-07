@@ -4,7 +4,7 @@
     background-color: white;
     border: 1px solid #dddddd;
     /*border-radius: 6px;*/
-    padding: 5px 0 5px 5px ;
+    padding: 5px 0 5px 15px ;
 
 }
 
@@ -62,11 +62,11 @@
     float: right;
 }
 
-.enter-button a:hover{
+.enter-button:hover{
     background: #DADFE7;
 }
 
-.enter-button a:active{
+.enter-button:active{
     background: #b4b9c1;
 }
 

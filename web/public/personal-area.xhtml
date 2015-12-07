@@ -27,45 +27,55 @@
 <h:body>
     <ui:composition template="/public/templates/shop-template.xhtml">
         <ui:define name="content">
-            <p:growl id="messages" showDetail="false" escape="false"/>
             <h:form id="form" styleClass="content-background">
+                <p:growl id="messages" showDetail="false" escape="false" sticky="true"/>
                 <p:defaultCommand target="next-button"/>
                 <div style="margin-left: 30px; text-align: left;" >
                     <h3 style="margin-left: 30px;">Ваши данные:</h3>
+
                     <h:panelGrid  id="address_grid" columns="2" columnClasses="col" >
-                        <h:outputText value="Имя"/>
-                        <p:inputText value="#{userController.customer.name}" />
 
-                        <h:outputText value="Фамилия"/>
-                        <p:inputText value="#{userController.customer.surname}"/>
+                    <h:outputText value="Имя"/>
+                    <p:inputText id="name" value="#{userController.customer.name}" required="true" requiredMessage="Введите Ваше имя">
+                        <f:validator validatorId="nameValidator"/>
+                    </p:inputText>
 
-                        <h:outputText value="Телефон"/>
-                        <p:inputText value="#{userController.customer.phone}"/>
+                    <h:outputText value="Фамилия"/>
+                    <p:inputText id="surname" value="#{userController.customer.surname}">
+                        <f:validator validatorId="nameValidator"/>
+                    </p:inputText>
 
-                        <h:outputText value="E-mail"/>
-                        <p:inputText value="#{userController.customer.email}"/>
+                    <h:outputText value="Телефон"/>
+                    <p:inputText value="#{userController.customer.phone}"/>
 
-                        <h:outputText value="Город" />
-                        <p:inputText value="#{userController.customer.city}" />
+                    <h:outputText value="E-mail"/>
+                    <p:inputText value="#{userController.customer.email}" required="true" requiredMessage="E-mail не может быть пустым">
+                        <f:validator validatorId="emailValidator"/>
+                    </p:inputText>
 
-                        <h:outputText value="Улица" />
-                        <p:inputText value="#{userController.customer.street}" />
+                    <h:outputText value="Город" />
+                    <p:inputText value="#{userController.customer.city}" />
 
-                        <h:outputText value="Дом" />
-                        <p:inputText value="#{userController.customer.house}" />
+                    <h:outputText value="Улица" />
+                    <p:inputText value="#{userController.customer.street}" />
 
-                        <h:outputText value="Квартира" />
-                        <p:inputText value="#{userController.customer.flat}" />
+                    <h:outputText value="Дом" />
+                    <p:inputText value="#{userController.customer.house}" />
 
-                        <h:outputText value="Индекс" />
-                        <p:inputText value="#{userController.customer.zip}" />
+                    <h:outputText value="Квартира" />
+                    <p:inputText value="#{userController.customer.flat}" />
+
+                    <h:outputText value="Индекс" />
+                    <p:inputText value="#{userController.customer.zip}"/>
+
+
                     </h:panelGrid>
                 </div>
 
 
                 <div style="text-align: left; margin: 20px 0 15px 200px">
                     <p:commandLink id="next-button" action="#{userController.updateCustomerData}"  style="color:#fff; padding: 14px 18px 14px 18px; border-radius: 8px; " styleClass="agree-button" value="Записать"
-                                 update=":messages"  />
+                                 update=":form:messages"  />
                 </div>
 
 

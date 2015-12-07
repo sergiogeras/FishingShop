@@ -28,36 +28,49 @@
     <ui:composition template="/public/templates/shop-template.xhtml">
         <ui:define name="content">
             <h:form id="form" styleClass="content-background">
+                <p:growl id="messages" showDetail="false" escape="false" sticky="true"/>
                 <p:defaultCommand target="next-button"/>
                 <div style="margin-left: 30px; text-align: left;" >
                     <h3 style="margin-left: 30px;">Ваши данные:</h3>
                     <h:panelGrid  id="address_grid" columns="2" columnClasses="col" >
                         <h:outputText value="Имя"/>
-                        <p:inputText value="#{userController.customer.name}" />
+                        <p:inputText id="name" value="#{userController.customer.name}" required="true" requiredMessage="Введите Ваше имя">
+                            <f:validator validatorId="nameValidator"/>
+                        </p:inputText>
 
                         <h:outputText value="Фамилия"/>
-                        <p:inputText value="#{userController.customer.surname}"/>
+                        <p:inputText id="surname" value="#{userController.customer.surname}" required="true" requiredMessage="Введите Вашу фамилию">
+                            <f:validator validatorId="nameValidator"/>
+                        </p:inputText>
 
                         <h:outputText value="Телефон"/>
-                        <p:inputText value="#{userController.customer.phone}"/>
+                        <p:inputText value="#{userController.customer.phone}" required="true" requiredMessage="Введите номер телефона"/>
 
                         <h:outputText value="E-mail"/>
-                        <p:inputText value="#{userController.customer.email}"/>
+                        <p:inputText value="#{userController.customer.email}" required="true" requiredMessage="E-mail не может быть пустым">
+                            <f:validator validatorId="emailValidator"/>
+                        </p:inputText>
 
                         <h:outputText value="Город" rendered="#{not (shopManager.delivery.name eq 'Самовывоз')}"/>
-                        <p:inputText value="#{userController.customer.city}" rendered="#{not (shopManager.delivery.name eq 'Самовывоз')}"/>
+                        <p:inputText value="#{userController.customer.city}" required="true" requiredMessage="Введите название города"
+                                     rendered="#{not (shopManager.delivery.name eq 'Самовывоз')}"/>
 
                         <h:outputText value="Улица" rendered="#{not (shopManager.delivery.name eq 'Самовывоз')}"/>
-                        <p:inputText value="#{userController.customer.street}" rendered="#{not (shopManager.delivery.name eq 'Самовывоз')}"/>
+                        <p:inputText value="#{userController.customer.street}" required="true" requiredMessage="Введите название улицы"
+                                     rendered="#{not (shopManager.delivery.name eq 'Самовывоз')}"/>
 
                         <h:outputText value="Дом" rendered="#{not (shopManager.delivery.name eq 'Самовывоз')}"/>
-                        <p:inputText value="#{userController.customer.house}" rendered="#{not (shopManager.delivery.name eq 'Самовывоз')}"/>
+                        <p:inputText value="#{userController.customer.house}" required="true" requiredMessage="Введите номер дома"
+                                     rendered="#{not (shopManager.delivery.name eq 'Самовывоз')}"/>
 
                         <h:outputText value="Квартира" rendered="#{not (shopManager.delivery.name eq 'Самовывоз')}"/>
-                        <p:inputText value="#{userController.customer.flat}" rendered="#{not (shopManager.delivery.name eq 'Самовывоз')}"/>
+                        <p:inputText value="#{userController.customer.flat}" required="true" requiredMessage="Введите номер квартиры"
+                                     rendered="#{not (shopManager.delivery.name eq 'Самовывоз')}"/>
 
                         <h:outputText value="Индекс" rendered="#{not (shopManager.delivery.name eq 'Самовывоз') and not (shopManager.delivery.name eq 'Доставка курьером')}"/>
-                        <p:inputText value="#{userController.customer.zip}" rendered="#{not (shopManager.delivery.name eq 'Самовывоз') and  not (shopManager.delivery.name eq 'Доставка курьером')}"/>
+                        <p:inputText value="#{userController.customer.zip}" required="true" requiredMessage="Введите индекс"
+                                     rendered="#{not (shopManager.delivery.name eq 'Самовывоз') and  not (shopManager.delivery.name eq 'Доставка курьером')}"/>
+
 
                     </h:panelGrid>
                 </div>
@@ -66,11 +79,11 @@
                 <table class="button-table">
                     <tr>
                         <td style="text-align: left;">
-                            <p:commandLink action="#{navigationBean.showDeliveryPayment}" style="color:#fff; margin-right: 10px;" styleClass="cart-index-button" value="Назад"/>
+                            <p:commandLink immediate="true" action="#{navigationBean.showDeliveryPayment}" style="color:#fff; margin-right: 10px;" styleClass="cart-index-button" value="Назад"/>
                         </td>
                         <td style="text-align: right;">
                             <p:commandLink id="next-button" action="#{navigationBean.showApproveOrder}"  style="color:#fff; " styleClass="agree-button" value="Далее"
-                                           actionListener="#{userController.saveCustomerData}"/>
+                                          update=":form:messages" actionListener="#{userController.saveCustomerData}"/>
                         </td>
                     </tr>
                 </table>

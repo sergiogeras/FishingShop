@@ -25,7 +25,7 @@ public class Orders implements Serializable {
     @Column
     private Integer amount;
 
-    @Column
+    @Column(updatable = false)
     private Integer cost;
 
     @Column(name = "ORDER_DATE")
@@ -93,6 +93,7 @@ public class Orders implements Serializable {
     public Integer getCost() {
         return cost;
     }
+
 
     public void setCost(Integer cost) {
         this.cost = cost;
