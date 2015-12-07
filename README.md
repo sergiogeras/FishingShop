@@ -11,6 +11,7 @@
 - Представление JSF (Primefaces);<br>
 - Авторизация и аутентификация - Spring Security;<br>
 - Система логирования log4j, через Spring AOP;<br>
+- JavaMail;<br>
 - Система сборки Maven;<br>
 - Тестирование JUnit;<br>
 - Сервер TomCat.<br>
