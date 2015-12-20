@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-  Created by IntelliJ IDEA.
-  User: Сергей
-  Date: 19.09.2015
-  Time: 15:31
--->
+
 <!DOCTYPE html
         PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -23,7 +18,7 @@
         <h:form id="addForm" enctype="multipart/form-data">
             <h:panelGrid id="pg" columns="2" cellpadding="5">
                 <h:outputLabel for="name" value="#{msg.name}" />
-                <p:inputText id="name" required="true" value="#{goodsController.goods.name}"/>
+                <p:inputText id="name" value="#{goodsController.goods.name}" required="true"/>
                 <h:outputLabel for="article" value="#{msg.article}" />
                 <p:inputText id="article" value="#{goodsController.goods.article}"/>
                 <h:outputLabel for="price" value="#{msg.price}" />
@@ -34,12 +29,16 @@
                 <p:inputTextarea style="width: 340px" id="descr"  value="#{goodsController.goods.description}"/>
             </h:panelGrid>
 
+            <p:fileUpload styleClass="table_button2" label="#{msg.change_image}" value="#{uploadImage.file}" mode="simple"
+                          skinSimple="true" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>
+
             <p:commandButton  styleClass="table_button" value="#{msg.save}"
                               action="#{goodsController.editGoods}" actionListener="#{uploadImage.upload}" ajax="false">
             </p:commandButton>
 
-            <p:fileUpload styleClass="table_button2" label="#{msg.change_image}" value="#{uploadImage.file}" mode="simple"
-                          skinSimple="true" allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/>
+            <p:commandButton  styleClass="table_button" immediate="true" value="Закрыть"
+                              action="#{goodsController.closeGoodsDialog}"  ajax="false">
+            </p:commandButton>
         </h:form>
     </div>
 

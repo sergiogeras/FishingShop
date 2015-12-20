@@ -15,4 +15,5 @@ public interface GoodsService {
     void changeGoodsAmount(Goods goods);
     List<Goods> getGoodsViaMainSearch(String searchStr);
     List<Integer> getAmountList(Goods goods);
+    List<Goods> getGoodsByCriteria(String name, String article, int priceFrom, int priceTo, int amountFrom, int amountTo);
 }

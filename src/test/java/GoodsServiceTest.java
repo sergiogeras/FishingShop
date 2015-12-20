@@ -43,7 +43,6 @@ public class GoodsServiceTest {
         goods.setDescription("Best of the best");
         goods.setPrice(4500);
         goods.setManufacturer("Daiwa");
-        goods.setType("goods");
         List<Groups> allGroups = groupsService.getAllGroups();
         int lastId= allGroups.get(allGroups.size()-1).getId();
         goods.setGroups(groupsService.getGroupsById(lastId));

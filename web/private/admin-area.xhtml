@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-  Created by IntelliJ IDEA.
-  User: Сергей
-  Date: 04.08.2015
-  Time: 22:00
--->
+
 <!DOCTYPE html
         PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -13,10 +8,10 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html" xmlns:P="http://java.sun.com/jsf/html">
 
 <h:head>
-    <title>#{msg.admin_console}</title>
+    <title>Администратор: Управление ассортиментом</title>
     <h:outputScript name="jquery/jquery.js" library="primefaces"/>
     <h:outputStylesheet name="admin-console-style.css" library="css"/>
 </h:head>
@@ -26,73 +21,189 @@
 
         <h:form>
 
-            <p:toolbar>
-                <f:facet name="left">
-
+            <p:menubar>
+                <p:menuitem action="#{navigationBean.showAdminArea}" value="Ассортимент" icon="ui-icon-bookmark"/>
+                <p:menuitem action="#{navigationBean.showAdminOrders}" value="Заказы"  icon="ui-icon-cart"/>
+                <p:menuitem action="#{navigationBean.showIndex}" value="Магазин"  icon="ui-icon-home"/>
+                <f:facet name="options">
+                    <p:commandButton action="#{authentication.doLogout}" value="Logout" icon="ui-icon-extlink" ajax="false"/>
                 </f:facet>
-
-                <f:facet name="right">
-                    <p:commandButton action="#{navigationBean.showIndex}" value="#{msg.to_the_shop}" icon="ui-icon-close" ajax="false"/>
-                    <p:commandButton action="#{authentication.doLogout}" value="#{msg.logout}" icon="ui-icon-extlink" ajax="false"/>
-                </f:facet>
-
-            </p:toolbar>
+            </p:menubar>
         </h:form>
 
-
-            <h:form id="main_form">
-                <p:growl id="messages" showDetail="false" escape="false"/>
-                <p:treeTable id="admin_table"  value="#{adminTableController.root}" var="g" selectionMode="single"
-                             selection="#{adminTableController.selectedNode}" resizableColumns="true" style="margin-top:0">
-                    <f:facet name="header">
-                        #{msg.gooods_manager}
-                    </f:facet>
-                    <p:column headerText="#{msg.name}">
-                        <h:outputText value="#{g.name}" />
-                    </p:column>
-                    <p:column headerText="#{msg.description}">
-                        <h:outputText value="#{g.description}" />
-                    </p:column>
-
-                    <p:column style="width:24px">
-                        <p:commandLink action="#{goodsController.showGoodsDetails(g.id)}" title="View Detail" styleClass="ui-icon ui-icon-search"/>
-                    </p:column>
-                </p:treeTable>
-
-
-                <p:commandButton styleClass="table_button" value="#{msg.add_goods}"  icon="ui-icon-plus"
-                                 action="#{adminTableController.addGoodsDialog}">
-                    <p:ajax event="dialogReturn" listener="#{adminTableController.updateTable('goods')}" update="admin_table messages"/>
-                </p:commandButton>
-                <p:commandButton styleClass="table_button" value="#{msg.add_group}" icon="ui-icon-plusthick"
-                                 actionListener="#{adminTableController.addGroupDialog}">
-                    <p:ajax event="dialogReturn" listener="#{adminTableController.updateTable('group')}" update="admin_table messages"/>
-                </p:commandButton>
-                <p:commandButton styleClass="table_button" value="#{msg.edit}" update="messages" icon="ui-icon-pencil"
-                                 actionListener="#{adminTableController.editDialog}">
-                    <p:ajax event="dialogReturn" listener="#{adminTableController.updateTable('update')}" update="admin_table messages"/>
-                </p:commandButton>
-                <p:commandButton styleClass="table_button" value="#{msg.change_Amount}" update="messages" icon="ui-icon-transfer-e-w"
-                                 actionListener="#{adminTableController.amountDialog}">
-                    <p:ajax event="dialogReturn" listener="#{adminTableController.updateTable('update')}" update="admin_table messages"/>
-                </p:commandButton>
-                <h:form>
-                    <p:commandButton styleClass="table_button" value="#{msg.delete}" icon="ui-icon-trash"
-                                     actionListener="#{adminTableController.deleteItem}" update="@([id$=messages]) @([id$=admin_table])"
-                                     action="#{adminTableController.updateTable('')}" >
-                        <p:confirm message="#{msg.delete_item}" header="#{msg.confirmation}" icon="ui-icon-alert"/>
-
-                    </p:commandButton>
-                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-                        <p:commandButton value="#{msg.yes}" type="button" styleClass="ui-confirmdialog-yes"
-                                         icon="ui-icon-check">
+        <table style="margin-top: 25px;">
+            <tr>
+                <td style="width: 280px; vertical-align: top; position: fixed;">
+                    <h:form  id="group_form">
+                        <h3 class="catalog_header" style="display: block; text-align: center; ">Категории</h3>
+                        <p:tree value="#{groupsController.root}" id="groups_tree" var="group"
+                                selectionMode="single" animate="true"
+                                selection="#{groupsController.selectedNode}" styleClass="tree-catalog" style="width: inherit">
+                            <p:ajax event="select" update=":goods_form" listener="#{groupsController.chooseCategory}" />
+                            <p:treeNode>
+                                <h:outputText value="#{group.name}" />
+                            </p:treeNode>
+                        </p:tree>
+                        <p:commandButton styleClass="table_button"  icon="ui-icon-plusthick" title="Добавить категорию"
+                                         actionListener="#{groupsController.addGroupDialog}"  >
+                            <p:ajax event="dialogReturn" listener="#{groupsController.updateTree}" update="groups_tree"/>
                         </p:commandButton>
-                        <p:commandButton value="#{msg.no}" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
-                    </p:confirmDialog>
-                </h:form>
+                        <p:commandButton styleClass="table_button" icon="ui-icon-pencil" title="Редактировать"
+                                         actionListener="#{groupsController.editGroupDialog}" action="#{groupsController.updateTree}">
+                            <p:ajax event="dialogReturn" listener="#{groupsController.updateTree}"  update="groups_tree"/>
+                        </p:commandButton>
+                        <h:form>
+                            <p:commandButton styleClass="table_button" icon="ui-icon-trash" title="Удалить" action="#{groupsController.updateTree}"
+                                             actionListener="#{groupsController.deleteGroup}" update=" :group_form:groups_tree">
+                                <p:confirm message="#{msg.delete_item}" header="#{msg.confirmation}" icon="ui-icon-alert"/>
 
+                            </p:commandButton>
+                            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                <p:commandButton value="#{msg.yes}" type="button" styleClass="ui-confirmdialog-yes"
+                                                 icon="ui-icon-check">
+                                </p:commandButton>
+                                <p:commandButton value="#{msg.no}" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                            </p:confirmDialog>
+                        </h:form>
 
-            </h:form>
+                        <h:form style="clear:both;"/>
+                    </h:form>
+                    <h:form styleClass="search_form">
+                        <p:panelGrid columnClasses="col" styleClass=" ui-noborder">
+                            <f:facet name="header">
+                                <h:outputText style="font-weight: bold; display: block; text-align: center; " value="Параметры выборки"/>
+                            </f:facet>
+                            <p:row>
+                                <p:column colspan="2">
+                                    <p:inputText value="#{goodsController.searchName}" style="width: 236px;" placeholder="Название позиции"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <h:outputText value="Артикул"/>
+                                </p:column>
+                                <p:column >
+                                    <p:inputText value="#{goodsController.article}" style="width: 140px;" />
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <h:outputText value="Цена"/>
+                                </p:column>
+                                <p:column>
+                                    <p:inputText value="#{goodsController.priceFrom}" style="width: 58px;" placeholder="от"/> -
+                                    <p:inputText value="#{goodsController.priceTo}" style="width: 58px;" placeholder="до"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column>
+                                    <h:outputText value="Кол-во"/>
+                                </p:column>
+                                <p:column>
+                                    <p:inputText value="#{goodsController.amountFrom}" style="width: 58px;" placeholder="от"/> -
+                                    <p:inputText value="#{goodsController.amountTo}" style="width: 58px;" placeholder="до"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column colspan="2">
+                                    <h:outputText value="Производитель"/>
+                                </p:column>
+                            </p:row>
+                            <p:row>
+                                <p:column >
+                                    <p:commandButton update=":goods_form @form" style="outline: none;" actionListener="#{goodsController.clearSearch}" value="Сброс"/>
+                                </p:column>
+                                <p:column style="text-align: right;">
+                                    <p:commandButton update=":goods_form" style="outline: none;" actionListener="#{goodsController.launchMainSearch}" value="Поиск"/>
+                                </p:column>
+                            </p:row>
+                        </p:panelGrid>
+                    </h:form>
+                </td>
+                <td style="width: 83%; vertical-align: top;">
+
+                    <h:form id="goods_form">
+                        <p:growl id="msg" showDetail="fasle"/>
+                        <p:dataTable id="goods_table" var="goods" widgetVar="goodsTable" value="#{goodsController.goodsList}"  rowHover="true" style="text-align: center;">
+
+                            <p:column headerText="№" footerText="№"  style="width: 20px;">
+                                <h:outputText value="#{goodsController.goodsList.indexOf(goods)+1}"/>
+                            </p:column>
+
+                            <p:column headerText="Id" footerText="Id" sortBy="#{goods.id}" style="width: 80px;">
+                                <h:outputText value="#{goods.id}" />
+                            </p:column>
+
+                            <p:column headerText="Фото" footerText="Фото" style="width: 80px">
+                                <p:graphicImage cache="false" value="#{showImage.image}" alt="#{msg.image_not_found}" style="height: 50px">
+                                    <f:param name="goodsId" value="#{goods.id}"/>
+                                </p:graphicImage>
+                            </p:column>
+
+                            <p:column headerText="Артикул" footerText="Артикул" sortBy="#{goods.article}" style="width: 80px;">
+                                <h:outputText value="#{goods.article}" />
+                            </p:column>
+
+                            <p:column headerText="Название" footerText="Название" sortBy="#{goods.name}" filterMatchMode="contains" style="width: 300px;">
+                                <h:outputText value="#{goods.name}" />
+                            </p:column>
+
+                            <p:column headerText="Цена" footerText="Цена" sortBy="#{goods.price}" style="width: 80px;">
+                                <h:outputText value="#{goods.price} руб." />
+                            </p:column>
+
+                            <p:column headerText="Кол-во" footerText="Кол-во" sortBy="#{goods.goodsAmount}" style="width: 70px;">
+                                <h:outputText value="#{goods.goodsAmount} шт." />
+                            </p:column>
+
+                            <p:column headerText="Производитель" footerText="Производитель" sortBy="#{goods.manufacturer}" style="width: 200px;">
+                                <h:outputText value="#{goods.manufacturer}" />
+                            </p:column>
+
+                            <p:column headerText="Описание" footerText="Описание" filterMatchMode="contains" style="height: 50px; white-space: nowrap;overflow: hidden; text-overflow: ellipsis;">
+                                <h:outputText value="#{goods.description}" />
+                            </p:column>
+                            <p:column headerText="Операции" footerText="Операции" style="width: 170px;">
+                                <p:commandButton styleClass="table_button" actionListener="#{goodsController.showGoodsDetails(goods.id)}"
+                                                  title="Карточка товара" icon="ui-icon-search">
+                                    <p:ajax event="dialogReturn" listener="#{goodsController.clearGoods}"/>
+                                </p:commandButton>
+                                <p:commandButton styleClass="table_button" title="Редактировать" icon="ui-icon-pencil" process="@form"
+                                                 actionListener="#{goodsController.editGoodsDialog(goods)}">
+                                    <p:ajax event="dialogReturn" listener="#{goodsController.updateTable('change')}" update="goods_table :goods_form:msg"/>
+                                </p:commandButton>
+                                <p:commandButton styleClass="table_button" title="Приход/расход" icon="ui-icon-transfer-e-w" process="@form"
+                                                 actionListener="#{goodsController.amountDialog(goods)}">
+                                    <p:ajax event="dialogReturn" listener="#{goodsController.updateTable('change')}" update="goods_table :goods_form:msg"/>
+                                </p:commandButton>
+                                <h:form>
+                                    <p:commandButton styleClass="table_button" title="Удалить" icon="ui-icon-trash" process="@form"
+                                                     actionListener="#{goodsController.deleteGoods(goods.id)}" update=":goods_form:goods_table :goods_form:msg"
+                                                     action="#{goodsController.updateTable(null)}" >
+                                        <p:confirm message="#{msg.delete_item}" header="#{msg.confirmation}" icon="ui-icon-alert"/>
+
+                                    </p:commandButton>
+                                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                        <p:commandButton value="#{msg.yes}" type="button" styleClass="ui-confirmdialog-yes"
+                                                         icon="ui-icon-check">
+                                        </p:commandButton>
+                                        <p:commandButton value="#{msg.no}" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                                    </p:confirmDialog>
+                                </h:form>
+                            </p:column>
+                        </p:dataTable>
+
+                        <p:commandButton styleClass="table_button" value="#{msg.add_goods}" style="float: right;" icon="ui-icon-plus"
+                                         action="#{goodsController.addGoodsDialog}">
+                            <p:ajax event="dialogReturn" listener="#{goodsController.updateTable('add')}" update="goods_table :goods_form:msg"/>
+                        </p:commandButton>
+
+                    </h:form>
+
+                </td>
+            </tr>
+        </table>
+
 
 
     </div>

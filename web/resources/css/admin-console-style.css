@@ -1,7 +1,7 @@
 
 
 .container{
-    width: 1000px;
+    max-width: 90%;
     margin: auto;
     font: 100%/1.4 Verdana, Arial, Helvetica, sans-serif;
     color: black;
@@ -18,7 +18,7 @@
 .table_button{
 
     margin: 10px 0 10px 5px;
-
+    outline: none;
     float: left;
 }
 
@@ -30,3 +30,46 @@
     margin: 10px 0 10px 5px;
 
 }
+
+.ui-tree .ui-treenode-label.ui-state-highlight{
+    outline: none !important;
+    font-weight: bold !important;
+}
+
+.ui-tree .ui-treenode-label.ui-state-hover {
+    color: #535353;
+    font-weight: bold;
+}
+
+.search_form{
+    width: 268px;
+    margin-top: 30px;
+    padding: 5px;
+    border: 1px solid #eeeeee;
+    border-radius: 10px;
+}
+
+ td{
+    min-height: 50px;
+    white-space: nowrap;
+    overflow: auto;
+    text-overflow: ellipsis;
+    word-wrap:break-word;
+}
+
+ .order_info{
+     width: 100%;
+     margin: auto;
+     font-weight: bolder;
+     padding-top: 30px;
+     padding-bottom: 20px;
+ }
+
+ .order_info tr td{
+     width: 50%; vertical-align: top;
+ }
+
+ #orders_form.ui-dialog {
+     width: auto !important;
+     height: auto !important;
+ }

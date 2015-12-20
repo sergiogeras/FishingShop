@@ -1,23 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-  Created by IntelliJ IDEA.
-  User: Сергей
-  Date: 23.11.2015
-  Time: 22:06
--->
+
 <!DOCTYPE html
         PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 <h:head>
     <title>Simple JSF Facelets page</title>
+    <h:outputScript name="jquery/jquery.js" library="primefaces"/>
+    <h:outputStylesheet name="header-style.css" library="css"/>
+    <h:outputStylesheet name="common-style.css" library="css"/>
+    <h:outputStylesheet name="left-menu-style.css" library="css"/>
+    <h:outputStylesheet name="content-style.css" library="css"/>
 </h:head>
 
 <h:body>
-    Place your content here
+    <ui:composition template="/public/templates/shop-template.xhtml">
+        <ui:define name="left-menu">
+                </ui:define>
+        <ui:define name="content">
+
+            <div id="form" class="content-background">
+
+                <h:form styleClass="login-form" prependId="false" id="login_panel">
+                    <p:defaultCommand target="enter"/>
+                    <p style="font-weight: bold;">Авторизация</p>
+
+                        <h:panelGrid style="margin: auto;" columns="2" cellpadding="5">
+
+                            <h:outputText value="Имя пользователя"/>
+                            <p:inputText id="user" required="true" style="width: 150px; margin-bottom: 5px; border-radius: 0"/>
+
+                            <h:outputText value="Пароль"/>
+                            <p:password id="pass" required="true" style="width: 150px; border-radius: 0"/>
+
+
+                         </h:panelGrid>
+                    <div style="padding: 15px; margin:auto; width: 300px; text-align: right;">
+                        <p:commandLink id="enter" styleClass="agree-button" style="color:#fff;" value="Вход"
+                                       action="#{userController.setCurrentCustomer}" actionListener="#{authentication.doLogin}" ajax="false"/>
+                    </div>
+
+                </h:form>
+
+            </div>
+            <h:form id="goods" />
+        </ui:define>
+
+    </ui:composition>
+
 </h:body>
 
 </html>

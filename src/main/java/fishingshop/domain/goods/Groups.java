@@ -18,12 +18,6 @@ public class Groups implements Serializable {
     @Column
     private String name;
 
-    @Column
-    private String description;
-
-    @Column
-    private String type;
-
     @OneToMany(mappedBy = "groups", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Goods> goodsList;
 
@@ -34,10 +28,8 @@ public class Groups implements Serializable {
     @OneToMany(mappedBy = "parentId",  fetch = FetchType.EAGER, orphanRemoval = true)
     private List<Groups> childrenList;
 
-    public Groups(String name, String description, String type) {
+    public Groups(String name) {
         this.name = name;
-        this.description=description;
-        this.type=type;
     }
 
     public Groups() {
@@ -83,19 +75,4 @@ public class Groups implements Serializable {
         this.childrenList = childrenList;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
 }

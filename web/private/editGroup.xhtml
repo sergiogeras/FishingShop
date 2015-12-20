@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-  Created by IntelliJ IDEA.
-  User: Сергей
-  Date: 19.09.2015
-  Time: 2:50
--->
+
 <!DOCTYPE html
         PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -21,16 +16,18 @@
 <h:body>
     <div class="add_dialog">
         <h:form>
-            <p:growl id="messages" showDetail="false" escape="false"/>
             <h:panelGrid columns="3" cellpadding="5">
                 <h:outputLabel for="name" value="#{msg.name}" />
-                <p:inputText id="name" required="true" value="#{groupsController.groups.name}">
+                <p:inputText id="name"  value="#{groupsController.groups.name}" required="true" >
                     <p:message for="name"/>
                 </p:inputText>
-                <p:commandButton styleClass="table_button" value="#{msg.save}" update="messages"
-                                 actionListener="#{groupsController.editGroup}"/>
             </h:panelGrid>
 
+            <p:commandButton styleClass="table_button" value="#{msg.save}"
+                             actionListener="#{groupsController.editGroup}"/>
+            <p:commandButton  styleClass="table_button" immediate="true" value="Закрыть"
+                              action="#{groupsController.closeGroupDialog}"  ajax="false">
+            </p:commandButton>
         </h:form>
     </div>
 

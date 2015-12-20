@@ -34,7 +34,7 @@ public class Orders implements Serializable {
     @Column
     private String note;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "GOODS_ID")
     private Goods goods;
 
@@ -56,6 +56,27 @@ public class Orders implements Serializable {
 
     public Orders(){
 
+    }
+
+    public Orders(Integer orderId, long cost, Date orderDate, String note, Customer customer, Payment payment, Delivery delivery, Status status) {
+        this.orderId = orderId;
+        this.cost = (int)cost;
+        this.orderDate = orderDate;
+        this.note = note;
+        this.customer = customer;
+        this.payment = payment;
+        this.delivery = delivery;
+        this.status = status;
+    }
+
+    public Orders(Integer orderId, long cost, Date orderDate, Payment payment, Delivery delivery, Status status, Customer customer) {
+        this.orderId = orderId;
+        this.cost = (int)cost;
+        this.orderDate = orderDate;
+        this.payment = payment;
+        this.delivery = delivery;
+        this.status = status;
+        this.customer = customer;
     }
 
     public Integer getId() {
@@ -93,7 +114,6 @@ public class Orders implements Serializable {
     public Integer getCost() {
         return cost;
     }
-
 
     public void setCost(Integer cost) {
         this.cost = cost;

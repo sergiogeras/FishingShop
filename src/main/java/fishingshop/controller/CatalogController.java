@@ -1,10 +1,9 @@
 package fishingshop.controller;
 
-import fishingshop.beans.CatalogTree;
+import fishingshop.beans.TreeBuilder;
 import fishingshop.domain.goods.Goods;
 import fishingshop.domain.goods.Groups;
 import fishingshop.service.GoodsService;
-import fishingshop.service.GroupsService;
 import org.primefaces.model.TreeNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -37,18 +36,17 @@ public class CatalogController implements Serializable {
 
 
     @Autowired
-    private CatalogTree catalogTree;
+    private TreeBuilder treeBuilder;
 
     @Autowired
     private GoodsService goodsService;
 
     @PostConstruct
     public void init(){
-        root=catalogTree.createTreeTable();
+        root= treeBuilder.createTreeTable();
         goodsList=new ArrayList<>();
 
         //Create goods list on the start page (random, without duplicates)
-        //TODO: List depends on goods rating
         List<Goods> list=goodsService.getAllGoods();
         if(goodsList.size()>=9){
             for(int i=0; i<9;i++ ){
@@ -150,7 +148,7 @@ public class CatalogController implements Serializable {
     public void updateGoodsList() {
         searchMode=false;
         goodsList=startGoodsList;
-        root=catalogTree.createTreeTable();
+        root= treeBuilder.createTreeTable();
     }
 
     public List<Integer> getAmountList(Goods goods) {

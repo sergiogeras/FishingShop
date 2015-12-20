@@ -4,6 +4,10 @@ import fishingshop.dao.OrderDao;
 import fishingshop.domain.customer.Customer;
 import fishingshop.domain.order.Orders;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Projections;
+import org.hibernate.transform.Transformers;
+import org.hibernate.type.StandardBasicTypes;
+import org.hibernate.type.Type;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -40,8 +44,9 @@ public class OrderDaoImpl implements OrderDao {
 
     @Override
     public List<Orders> getAllOrders() {
-        return sessionFactory.getCurrentSession().createQuery("from Orders").list();
-    }
+        return sessionFactory.getCurrentSession().createQuery("select new Orders (o.orderId, sum(o.cost), o.orderDate," +
+                " o.note, o.customer, o.payment, o.delivery, o.status) from  Orders as o group by o.orderId").list();
+}
 
     @Override
     public List<Orders> getOrdersByOrderId(int orderId) {
@@ -56,7 +61,17 @@ public class OrderDaoImpl implements OrderDao {
 
     @Override
     public List<Orders> getOrdersByCustomer(Customer customer) {
-        return sessionFactory.getCurrentSession().createQuery("from Orders where customer=:customer").setParameter("customer", customer).list();
+        return sessionFactory.getCurrentSession().createQuery("select new Orders (o.orderId, sum(o.cost), o.orderDate," +
+                " o.payment, o.delivery, o.status, o.customer) from  Orders as o where o.customer=:c group by o.orderId")
+                .setParameter("c", customer).list();
 
+    }
+
+    @Override
+    public List<Orders> getOrderDetailsByCustomer(Customer customer, int orderId) {
+        return sessionFactory.getCurrentSession().createQuery("from Orders where customer=:c and orderId=:id")
+                .setParameter("c", customer)
+                .setParameter("id", orderId)
+                .list();
     }
 }

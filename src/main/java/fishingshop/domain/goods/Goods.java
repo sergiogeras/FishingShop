@@ -30,9 +30,6 @@ public class Goods implements Serializable, Comparable {
     @Column
     private String manufacturer;
 
-    @Column
-    private String type;
-
     @Column(name = "GOODS_AMOUNT")
     private Integer goodsAmount;    // Remains goods in the store
 
@@ -104,14 +101,6 @@ public class Goods implements Serializable, Comparable {
 
     public void setGroups(Groups groups) {
         this.groups = groups;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     public List<Orders> getOrders() {

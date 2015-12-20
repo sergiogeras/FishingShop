@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-  Created by IntelliJ IDEA.
-  User: Сергей
-  Date: 10.11.2015
-  Time: 16:28
--->
+
 <!DOCTYPE html
         PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -40,8 +35,8 @@
                     <h3>Способ оплаты:</h3>
                     <p:selectOneRadio id="payment" value="#{shopManager.paymentIndex}" layout="pageDirection" columns="3">
                         <f:selectItems value="#{shopManager.paymentList}" var="p" itemLabel="#{p.name}" itemValue="#{p.id}"
-                                itemDisabled="#{(p.name eq 'Наложенный платёж' and (shopManager.deliveryList.get(shopManager.deliveryIndex-1).name eq 'Самовывоз'))
-                                or (p.name eq 'Наложенный платёж' and (shopManager.deliveryList.get(shopManager.deliveryIndex-1).name eq 'Доставка курьером'))
+                                itemDisabled="#{(p.name eq 'Наложенный платеж' and (shopManager.deliveryList.get(shopManager.deliveryIndex-1).name eq 'Самовывоз'))
+                                or (p.name eq 'Наложенный платеж' and (shopManager.deliveryList.get(shopManager.deliveryIndex-1).name eq 'Доставка курьером'))
                                 or (p.name eq 'Наличные' and (shopManager.deliveryList.get(shopManager.deliveryIndex-1).name eq 'Почта России'))
                                 or (p.name eq 'Наличные' and (shopManager.deliveryList.get(shopManager.deliveryIndex-1).name eq 'Почта EMS'))}"/>
                     </p:selectOneRadio>

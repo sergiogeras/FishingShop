@@ -16,4 +16,5 @@ public interface GoodsDao {
     List<Goods> getGoodsByGroup(Integer id);
     void changeGoodsAmount(Goods goods);
     List<Goods> getGoodsViaMainSearch(String searchStr);
+    List<Goods> getGoodsByCriteria(String name, String article, int priceFrom, int priceTo, int amountFrom, int amountTo);
 }

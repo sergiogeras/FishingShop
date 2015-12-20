@@ -69,4 +69,10 @@ public class GoodsServiceImpl implements GoodsService {
 
        return list;
     }
+
+    @Override
+    public List<Goods> getGoodsByCriteria(String name, String article, int priceFrom, int priceTo, int amountFrom, int amountTo) {
+
+        return goodsDao.getGoodsByCriteria(name, article, priceFrom, priceTo, amountFrom, amountTo);
+    }
 }

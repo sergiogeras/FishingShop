@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-  Created by IntelliJ IDEA.
-  User: Сергей
-  Date: 11.08.2015
-  Time: 20:06
--->
+
 <!DOCTYPE html
         PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -25,7 +20,7 @@
                 <p:outputLabel for="spinner" value="#{msg.incoming} / #{msg.writeOff}"/>
                 <p:spinner id="spinner" value="#{goodsController.amount}"/>
                 <p:commandButton styleClass="table_button" value="#{msg.save}"
-                                 actionListener="#{goodsController.changeAmount}"/>
+                                 actionListener="#{goodsController.changeAmount}" ajax="false"/>
             </h:panelGrid>
 
         </h:form>

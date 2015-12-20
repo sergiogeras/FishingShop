@@ -20,7 +20,7 @@
    <h:body>
 
         <ui:composition template="templates/shop-template.xhtml">
-
+            <p:growl id="errorLogin" showDetail="false"/>
             <ui:define name="left-menu">
                 <sec:authorize access="isAnonymous()">
                 <h:form styleClass="login-form" prependId="false" id="login_panel">
@@ -48,7 +48,8 @@
                         </p:row>
                         <p:row>
                             <p:column colspan="2" >
-                                <p:commandLink id="enter_btn" styleClass="enter-button" action="#{userController.setCurrentCustomer}" actionListener="#{authentication.doLogin}" ajax="false">
+                                <p:commandLink id="enter_btn" styleClass="enter-button" action="#{userController.setCurrentCustomer}"
+                                               actionListener="#{authentication.doLogin}" ajax="false" update=":errorLogin">
                                     <h:outputText value="Вход" />
                                 </p:commandLink>
                             </p:column>

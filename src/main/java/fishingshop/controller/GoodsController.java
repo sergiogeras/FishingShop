@@ -1,6 +1,7 @@
 package fishingshop.controller;
 
 
+import fishingshop.beans.TreeBuilder;
 import fishingshop.beans.UploadImage;
 import fishingshop.domain.goods.Goods;
 import fishingshop.domain.goods.Groups;
@@ -16,15 +17,18 @@ import javax.faces.context.FacesContext;
 import java.io.Serializable;
 import java.util.*;
 
-@Controller
+@Controller("goodsController")
 @Scope("session")
 public class GoodsController implements Serializable{
 
     @Autowired
-    GoodsService goodsService;
+    private GoodsService goodsService;
 
     @Autowired
-    UploadImage uploadImage;
+    private UploadImage uploadImage;
+
+    @Autowired
+    private TreeBuilder treeBuilder;
 
     private ResourceBundle bundle;
     private int id;
@@ -32,7 +36,11 @@ public class GoodsController implements Serializable{
     private Goods goods;
     private List<Goods> goodsList;
     private int amount;
+    private Groups groups;
 
+
+    private String searchName, article;
+    private int priceFrom, priceTo, amountFrom, amountTo;
 
     public GoodsController(){
 
@@ -40,68 +48,111 @@ public class GoodsController implements Serializable{
 
     @PostConstruct
     public void init(){
-        goodsList=goodsService.getAllGoods();
-        goods=new Goods();
+        goods = new Goods();
+    }
+
+
+    public void addGoodsDialog(){
+
+        Map<String, Object> props = new HashMap<>();
+        props.put("resizable", false);
+        goods = new Goods();
+        RequestContext.getCurrentInstance().openDialog("addGoods", props, null);
+
     }
 
     public void addGoods(){
-        FacesContext context=FacesContext.getCurrentInstance();
-        goods.setType("goods");
-        goods.setGroups((Groups) context.getExternalContext().getSessionMap().get("group"));
+        goods.setGroups(groups);
         goods.setGoodsAmount(0);
-        byte[] image=uploadImage.getImage();
-        if(image!=null){
+        byte [] image=uploadImage.getImage();
+        if(image != null){
             goods.setImage(image);
         }
         goodsService.addGoods(goods);
         uploadImage.setImage(null);
-        context.getExternalContext().getSessionMap().remove("group");
-        RequestContext.getCurrentInstance().closeDialog(goods);
-        goods=new Goods();
+        RequestContext.getCurrentInstance().closeDialog(0);
+
     }
 
     public void editGoodsDialog(Goods goods){
-        this.goods=goods;
-        Map<String, Object> props=new HashMap<>();
+        this.goods = goods;
+        Map<String, Object> props = new HashMap<>();
         props.put("resizable", false);
-        props.put("contentWidth", 490);
-        props.put("contentHeight", 295);
         RequestContext.getCurrentInstance().openDialog("editGoods", props, null);
     }
 
     public void editGoods(){
-        byte[] image;
-        image=uploadImage.getImage();
-        if(image!=null){
+        byte [] image;
+        image = uploadImage.getImage();
+        if (image != null){
             goods.setImage(image);
         }
         goodsService.editGoods(goods);
         uploadImage.setImage(null);
-        RequestContext.getCurrentInstance().closeDialog(goods);
-        goods=new Goods();
+        RequestContext.getCurrentInstance().closeDialog(0);
+        goods = new Goods();
     }
 
     public void showGoodsDetails(int id){
-        goods=goodsService.getGoodsById(id);
+        goods = goodsService.getGoodsById(id);
         RequestContext.getCurrentInstance().openDialog("goodsPage");
     }
 
     public void deleteGoods(int id){
         goodsService.deleteGoods(id);
-        bundle= ResourceBundle.getBundle("locales.messages", FacesContext.getCurrentInstance().getViewRoot().getLocale());
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(bundle.getString("deleted_goods")));
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Удалено"));
+    }
+
+
+    public void amountDialog(Goods goods){
+        this.goods = goods;
+        Map<String, Object> props=new HashMap<>();
+        props.put("resizable", false);
+        props.put("contentWidth", 420);
+        props.put("contentHeight", 90);
+        RequestContext.getCurrentInstance().openDialog("changeAmount", props,null);
     }
 
     public void changeAmount(){
-        FacesContext context=FacesContext.getCurrentInstance();
-        Goods goods=(Goods)context.getExternalContext().getSessionMap().get("goods");
         goods.setGoodsAmount(goods.getGoodsAmount()+amount);
         goodsService.changeGoodsAmount(goods);
-        RequestContext.getCurrentInstance().closeDialog(goods);
-        this.amount=0;
+        RequestContext.getCurrentInstance().closeDialog(0);
+        this.amount = 0;
+    }
+
+    public void closeGoodsDialog(){
+        RequestContext.getCurrentInstance().closeDialog(0);
+
     }
 
 
+    public void launchMainSearch(){
+        goodsList = goodsService.getGoodsByCriteria(searchName, article, priceFrom, priceTo, amountFrom, amountTo);
+    }
+
+    public void clearSearch(){
+        searchName = null;
+        article = null;
+        priceFrom = 0;
+        priceTo = 0;
+        amountFrom = 0;
+        amountTo = 0;
+        goodsList = goodsService.getGoodsByCriteria(searchName, article, priceFrom, priceTo, amountFrom, amountTo);
+    }
+
+    public void clearGoods(){
+        goods = new Goods();
+    }
+
+    public void updateTable(String op){
+        goodsList = treeBuilder.getGoodsByCategory(groups, true);
+        if(op.equals("add")){
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Добавлено"));
+        }
+        if(op.equals("change")){
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Изменено"));
+        }
+    }
 
     public int getId() {
         return id;
@@ -120,6 +171,9 @@ public class GoodsController implements Serializable{
     }
 
     public Goods getGoods() {
+        if(goods == null){
+            goods=new Goods();
+        }
         return goods;
     }
 
@@ -135,4 +189,67 @@ public class GoodsController implements Serializable{
         this.amount = amount;
     }
 
+    public List<Goods> getGoodsList() {
+        return goodsList;
+    }
+
+    public void setGoodsList(List<Goods> goodsList) {
+        this.goodsList = goodsList;
+    }
+
+    public Groups getGroups() {
+        return groups;
+    }
+
+    public void setGroups(Groups groups) {
+        this.groups = groups;
+    }
+
+    public String getSearchName() {
+        return searchName;
+    }
+
+    public void setSearchName(String searchName) {
+        this.searchName = searchName;
+    }
+
+    public int getPriceFrom() {
+        return priceFrom;
+    }
+
+    public void setPriceFrom(int priceFrom) {
+        this.priceFrom = priceFrom;
+    }
+
+    public int getPriceTo() {
+        return priceTo;
+    }
+
+    public void setPriceTo(int priceTo) {
+        this.priceTo = priceTo;
+    }
+
+    public int getAmountFrom() {
+        return amountFrom;
+    }
+
+    public void setAmountFrom(int amountFrom) {
+        this.amountFrom = amountFrom;
+    }
+
+    public int getAmountTo() {
+        return amountTo;
+    }
+
+    public void setAmountTo(int amountTo) {
+        this.amountTo = amountTo;
+    }
+
+    public String getArticle() {
+        return article;
+    }
+
+    public void setArticle(String article) {
+        this.article = article;
+    }
 }

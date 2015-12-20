@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html" xmlns:P="http://java.sun.com/jsf/html">
+
+<h:head>
+    <title>Администратор: Управление заказами</title>
+    <h:outputScript name="jquery/jquery.js" library="primefaces"/>
+    <h:outputStylesheet name="admin-console-style.css" library="css"/>
+</h:head>
+
+<h:body>
+    <div class="container">
+
+        <h:form>
+
+            <p:menubar>
+                <p:menuitem action="#{navigationBean.showAdminArea}" value="Ассортимент" icon="ui-icon-bookmark"/>
+                <p:menuitem action="#{navigationBean.showAdminOrders}" value="Заказы"  icon="ui-icon-cart"/>
+                <p:menuitem action="#{navigationBean.showIndex}" value="Магазин"  icon="ui-icon-home"/>
+                <f:facet name="options">
+                    <p:commandButton action="#{authentication.doLogout}" value="Logout" icon="ui-icon-extlink" ajax="false"/>
+                </f:facet>
+            </p:menubar>
+        </h:form>
+
+
+        <h:form id="orders_form" style="margin-top: 20px;">
+            <p:dataTable id="goods_table" var="orders" styleClass="orders_table" widgetVar="goodsTable" value="#{orderAdminController.orderItemList}"  rowHover="true" style="text-align: center;">
+
+                <p:column headerText="№" footerText="№"  style="width: 20px;">
+                    <h:outputText value="#{orderAdminController.orderItemList.indexOf(orders)+1}"/>
+                </p:column>
+
+                <p:column headerText="№ заказа" footerText="№ заказа" sortBy="#{orders.orderId}" style="min-width: 100px;">
+                    <h:outputText value="#{orders.orderId}" />
+                </p:column>
+
+                <p:column headerText="Дата" footerText="Дата" sortBy="#{orders.orderDate}" style="min-width: 120px;">
+                    <h:outputText value="#{orders.orderDate}">
+                        <f:convertDateTime pattern="HH:mm dd.MM.yyyy" />
+                    </h:outputText>
+                </p:column>
+
+                <p:column headerText="Сумма заказа" footerText="Заказа" sortBy="#{orders.cost}" filterMatchMode="contains" style="min-width: 120px;">
+                    <h:outputText value="#{orders.cost} руб." />
+                </p:column>
+
+                <p:column headerText="Доставка" footerText="Доставка" sortBy="#{orders.delivery.name}" filterMatchMode="contains" style="min-width: 120px;">
+                    <h:outputText value="#{orders.delivery.name}" />
+                </p:column>
+
+                <p:column headerText="Оплата" footerText="Оплата" sortBy="#{orders.payment.name}" style="min-width: 120px;">
+                    <h:outputText value="#{orders.payment.name}" />
+                </p:column>
+
+                <p:column headerText="Клиент" footerText="Клиент" sortBy="#{orders.customer.name}" style="min-width: 400px;">
+                    <h:outputText value="#{orders.customer.name} #{orders.customer.surname}" />
+                </p:column>
+
+                <p:column headerText="Телефон" footerText="Телефон" sortBy="#{orders.customer.phone}" style="min-width: 180px;">
+                    <h:outputText value="#{orders.customer.phone}" />
+                </p:column>
+
+                <p:column headerText="Статус" footerText="Статус" sortBy="#{orders.status.status}" style="min-width: 120px; height: 50px; white-space: nowrap;overflow: hidden; text-overflow: ellipsis;">
+                    <h:outputText value="#{orders.status.status}" />
+                </p:column>
+                <p:column style="width: 45px;">
+                    <p:commandButton actionListener="#{orderAdminController.showOrderDetails(orders.customer, orders.orderId)}" styleClass="table_button"  title="Подробности" icon="ui-icon-search">
+                        <p:ajax event="dialogReturn" listener="#{orderAdminController.updateTable}" update="@form"/>
+                    </p:commandButton>
+                </p:column>
+            </p:dataTable>
+
+
+        </h:form>
+
+
+
+
+    </div>
+</h:body>
+
+</html>

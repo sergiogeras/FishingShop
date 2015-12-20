@@ -19,34 +19,34 @@ public class ControllerLogger {
 
     @Before("execution(* fishingshop.controller.GoodsController..*(..))")
     public void logBeforeGoodsController(JoinPoint joinPoint) {
-        logger.info("Start : " + joinPoint.getSignature().getName());
+        logger.info("Start : "+ joinPoint.getThis()+ " " + joinPoint.getSignature().getName());
     }
 
     @After("execution(* fishingshop.controller.GoodsController..*(..))")
     public void logAfterGoodsController(JoinPoint joinPoint) {
-        logger.info("End : " + joinPoint.getSignature().getName());
+        logger.info("End : "+ joinPoint.getThis()+ " " + joinPoint.getSignature().getName());
         logger.info("******");
     }
 
     @Before("execution(* fishingshop.controller.GroupsController..*(..))")
     public void logBeforeGroupsController(JoinPoint joinPoint) {
-        logger.info("Start : " + joinPoint.getSignature().getName());
+        logger.info("Start : "+ joinPoint.getThis()+ " " + joinPoint.getSignature().getName());
     }
 
     @After("execution(* fishingshop.controller.GroupsController..*(..))")
     public void logAfterGroupsController(JoinPoint joinPoint) {
-        logger.info("End : " + joinPoint.getSignature().getName());
+        logger.info("End : " + joinPoint.getThis()+ " " + joinPoint.getSignature().getName());
         logger.info("******");
     }
 
     @Before("execution(* fishingshop.controller.AdminTableController..*(..))")
     public void logBeforeTableController(JoinPoint joinPoint) {
-        logger.info("Start : " + joinPoint.getSignature().getName());
+        logger.info("Start : "+ joinPoint.getThis()+ " " + joinPoint.getSignature().getName());
     }
 
     @After("execution(* fishingshop.controller.AdminTableController..*(..))")
     public void logAfterTableController(JoinPoint joinPoint) {
-        logger.info("End : " + joinPoint.getSignature().getName());
+        logger.info("End : "+ joinPoint.getThis()+ " " + joinPoint.getSignature().getName());
         logger.info("******");
     }
 

@@ -71,14 +71,14 @@ public class OrdersServiceTest {
         orderService.deleteOrderPositions(positions);
     }
 
-    @Ignore
-    @Test
-    public void getAllOrders(){
-        List<OrderItem> orderItems=orderService.getAllOrders();
-        assertNotNull(orderItems);
-        assertTrue(orderItems.size()>0);
-
-    }
+//    @Ignore
+//    @Test
+//    public void getAllOrders(){
+//        List<OrderItem> orderItems=orderService.getAllOrders();
+//        assertNotNull(orderItems);
+//        assertTrue(orderItems.size()>0);
+//
+//    }
 
     @Ignore
     @Test

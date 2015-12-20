@@ -39,6 +39,10 @@ public class NavigationBean implements Serializable {
         return "/private/admin-area.xhtml?faces-redirect=true";
     }
 
+    public String showAdminOrders(){
+        return "/private/admin-orders.xhtml?faces-redirect=true";
+    }
+
     public String showCart(){
         return "/public/cart.xhtml?faces-redirect=true";
     }

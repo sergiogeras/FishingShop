@@ -29,14 +29,13 @@ import java.util.Properties;
 public class MailSender {
 
 
+    private static final String SHOP_EMAIL="poplavok.fishshop@gmail.com";
+    private static final String SHOP_PASSWORD="poplavok1234";
 
-
+    private static final String ADMIN_EMAIL="";
 
     /** Send e-mail with registration data */
     public void sendRegistrationMessage(User user){
-        final String username = "poplavok.fishshop@gmail.com";
-        final String password = "poplavok1234";
-
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
@@ -46,7 +45,7 @@ public class MailSender {
         Session session = Session.getInstance(props,
                 new javax.mail.Authenticator() {
                     protected PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication(username, password);
+                        return new PasswordAuthentication(SHOP_EMAIL, SHOP_PASSWORD);
                     }
                 });
 
@@ -72,9 +71,6 @@ public class MailSender {
 
     /** Send e-mail with order data */
     public void sendOrderMessage(List<OrderItem> orderItems, int totalSum, int orderId){
-        final String username = "poplavok.fishshop@gmail.com";
-        final String password = "poplavok1234";
-
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
@@ -84,7 +80,7 @@ public class MailSender {
         Session session = Session.getInstance(props,
                 new javax.mail.Authenticator() {
                     protected PasswordAuthentication getPasswordAuthentication() {
-                        return new PasswordAuthentication(username, password);
+                        return new PasswordAuthentication(SHOP_EMAIL, SHOP_PASSWORD);
                     }
                 });
 

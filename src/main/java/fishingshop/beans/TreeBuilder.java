@@ -10,9 +10,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Class for building tree of groups
+ */
+
 @Component
 @Scope("session")
-public class AdminTreeTable {
+public class TreeBuilder {
+
+    private List<Goods> goodsList = new ArrayList<>();
 
     @Autowired
     private GroupsService groupsService;
@@ -20,22 +29,12 @@ public class AdminTreeTable {
     @Autowired
     private GoodsService goodsService;
 
-    private TreeNode root;
-
     public TreeNode createTreeTable(){
         TreeNode root=new DefaultTreeNode("root", null);
         for(Groups groups : groupsService.getAllGroups()){
             if(groups.getParentId()==null){
                 TreeNode child=new DefaultTreeNode(groups,root);
                 createChildrenNodes(child, groups);
-                for(Goods goods: groups.getGoodsList()){
-                    TreeNode childGoods= new DefaultTreeNode(goods, child);
-                }
-            }
-        }
-        for(Goods goods: goodsService.getAllGoods()){
-            if(goods.getGroups()==null){
-                TreeNode child=new DefaultTreeNode(goods,root);
             }
         }
         return root;
@@ -44,12 +43,20 @@ public class AdminTreeTable {
     public TreeNode createChildrenNodes(TreeNode root, Groups groups){
         for(Groups gr: groups.getChildrenList()){
             TreeNode child=new DefaultTreeNode(gr, root);
-            for(Goods goods: gr.getGoodsList()){
-                TreeNode childGoods= new DefaultTreeNode(goods, child);
-            }
             createChildrenNodes(child, gr);
         }
-       return root;
+        return root;
     }
 
+    public List<Goods> getGoodsByCategory(Groups groups, boolean notEmptyList){
+        if(notEmptyList){
+            goodsList.clear();
+            notEmptyList=false;
+        }
+        goodsList.addAll(goodsService.getGoodsByGroup(groups.getId()));
+        for (Groups gr: groups.getChildrenList()) {
+            getGoodsByCategory(gr, notEmptyList);
+        }
+        return goodsList;
+    }
 }

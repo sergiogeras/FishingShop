@@ -31,7 +31,6 @@ public class GroupsServiceTest {
     public void addGroups(){
         Groups groups =new Groups();
         groups.setName("Item");
-        groups.setType("group");
         groups.setGoodsList(goodsService.getAllGoods());
         groupsService.addGroups(groups);
         assertNotNull(groups.getId());

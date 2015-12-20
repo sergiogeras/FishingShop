@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+    <title>Заказ № #{orderAdminController.customerOrderList.get(0).orderId}
+        #{orderAdminController.customerOrderList.get(0).customer.name} #{orderAdminController.customerOrderList.get(0).customer.surname}
+        #{orderAdminController.customerOrderList.get(0).customer.phone}</title>
+    <h:outputStylesheet name="admin-console-style.css" library="css"/>
+
+</h:head>
+
+<h:body>
+<div class="container">
+    <h:form id="orders_form">
+        <p:dataTable id="goods_table" var="orders" styleClass="orders_table" widgetVar="goodsTable" value="#{orderAdminController.customerOrderList}" style="text-align: center;">
+
+            <p:column headerText="№"  style="width: 20px; min-height: 50px;">
+                <h:outputText value="#{orderAdminController.customerOrderList.indexOf(orders)+1}"/>
+            </p:column>
+
+            <p:column headerText="Позиция" style="width: 240px;">
+                <h:outputText value="#{orders.goods.name}" />
+            </p:column>
+
+            <p:column headerText="Кол-во" style="width: 50px;">
+                <h:outputText value="#{orders.amount}" />
+            </p:column>
+
+            <p:column headerText="Сумма"  style="width: 80px;">
+                <h:outputText id="cost" value="#{orders.cost} руб." />
+            </p:column>
+
+            <p:column headerText="Св. остаток" style="width: 80px;">
+                <h:outputText value="#{orders.goods.goodsAmount}" />
+            </p:column>
+
+
+        </p:dataTable>
+
+        <div style="text-align: right; margin: 15px;">
+            <h:outputText id="result" style="font-weight: bold;"
+                          value="Сумма заказа: #{orderAdminController.totalSum} руб."/>
+        </div>
+
+        <table class="order_info" >
+            <tr>
+                <td >
+                    <h:panelGrid columns="2" cellpadding="3">
+
+                        <h:outputText value="Клиент"/>
+                        <h:outputText value="#{orderAdminController.customerOrderList.get(0).customer.name}
+                     #{orderAdminController.customerOrderList.get(0).customer.surname}"/>
+
+                        <h:outputText value="Индекс"/>
+                        <h:outputText value="#{orderAdminController.customerOrderList.get(0).customer.zip}"/>
+
+                        <h:outputText value="Город"/>
+                        <h:outputText value="#{orderAdminController.customerOrderList.get(0).customer.city}"/>
+
+                        <h:outputText value="Улица"/>
+                        <h:outputText value="#{orderAdminController.customerOrderList.get(0).customer.street}"/>
+
+                        <h:outputText value="Дом"/>
+                        <h:outputText value="#{orderAdminController.customerOrderList.get(0).customer.house}"/>
+
+                        <h:outputText value="Квартира"/>
+                        <h:outputText value="#{orderAdminController.customerOrderList.get(0).customer.flat}"/>
+
+                        <h:outputText value="Телефон"/>
+                        <h:outputText value="#{orderAdminController.customerOrderList.get(0).customer.phone}"/>
+                    </h:panelGrid>
+                </td>
+                <td >
+                    <h:panelGrid columns="2" cellpadding="3">
+                        <h:outputText value="Доставка"/>
+                        <h:outputText value="#{orderAdminController.customerOrderList.get(0).delivery.name}"/>
+
+                        <h:outputText value="Оплата"/>
+                        <h:outputText value="#{orderAdminController.customerOrderList.get(0).payment.name}"/>
+
+                        <h:outputText value="Примечание"/>
+                        <p:inputTextarea cols="30" autoResize="false" value="#{orderAdminController.customerOrderList.get(0).note}"/>
+
+                        <h:outputText value="Статус"/>
+                        <p:selectOneMenu value="#{orderAdminController.statusIndex}" disabled="#{orderAdminController.statusIndex == 3}">
+                            <f:selectItems value="#{orderAdminController.statusList}" var="s" itemLabel="#{s.status}" itemValue="#{s.id}"/>
+                        </p:selectOneMenu>
+                    </h:panelGrid>
+                </td>
+            </tr>
+        </table>
+        <div style="text-align: right;">
+            <p:commandButton value="Записать" actionListener="#{orderAdminController.changeOrderStatus}"  disabled="#{orderAdminController.statusIndex == 3}"/>
+        </div>
+
+    </h:form>
+
+</div>
+
+</h:body>
+
+</html>
