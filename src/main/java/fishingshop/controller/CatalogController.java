@@ -11,10 +11,7 @@ import org.springframework.stereotype.Controller;
 
 import javax.annotation.PostConstruct;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 /**
  * Created by Сергей on 02.11.2015.
@@ -44,39 +41,37 @@ public class CatalogController implements Serializable {
     @PostConstruct
     public void init(){
         root= treeBuilder.createTreeTable();
-        goodsList=new ArrayList<>();
 
         //Create goods list on the start page (random, without duplicates)
-        List<Goods> list=goodsService.getAllGoods();
-        if(goodsList.size()>=9){
-            for(int i=0; i<9;i++ ){
-                goods=list.get((int)Math.round(Math.random() * goodsList.size()));
-                if(goodsList.contains(goods)){
-                    i--;
-                    continue;
-                }
-                goodsList.add(goods);
+        List<Goods> list=goodsService.getAllGoodsInStock();
+        Set<Goods> goodsSet = new HashSet<>();
+
+        if(list.size()>=9){
+            while ((goodsSet.size() < 9)){
+                goodsSet.add(list.get((int)Math.round(Math.random() * (list.size()-1))));
             }
+            goodsList = new ArrayList<>(goodsSet);
+
         } else {
-            goodsList=goodsService.getAllGoods();
+            goodsList = list;
         }
 
-        startGoodsList=goodsList;
+        startGoodsList = goodsList;
     }
 
 
     /** Shows content of current group */
     public void chooseCategory(){
-        searchMode=false;
-        searchStr="";
-        groups=(Groups)selectedNode.getData();
+        searchMode = false;
+        searchStr = "";
+        groups = (Groups)selectedNode.getData();
         goodsList.clear();
-        goodsList=getGoodsByCategory(groups);
+        goodsList = getGoodsByCategory(groups);
     }
 
     /** Build group`s tree with subgroups */
     private List<Goods> getGoodsByCategory(Groups groups){
-        goodsList.addAll(goodsService.getGoodsByGroup(groups.getId()));
+        goodsList.addAll(goodsService.getGoodsInStockByGroup(groups.getId()));
         for (Groups gr: groups.getChildrenList()) {
             getGoodsByCategory(gr);
         }

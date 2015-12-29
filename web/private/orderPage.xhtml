@@ -73,6 +73,9 @@
                         <h:outputText value="Квартира"/>
                         <h:outputText value="#{orderAdminController.customerOrderList.get(0).customer.flat}"/>
 
+                        <h:outputText value="E-mail"/>
+                        <h:outputText value="#{orderAdminController.customerOrderList.get(0).customer.email}"/>
+
                         <h:outputText value="Телефон"/>
                         <h:outputText value="#{orderAdminController.customerOrderList.get(0).customer.phone}"/>
                     </h:panelGrid>
@@ -89,7 +92,7 @@
                         <p:inputTextarea cols="30" autoResize="false" value="#{orderAdminController.customerOrderList.get(0).note}"/>
 
                         <h:outputText value="Статус"/>
-                        <p:selectOneMenu value="#{orderAdminController.statusIndex}" disabled="#{orderAdminController.statusIndex == 3}">
+                        <p:selectOneMenu value="#{orderAdminController.statusIndex}" disabled="#{orderAdminController.statusIndex == 3 || orderAdminController.statusIndex ==4}">
                             <f:selectItems value="#{orderAdminController.statusList}" var="s" itemLabel="#{s.status}" itemValue="#{s.id}"/>
                         </p:selectOneMenu>
                     </h:panelGrid>

@@ -51,7 +51,7 @@ public class Cart {
     }
 
     public void addItem(Goods goods, int amount, int orderId){
-        if(goods.getGoodsAmount()>=amount){     //Are there enough goods in the store?
+        if(goods.getGoodsAmount() >= amount){     //Are there enough goods in the store?
             OrderItem orderItem=new OrderItem(goods, amount, orderId);
 
             boolean exists=false; //Checking for duplicates
@@ -111,7 +111,6 @@ public class Cart {
 
     public void saveOrderToDB(){
         orderService.addOrder(orderItems);
-        int a=2;
     }
 
 

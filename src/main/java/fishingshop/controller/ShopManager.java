@@ -54,7 +54,6 @@ public class ShopManager implements Serializable {
     @Autowired
     private OrderService orderService;
 
-
     @Autowired
     private DeliveryService deliveryService;
 
@@ -99,13 +98,6 @@ public class ShopManager implements Serializable {
         amount = 1;
     }
 
-
-
-
-    public void makeOrder(){
-        cart.saveOrderToDB();
-    }
-
     public void changeOrder(){
         cart.editItems(positionsAndAmount);
     }
@@ -121,8 +113,8 @@ public class ShopManager implements Serializable {
 
     @Transactional
     public void buyGoods(){
-
         mailSender.sendOrderMessage(cart.getOrderItems(), cart.getSumm(), orderService.generateOrderId());
+        mailSender.sendAdminOrderMessage(cart.getOrderItems(), cart.getSumm(), orderService.generateOrderId());
         cart.saveOrderToDB();
 
     }
@@ -130,7 +122,6 @@ public class ShopManager implements Serializable {
     public List<Integer> getAmountList(Goods goods) {
         return goodsService.getAmountList(goods);
     }
-
 
     public int getAmount() {
         return amount;
@@ -247,6 +238,5 @@ public class ShopManager implements Serializable {
     public void setNote(String note) {
         this.note = note;
     }
-
 
 }

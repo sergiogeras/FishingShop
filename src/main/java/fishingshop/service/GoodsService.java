@@ -11,7 +11,9 @@ public interface GoodsService {
     void editGoods(Goods goods);
     Goods getGoodsById(Integer id);
     List<Goods> getAllGoods();
+    List<Goods> getAllGoodsInStock();
     List<Goods> getGoodsByGroup(Integer id);
+    List<Goods> getGoodsInStockByGroup(Integer id);
     void changeGoodsAmount(Goods goods);
     List<Goods> getGoodsViaMainSearch(String searchStr);
     List<Integer> getAmountList(Goods goods);

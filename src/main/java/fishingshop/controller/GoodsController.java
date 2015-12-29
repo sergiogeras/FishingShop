@@ -94,8 +94,11 @@ public class GoodsController implements Serializable{
     }
 
     public void showGoodsDetails(int id){
+        Map<String, Object> props=new HashMap<>();
+        props.put("resizable", false);
+       // props.put("contentWidth", 700);
         goods = goodsService.getGoodsById(id);
-        RequestContext.getCurrentInstance().openDialog("goodsPage");
+        RequestContext.getCurrentInstance().openDialog("goodsPage", props,null);
     }
 
     public void deleteGoods(int id){
@@ -108,7 +111,7 @@ public class GoodsController implements Serializable{
         this.goods = goods;
         Map<String, Object> props=new HashMap<>();
         props.put("resizable", false);
-        props.put("contentWidth", 420);
+        props.put("contentWidth", 480);
         props.put("contentHeight", 90);
         RequestContext.getCurrentInstance().openDialog("changeAmount", props,null);
     }

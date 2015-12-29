@@ -13,25 +13,29 @@
     <h:outputStylesheet name="admin-console-style.css" library="css"/>
 </h:head>
 
-<h:body>
+<h:body >
     <h:form id="goodsForm">
-        <p:graphicImage cache="false" value="#{showImage.image}" alt="#{msg.image_not_found}" style="padding-right: 5px ;float: left; width: 250px">
-            <f:param name="goodsId" value="#{goodsController.goods.id}"/>
-        </p:graphicImage>
-        <h:panelGrid id="pg" columns="2" cellpadding="5" >
-            <h:outputLabel for="id" value="ID" />
-            <h:outputText id="id"  value="#{goodsController.goods.id}"/>
-            <h:outputLabel for="article" value="#{msg.article}" />
-            <h:outputText id="article"  value="#{goodsController.goods.article}"/>
-            <h:outputLabel for="name" value="#{msg.name}" />
-            <h:outputText id="name"  value="#{goodsController.goods.name}"/>
-            <h:outputLabel for="price" value="#{msg.price}" />
-            <h:outputText id="price" value="#{goodsController.goods.price}"/>
-            <h:outputLabel for="man" value="#{msg.manufacturer}" />
-            <h:outputText id="man"  value="#{goodsController.goods.manufacturer}"/>
-            <h:outputLabel  for="amount" value="#{msg.onStock}" />
-            <h:outputText id="amount"  value="#{goodsController.goods.goodsAmount}"/>
-        </h:panelGrid>
+        <div style="display: table-cell; vertical-align: middle; padding-right: 5px;float: left;">
+            <p:graphicImage cache="false" value="#{showImage.image}" alt="#{msg.image_not_found}"
+                            style=" max-width: 250px; max-height: 250px;">
+                <f:param name="goodsId" value="#{goodsController.goods.id}"/>
+            </p:graphicImage>
+        </div>
+
+
+            <h:panelGrid id="pg" columns="2" cellpadding="3" style="table-layout: fixed; width: 350px;">
+                <h:outputLabel for="id" value="ID" />
+                <h:outputText id="id"  value="#{goodsController.goods.id}" />
+                <h:outputLabel for="article" value="#{msg.article}" />
+                <h:outputText id="article"  value="#{goodsController.goods.article}"/>
+                <h:outputLabel for="price" value="#{msg.price}" />
+                <h:outputText id="price" value="#{goodsController.goods.price}"/>
+                <h:outputLabel for="man" value="#{msg.manufacturer}" />
+                <h:outputText id="man"  value="#{goodsController.goods.manufacturer}"/>
+                <h:outputLabel  for="amount" value="#{msg.onStock}" />
+                <h:outputText id="amount"  value="#{goodsController.goods.goodsAmount}"/>
+            </h:panelGrid>
+
         <h:outputText id="descr"  value="#{goodsController.goods.description}" style="text-wrap: normal; float: right;"/>
     </h:form>
 </h:body>

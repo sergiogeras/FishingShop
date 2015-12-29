@@ -27,7 +27,7 @@
                 <h:form id="search">
                     <p:defaultCommand target="search-button"/>
                 <li>
-                    <p:commandLink action="#{navigationBean.showIndex}" styleClass="catalog_button"  update=":goods"
+                    <p:commandLink action="#{navigationBean.showIndex}" actionListener="#{catalogController.init}" styleClass="catalog_button"  update=":goods"
                                    value="#{msg.catalog}"  />
                 </li>
                 <li>

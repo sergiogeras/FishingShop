@@ -34,7 +34,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void addUser(User user) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        String cryptPass=passwordEncoder.encode(user.getPassword());
+        String cryptPass = passwordEncoder.encode(user.getPassword());
         user.setPassword(cryptPass);
         user.setRole(roleService.getRole("USER").get(0));
         userDao.addUser(user);

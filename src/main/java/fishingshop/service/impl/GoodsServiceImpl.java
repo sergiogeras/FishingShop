@@ -43,8 +43,18 @@ public class GoodsServiceImpl implements GoodsService {
     }
 
     @Override
+    public List<Goods> getAllGoodsInStock() {
+        return goodsDao.getAllGoodsInStock();
+    }
+
+    @Override
     public List<Goods> getGoodsByGroup(Integer id) {
         return goodsDao.getGoodsByGroup(id);
+    }
+
+    @Override
+    public List<Goods> getGoodsInStockByGroup(Integer id) {
+        return goodsDao.getGoodsInStockByGroup(id);
     }
 
     @Override

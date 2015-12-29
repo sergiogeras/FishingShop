@@ -109,21 +109,26 @@
 
                             <p:row>
                                 <p:column colspan="2">
-                                    <p:commandLink update=":goodsDetail" oncomplete="PF('goodsDialog').show()">
-                                        <p:graphicImage cache="false" value="#{showImage.image}" alt="#{msg.image_not_found}" style="height: 170px">
-                                            <f:param name="goodsId" value="#{goods.id}"/>
-                                        </p:graphicImage>
-                                        <f:setPropertyActionListener value="#{goods}" target="#{catalogController.goods}" />
-                                    </p:commandLink>
-
+                                    <div style="height: 170px; display: table-cell; vertical-align: middle;">
+                                        <p:commandLink  update=":goodsDetail" oncomplete="PF('goodsDialog').show()">
+                                            <p:graphicImage cache="false" value="#{showImage.image}" alt="#{msg.image_not_found}"
+                                                            style="max-height: 170px; max-width: 200px; ">
+                                                <f:param name="goodsId" value="#{goods.id}"/>
+                                            </p:graphicImage>
+                                            <f:setPropertyActionListener value="#{goods}" target="#{catalogController.goods}" />
+                                        </p:commandLink>
+                                    </div>
                                 </p:column>
                             </p:row>
                             <p:row >
                                 <p:column>
-                                    <p:commandLink update=":goodsDetail" oncomplete="PF('goodsDialog').show()">
-                                        <h:outputText value="#{goods.name}" style="color:brown; font-weight: bold;"/>
-                                        <f:setPropertyActionListener value="#{goods}" target="#{catalogController.goods}" />
-                                    </p:commandLink>
+                                    <div style="min-height: 40px;">
+                                        <p:commandLink update=":goodsDetail" oncomplete="PF('goodsDialog').show()">
+                                            <h:outputText value="#{goods.name}" style="color:brown; font-weight: bold;"/>
+                                            <f:setPropertyActionListener value="#{goods}" target="#{catalogController.goods}" />
+                                        </p:commandLink>
+                                    </div>
+
                                 </p:column>
                             </p:row>
                             <p:row >

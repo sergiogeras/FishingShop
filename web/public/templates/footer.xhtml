@@ -25,7 +25,7 @@
     <ui:composition>
         <ul class="footer_buttons">
             <li>
-                <p:commandLink action="#{navigationBean.showIndex}" styleClass="footer-button">
+                <p:commandLink action="#{navigationBean.showIndex}" actionListener="#{catalogController.init}" styleClass="footer-button">
                     <h:outputText value="#{msg.catalog}" />
                 </p:commandLink>
             </li>

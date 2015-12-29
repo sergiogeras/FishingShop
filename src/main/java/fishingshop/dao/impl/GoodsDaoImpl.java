@@ -42,8 +42,18 @@ public class GoodsDaoImpl implements GoodsDao{
     }
 
     @Override
+    public List<Goods> getAllGoodsInStock() {
+        return sessionFactory.getCurrentSession().createQuery("from Goods where goodsAmount > 0").list();
+    }
+
+    @Override
     public List<Goods> getGoodsByGroup(Integer id) {
         return sessionFactory.getCurrentSession().createQuery("from Goods where groups.id=:id").setParameter("id", id).list();
+    }
+
+    @Override
+    public List<Goods> getGoodsInStockByGroup(Integer id) {
+        return sessionFactory.getCurrentSession().createQuery("from Goods where groups.id=:id and goodsAmount > 0").setParameter("id", id).list();
     }
 
     @Override

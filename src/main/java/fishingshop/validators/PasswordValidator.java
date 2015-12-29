@@ -18,7 +18,7 @@ public class PasswordValidator implements Validator {
 
         try{
             if(value.toString().length()<8){
-                throw new IllegalArgumentException("Имя пользователя не менее 8 символов");
+                throw new IllegalArgumentException("Пароль не менее 8 символов");
             }
         }catch (IllegalArgumentException e){
             FacesMessage message = new FacesMessage(e.getMessage());
